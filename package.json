@@ -1,0 +1,59 @@
+{
+  "name": "@zerodevx/svelte-toast",
+  "description": "Simple elegant toast notifications",
+  "version": "0.1.0",
+  "author": "Jason Lee <jason@zerodevx.com>",
+  "svelte": "src/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "tailwind:watch": "chokidar 'docs/tailwind*.*' -c 'npm run tailwind:build'",
+    "tailwind:build": "tailwind build docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css",
+    "tailwind:dist:build": "NODE_ENV=production npm run tailwind:build",
+    "tailwind:dist:minify": "cleancss -O1 specialComments:false -o docs/build/global.css docs/build/global.css",
+    "dev:docs": "rollup -c -w",
+    "dev": "npm-run-all tailwind:build -p tailwind:watch dev:docs",
+    "start": "sirv docs",
+    "lint": "eslint .",
+    "build:docs": "rollup -c",
+    "build:dist": "rollup -c rollup.dist.config.js",
+    "build": "run-s build:* tailwind:dist:*",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "chokidar-cli": "^2.1.0",
+    "clean-css-cli": "^4.3.0",
+    "eslint": "^7.8.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.0.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^6.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sirv-cli": "^1.0.6",
+    "svelte": "^3.0.0",
+    "tailwindcss": "^1.8.10"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerodevx/svelte-toast.git"
+  },
+  "keywords": [
+    "svelte",
+    "vanillajs",
+    "toast",
+    "notifications"
+  ]
+}
