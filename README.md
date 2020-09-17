@@ -76,14 +76,21 @@ toast.push('Hello world!')
 Or if you prefer to go old-school javascript and a CDN:
 
 ```html
-<html>
 <head>
   ...
-  <script defer src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast@0"></script>
+  <script>
+    function registerToast() {
+      window.toastApp = new window.SvelteToastUMD.SvelteToast({
+        target: document.body
+      });
+      window.toast = window.SvelteToastUMD.toast;
+
+      // Now you can `toast` anywhere!
+      toast.push('Hello world!');
+    }
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast@0" onload="registerToast()"></script>
 </head>
-<body>
-<body>
-</html>
 ```
 
 
