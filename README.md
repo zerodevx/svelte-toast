@@ -60,9 +60,9 @@ import { SvelteToast, toast } from `@zerodevx/svelte-toast'
 const app = new SvelteToast({
   // Set where the toast container should be appended into
   target: document.body,
-  // Optionally set default options here
   props: {
     options: {
+      // Optionally set default options here
       ...
     }
   }
@@ -89,7 +89,7 @@ Or if you prefer to go old-school javascript and a CDN:
       toast.push('Hello world!');
     }
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast@0" onload="registerToast()"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast@0" onload="registerToast()"></script>
 </head>
 ```
 
