@@ -17,15 +17,14 @@ $: if (prevProgress !== item.progress) {
   }
   prevProgress = item.progress
 }
-
 </script>
 
 <style>
 ._toastItem {
   width: var(--toastWidth,16rem);
   height: var(--toastHeight,3.5rem);
-  margin-bottom: var(--toastMarginBottom,0.5rem);
-  background: var(--toastBackground,rgba(74,85,104,0.98));
+  margin: var(--toastMargin,0 0 0.5rem 0);
+  background: var(--toastBackground,rgba(66,66,66,0.9));
   color: var(--toastColor,#FFF);
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
   border-radius: 0.125rem;
@@ -37,7 +36,7 @@ $: if (prevProgress !== item.progress) {
   -webkit-tap-highlight-color: transparent;
 }
 ._toastMsg {
-  font-size: var(--toastFontSize,1rem);
+  font: var(--toastFont);
   flex: 1 1 0%;
   padding: 0 0.5rem;
 }
@@ -66,10 +65,10 @@ $: if (prevProgress !== item.progress) {
   background: transparent;
 }
 ._toastBar::-webkit-progress-value {
-  background: var(--toastProgressBackground,rgba(66,153,225,0.98));
+  background: var(--toastProgressBackground,rgba(33,150,243,0.75));
 }
 ._toastBar::-moz-progress-bar {
-  background: var(--toastProgressBackground,rgba(66,153,225,0.98));
+  background: var(--toastProgressBackground,rgba(33,150,243,0.75));
 }
 </style>
 
