@@ -109,17 +109,14 @@ ToastContainer {
 ToastItem {
   width: var(--toastWidth, 16rem);
   height: var(--toastHeight, 3.5rem);
-  margin-bottom: var(--toastMarginBottom, 0.5rem);
-  background: var(--toastBackground, rgba(74,85,104,0.98));
+  margin: var(--toastMargin, 0 0 0.5rem 0);
+  background: var(--toastBackground, rgba(66,66,66,0.9));
   color: var(--toastColor, #FFF);
-}
-
-ToastItemMessage {
-  font-size: var(--toastFontSize, 1rem);
+  font: var(--toastFont);
 }
 
 ToastProgressBar {
-  background: var(--toastProgressBackground, rgba(66,153,225,0.98));
+  background: var(--toastProgressBackground, rgba(33,150,243,0.75));
 }
 ```
 
@@ -136,16 +133,19 @@ So to apply your custom theme globally, do something like:
 </style>
 ```
 
-To apply overrides to a particular Toast Item, emit the toast with options:
+To apply CSS overrides to a particular Toast Item, emit the toast with options:
 
 ```js
 toast.push('Yo!', {
   theme: {
     '--toastBackground': 'cyan',
-    '--toastColor': 'black'
+    '--toastColor': 'black',
+    ...
   }
 })
 ```
+
+where `theme` is an object containing one or more CSS var key/value pairs.
 
 ## Options
 
@@ -170,8 +170,11 @@ toast.pop(id)
 toast.set(id, { object })
 ```
 
+## License
+
+ISC
+
 ## To-do
 
 - [ ] Definitely improve the docs
 - [ ] Create some option presets
-
