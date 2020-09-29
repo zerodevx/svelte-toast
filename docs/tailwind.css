@@ -3,17 +3,14 @@ html {
   @apply h-full bg-gray-100 text-gray-900 font-sans font-normal;
   -webkit-tap-highlight-color: transparent;
 }
+button {
+  @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 rounded-sm focus:outline-none focus:shadow-outline m-2;
+}
+button.selected {
+  @apply bg-blue-200;
+}
 
 @tailwind components;
-.btn {
-  @apply w-40 h-12 border-2 border-gray-500 text-gray-500 text-xs font-bold tracking-wider rounded-full focus:outline-none px-3 mx-2 mb-4;
-}
-.btn.selected {
-  @apply border-gray-800 text-gray-800 bg-white;
-}
-.btn:hover {
-  @apply hover:text-blue-500;
-}
 .opacity-97 {
   opacity: 0.97;
 }

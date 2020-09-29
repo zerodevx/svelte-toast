@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>svelte-toast | Demo</title>
+	<title>svelte-toast | DEMO</title>
 	<meta name="description" content="Simple elegant toast notifications. Use it in Vanilla JS or as a Svelte component.">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="build/global.css">
 	<script defer src="build/bundle.js"></script>
 	<script>
 		(function(){
-			window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-			ga('create', 'UA-66946548-3', 'auto');
-			ga('send', 'pageview');
 			if (location.protocol === 'https:') {
+				window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+				ga('create', 'UA-66946548-3', 'auto');
+				ga('send', 'pageview');
 				var el = document.createElement('script');
 				el.src = 'https://www.google-analytics.com/analytics.js';
 				document.head.appendChild(el);
@@ -23,14 +23,21 @@
 </head>
 
 <body>
-	<h1 class="text-5xl text-center mt-12">svelte-toast</h1>
-	<div class="h-10 flex justify-center">
-		<a href="https://github.com/zerodevx/svelte-toast">
+	<h1 class="text-4xl text-center mt-8">svelte-toast</h1>
+	<div class="h-16 flex flex-col items-center">
+		<a
+			href="https://github.com/zerodevx/svelte-toast"
+			title="Go to Github repo">
 			<img
 				class="opacity-97 hover:opacity-75"
 				src="https://img.shields.io/github/package-json/v/zerodevx/svelte-toast?logo=github&style=for-the-badge&color=blue"
 				alt="Github version badge">
 		</a>
 	</div>
+	<p class="container px-2 mb-4">
+		Simple, elegant, generic, flexible and performant toast notifications.
+		Because a demo helps better than a thousand API docs, so here it is.
+		Use in Vanilla JS (6kb gzipped) or as a Svelte component.
+	</p>
 </body>
 </html>
