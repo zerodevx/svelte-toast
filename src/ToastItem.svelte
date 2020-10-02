@@ -53,6 +53,8 @@ $: if (prevProgress !== item.progress) {
 }
 ._toastBar {
   display: block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   border: none;
   position: absolute;
