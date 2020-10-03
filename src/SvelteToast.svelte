@@ -15,16 +15,9 @@ const defaults = {
   theme: {}
 }
 toast._opts(defaults)
-
 $: toast._opts(options)
 
-const getCss = theme => {
-  let css = ''
-  for (const [key, val] of Object.entries(theme)) {
-    css += `${key}:${val};`
-  }
-  return css || undefined
-}
+const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
 </script>
 
 <style>
