@@ -1,10 +1,10 @@
 @tailwind base;
 html {
-  @apply h-full bg-gray-100 text-gray-900 font-sans font-normal;
+  @apply h-full bg-gray-50 text-gray-900 font-sans font-normal;
   -webkit-tap-highlight-color: transparent;
 }
 button {
-  @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 rounded-sm focus:outline-none focus:shadow-outline m-2;
+  @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 rounded-sm focus:outline-none focus:ring m-2;
 }
 button.selected {
   @apply bg-blue-200;

@@ -1,14 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true
-  },
-  experimental: {
-    applyComplexClasses: true,
-    uniformColorPalette: true
-  },
   purge: [
     './docs/App.svelte',
     './docs/index.html'
