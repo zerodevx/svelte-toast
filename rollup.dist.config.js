@@ -11,8 +11,17 @@ export default {
     { file: pkg.main, format: 'umd', name: 'SvelteToastUMD' }
   ],
   plugins: [
-    svelte(),
-    resolve(),
+    svelte({
+      compilerOptions: {
+        dev: false,
+        css: true
+      },
+      emitCss: false
+    }),
+    resolve({
+      browser: true,
+      dedupe: ['svelte']
+    }),
     commonjs(),
     terser()
   ]

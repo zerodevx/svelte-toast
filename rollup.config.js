@@ -34,10 +34,16 @@ export default {
   },
   plugins: [
     svelte({
-      dev: !production,
-      css: true
+      compilerOptions: {
+        dev: !production,
+        css: true
+      },
+      emitCss: false
     }),
-    resolve(),
+    resolve({
+      browser: true,
+      dedupe: ['svelte']
+    }),
     commonjs(),
     !production && serve(),
     !production && livereload('docs'),
