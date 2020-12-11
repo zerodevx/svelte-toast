@@ -133,7 +133,7 @@ So to apply your custom theme globally, do something like:
 </style>
 ```
 
-To apply CSS overrides to a particular Toast Item, emit the toast with options:
+To apply CSS overrides to a particular Toast Item (on a per-toast basis), emit the toast with options:
 
 ```js
 toast.push('Yo!', {
