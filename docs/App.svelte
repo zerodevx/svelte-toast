@@ -32,7 +32,7 @@ const buttons = [
     '--toastBackground': '#48BB78',
     '--toastProgressBackground': '#2F855A'
   }
-)`,
+})`,
     run: () => {
       toast.push('Success!', { theme: { '--toastBackground': '#48BB78', '--toastProgressBackground': '#2F855A' } })
     }
@@ -44,7 +44,7 @@ const buttons = [
     '--toastBackground': '#ECC94B',
     '--toastProgressBackground': '#B7791F'
   }
-)`,
+})`,
     run: () => {
       toast.push('Warning!', { theme: { '--toastBackground': '#ECC94B', '--toastProgressBackground': '#B7791F' } })
     }
@@ -56,7 +56,7 @@ const buttons = [
     '--toastBackground': '#F56565',
     '--toastProgressBackground': '#C53030'
   }
-)`,
+})`,
     run: () => {
       toast.push('Error!', { theme: { '--toastBackground': '#F56565', '--toastProgressBackground': '#C53030' } })
     }
