@@ -1,6 +1,7 @@
 <script>
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
+import Prism from './Prism.svelte'
 
 // Hoist to `window` for debug
 window.toast = toast
@@ -206,11 +207,10 @@ toast.set(id, { progress: 1 })`,
 </style>
 
 <div class="container">
-
   <div class="w-full h-64 px-2 mt-4 mb-8">
-    <pre class="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4"><code>
-    {code}
-    </code></pre>
+    <Prism classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4">
+      {code}
+    </Prism>
   </div>
 
   <div class="flex flex-row flex-wrap items-center justify-center">
