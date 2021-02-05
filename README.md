@@ -9,7 +9,7 @@ Because a demo helps better than a thousand API docs: https://zerodevx.github.io
 Install the package:
 
 ```bash
-$ npm i -D @zerodevx/svelte-toast
+$ yarn add @hazg/svelte-toast --dev
 ```
 
 The following are exported:
@@ -25,7 +25,7 @@ If you're using this in a Svelte app, import the toast container and place it in
 
 ```html
 <script>
-import { SvelteToast } from '@zerodevx/svelte-toast'
+import { SvelteToast } from '@hazg/svelte-toast'
 
 // Optionally set default options here
 const options = {
@@ -44,7 +44,7 @@ Use anywhere in your app - just import the toast emitter.
 
 ```html
 <script>
-import { toast } from '@zerodevx/svelte-toast'
+import { toast } from '@hazg/svelte-toast'
 </script>
 
 <button on:click={() => toast.push('Hello world!')}>EMIT TOAST</button>
@@ -55,7 +55,7 @@ import { toast } from '@zerodevx/svelte-toast'
 For any other applications with a bundler, something like this should work.
 
 ```js
-import { SvelteToast, toast } from `@zerodevx/svelte-toast'
+import { SvelteToast, toast } from `@hazg/svelte-toast'
 
 const app = new SvelteToast({
   // Set where the toast container should be appended into
