@@ -1,16 +1,10 @@
 {
-  "name": "@hazg/svelte-toast",
+  "name": "svelte-toast",
   "description": "Simple elegant toast notifications",
   "version": "0.1.3",
   "author": "Jason Lee <jason@zerodevx.com>",
-  "svelte": "src/index.js",
-  "module": "dist/index.mjs",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "tailwind:watch": "chokidar 'docs/tailwind*.*' -c 'npm run tailwind:build'",
-    "tailwind:build": "tailwind build docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css",
-    "tailwind:dist:build": "NODE_ENV=production npm run tailwind:build",
-    "tailwind:dist:minify": "cleancss -O1 specialComments:false -o docs/build/global.css docs/build/global.css",
     "dev:docs": "rollup -c -w",
     "dev": "npm-run-all tailwind:build -p tailwind:watch dev:docs",
     "start": "sirv docs",
@@ -48,7 +42,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zerodevx/svelte-toast.git"
+    "url": "https://github.com/hazg/svelte-toast.git"
   },
   "keywords": [
     "svelte",
