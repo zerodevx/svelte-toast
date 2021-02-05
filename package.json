@@ -1,5 +1,5 @@
 {
-  "name": "@zerodevx/svelte-toast",
+  "name": "@hazg/svelte-toast",
   "description": "Simple elegant toast notifications",
   "version": "0.1.3",
   "author": "Jason Lee <jason@zerodevx.com>",
