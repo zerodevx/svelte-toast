@@ -15,25 +15,25 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
     "chokidar-cli": "^2.1.0",
-    "clean-css-cli": "^4.3.0",
+    "clean-css-cli": "^5.2.1",
     "eslint": "^7.11.0",
-    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-svelte3": "^2.7.3",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-svelte3": "^3.1.2",
     "npm-run-all": "^4.1.5",
     "rollup": "^2.32.0",
     "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte": "^6.0.1",
+    "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "sirv-cli": "^1.0.7",
     "svelte": "^3.29.0",
-    "tailwindcss": "^1.9.4"
+    "tailwindcss": "^2.0.3"
   },
   "files": [
     "src",
