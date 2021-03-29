@@ -158,7 +158,8 @@ const defaults = {
   progress: 0,          // current progress
   reversed: false,      // insert new toast to bottom of stack
   intro: { x: 256 },    // toast intro fly animation settings
-  theme: {}             // css var overrides
+  theme: {},            // css var overrides
+  title: null           // insert a title for the toast (optional)
 }
 ```
 
