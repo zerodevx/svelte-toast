@@ -55,7 +55,7 @@ import { toast } from '@zerodevx/svelte-toast'
 For any other applications with a bundler, something like this should work.
 
 ```js
-import { SvelteToast, toast } from `@zerodevx/svelte-toast'
+import { SvelteToast, toast } from '@zerodevx/svelte-toast'
 
 const app = new SvelteToast({
   // Set where the toast container should be appended into
