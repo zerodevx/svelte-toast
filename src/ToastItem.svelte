@@ -35,6 +35,9 @@ $: if (prevProgress !== item.progress) {
   will-change: transform,opacity;
   -webkit-tap-highlight-color: transparent;
 }
+._toastTitle {
+  font-weight: bold;
+}
 ._toastMsg {
   font: var(--toastFont);
   flex: 1 1 0%;
@@ -75,7 +78,12 @@ $: if (prevProgress !== item.progress) {
 </style>
 
 <div class="_toastItem">
-  <div class="_toastMsg">{item.msg}</div>
+  <div class="_toastMsg">
+    {#if item.title}
+    <div class="_toastTitle">{item.title}</div>
+    {/if}
+    {item.msg}
+  </div>
 
   {#if item.dismissable}
   <div class="_toastBtn" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
