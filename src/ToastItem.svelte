@@ -82,7 +82,7 @@ $: if (prevProgress !== item.progress) {
     {#if item.title}
     <div class="_toastTitle">{item.title}</div>
     {/if}
-    {item.msg}
+    {@html item.msg}
   </div>
 
   {#if item.dismissable}
