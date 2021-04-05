@@ -28,7 +28,7 @@ ul {
   padding: 0;
   list-style-type: none;
   z-index: 9999;
-  pointer-events: none;
+  pointer-events: auto;
   top: var(--toastContainerTop,1.5rem);
   right: var(--toastContainerRight,2rem);
   bottom: var(--toastContainerBottom,auto);
