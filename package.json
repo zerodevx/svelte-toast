@@ -6,6 +6,10 @@
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
+  },
   "scripts": {
     "tailwind:watch": "chokidar 'docs/tailwind*.*' -c 'npm run tailwind:build'",
     "tailwind:build": "tailwind build docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css",
