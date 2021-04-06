@@ -22,7 +22,8 @@ $: if (prevProgress !== item.progress) {
 <style>
 ._toastItem {
   width: var(--toastWidth,16rem);
-  height: var(--toastHeight,3.5rem);
+  height: var(--toastHeight,auto); 
+  min-height: var(--toastMinHeight,3.5rem);
   margin: var(--toastMargin,0 0 0.5rem 0);
   background: var(--toastBackground,rgba(66,66,66,0.9));
   color: var(--toastColor,#FFF);
