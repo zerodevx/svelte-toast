@@ -1,18 +1,25 @@
 @tailwind base;
-html {
-  @apply h-full bg-gray-50 text-gray-900 font-sans font-normal;
-  -webkit-tap-highlight-color: transparent;
-}
-button {
-  @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 rounded-sm focus:outline-none focus:ring m-2;
-}
-button.selected {
-  @apply bg-blue-200;
-}
-
 @tailwind components;
-.opacity-97 {
-  opacity: 0.97;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply h-full bg-gray-50 text-gray-900 font-sans font-normal;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a {
+    @apply text-blue-400 hover:text-blue-600 underline;
+  }
+  button {
+    @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 rounded-sm focus:outline-none focus:ring m-2;
+  }
+  button.selected {
+    @apply bg-blue-200;
+  }
 }
 
-@tailwind utilities;
+@layer components {
+  .opacity-97 {
+    opacity: 0.97;
+  }
+}
