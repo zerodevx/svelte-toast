@@ -37,9 +37,8 @@ $: if (prevProgress !== item.progress) {
   -webkit-tap-highlight-color: transparent;
 }
 ._toastMsg {
-  font: var(--toastFont);
   flex: 1 1 0%;
-  padding: 0 0.5rem;
+  padding: var(--toastMsgPadding,0.5rem);
 }
 ._toastBtn {
   width: 2rem;
