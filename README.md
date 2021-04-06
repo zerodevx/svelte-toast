@@ -40,7 +40,7 @@ const options = {
 
 Use anywhere in your app - just import the toast emitter.
 
-`MyComponent.svelte`
+`MyComponent.svelte`:
 
 ```html
 <script>
@@ -52,7 +52,7 @@ import { toast } from '@zerodevx/svelte-toast'
 
 ### Vanilla JS
 
-For any other applications with a bundler, something like this should work.
+For any other application with a bundler, something like this should work:
 
 ```js
 import { SvelteToast, toast } from '@zerodevx/svelte-toast'
@@ -80,10 +80,10 @@ Or if you prefer to go old-school javascript and a CDN:
   ...
   <script>
     function registerToast() {
-      window.toastApp = new window.SvelteToastUMD.SvelteToast({
+      window.toastApp = new SvelteToastUMD.SvelteToast({
         target: document.body
       });
-      window.toast = window.SvelteToastUMD.toast;
+      window.toast = SvelteToastUMD.toast;
 
       // Now you can `toast` anywhere!
       toast.push('Hello world!');
@@ -93,29 +93,31 @@ Or if you prefer to go old-school javascript and a CDN:
 </head>
 ```
 
-
 ## Theming
 
-In general, use CSS variables - the following are exposed:
+In general, use CSS variables - the following (self-explanatory) vars are exposed:
 
 ```css
-ToastContainer {
+._toastContainer {
   top: var(--toastContainerTop, 1.5rem);
   right: var(--toastContainerRight, 2rem);
   bottom: var(--toastContainerBottom, auto);
   left: var(--toastContainerLeft, auto);
 }
 
-ToastItem {
+._toastItem {
   width: var(--toastWidth, 16rem);
   height: var(--toastHeight, 3.5rem);
   margin: var(--toastMargin, 0 0 0.5rem 0);
   background: var(--toastBackground, rgba(66,66,66,0.9));
   color: var(--toastColor, #FFF);
-  font: var(--toastFont);
 }
 
-ToastProgressBar {
+._toastMsg {
+  padding: var(--toastMsgPadding, 0.75rem 0.5rem);
+}
+
+._toastProgressBar {
   background: var(--toastProgressBackground, rgba(33,150,243,0.75));
 }
 ```
@@ -147,19 +149,51 @@ toast.push('Yo!', {
 
 where `theme` is an object containing one or more CSS var key/value pairs.
 
+### Rich HTML
+
+Toast messages can be in rich HTML too - for example:
+
+```js
+// Definitely not spam
+toast.push('<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛')
+```
+
+### Custom Fonts
+
+Apply custom font CSS on toast messages by setting styles globally on the `._toastMsg` class:
+
+```html
+<style>
+/* In Svelte app, use the `:global` modifier */
+:global(._toastMsg) {
+  font-family: Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.125;
+}
+:global(._toastMsg>strong) {
+  font-weight: 600;
+}
+
+/* For any others, just apply globally */
+._toastMsg {
+  ...
+}
+</style>
+```
+
 ## Options
 
 ```js
 // Default options
-const defaults = {
+const options = {
   duration: 4000,       // duration of progress bar tween
   dismissable: true,    // allow dismiss with close button
   initial: 1,           // initial progress bar value
   progress: 0,          // current progress
   reversed: false,      // insert new toast to bottom of stack
   intro: { x: 256 },    // toast intro fly animation settings
-  theme: {},            // css var overrides
-  title: null           // insert a title for the toast (optional)
+  theme: {}             // css var overrides
 }
 ```
 
@@ -168,7 +202,7 @@ const defaults = {
 ```js
 const id = toast.push(message, { options })
 toast.pop(id)
-toast.set(id, { object })
+toast.set(id, { options })
 ```
 
 ## License
