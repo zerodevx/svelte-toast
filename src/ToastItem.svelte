@@ -37,8 +37,8 @@ $: if (prevProgress !== item.progress) {
   -webkit-tap-highlight-color: transparent;
 }
 ._toastMsg {
+  padding: var(--toastMsgPadding,0.75rem 0.5rem);
   flex: 1 1 0%;
-  padding: var(--toastMsgPadding,0.5rem);
 }
 ._toastBtn {
   width: 2rem;
@@ -78,8 +78,10 @@ $: if (prevProgress !== item.progress) {
   <div class="_toastMsg">
     {@html item.msg}
   </div>
+
   {#if item.dismissable}
   <div class="_toastBtn" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
   {/if}
+
   <progress class="_toastBar" value={$progress}></progress>
 </div>
