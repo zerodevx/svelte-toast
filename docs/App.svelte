@@ -39,27 +39,23 @@ const buttons = [
     }
   },
   {
-    name: 'YELLOW',
-    code: `toast.push('Warning!', {
-  theme: {
-    '--toastBackground': '#ECC94B',
-    '--toastProgressBackground': '#B7791F'
-  }
-})`,
-    run: () => {
-      toast.push('Warning!', { theme: { '--toastBackground': '#ECC94B', '--toastProgressBackground': '#B7791F' } })
-    }
-  },
-  {
     name: 'RED',
-    code: `toast.push('Error!', {
+    code: `toast.push('Danger!', {
   theme: {
     '--toastBackground': '#F56565',
     '--toastProgressBackground': '#C53030'
   }
 })`,
     run: () => {
-      toast.push('Error!', { theme: { '--toastBackground': '#F56565', '--toastProgressBackground': '#C53030' } })
+      toast.push('Danger!', { theme: { '--toastBackground': '#F56565', '--toastProgressBackground': '#C53030' } })
+    }
+  },
+  {
+    name: 'RICH HTML',
+    code: `toast.push(\`<strong>You won the jackpot!</strong><br>
+  Click <a href="#" target="_blank">here</a> for details! 😛\`)`,
+    run: () => {
+      toast.push('<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛')
     }
   },
   {
