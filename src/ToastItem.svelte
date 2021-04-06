@@ -22,7 +22,7 @@ $: if (prevProgress !== item.progress) {
 <style>
 ._toastItem {
   width: var(--toastWidth,16rem);
-  height: var(--toastHeight,auto); 
+  height: var(--toastHeight,auto);
   min-height: var(--toastMinHeight,3.5rem);
   margin: var(--toastMargin,0 0 0.5rem 0);
   background: var(--toastBackground,rgba(66,66,66,0.9));
@@ -35,9 +35,6 @@ $: if (prevProgress !== item.progress) {
   align-items: center;
   will-change: transform,opacity;
   -webkit-tap-highlight-color: transparent;
-}
-._toastTitle {
-  font-weight: bold;
 }
 ._toastMsg {
   font: var(--toastFont);
@@ -80,15 +77,10 @@ $: if (prevProgress !== item.progress) {
 
 <div class="_toastItem">
   <div class="_toastMsg">
-    {#if item.title}
-    <div class="_toastTitle">{item.title}</div>
-    {/if}
     {@html item.msg}
   </div>
-
   {#if item.dismissable}
   <div class="_toastBtn" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
   {/if}
-
   <progress class="_toastBar" value={$progress}></progress>
 </div>
