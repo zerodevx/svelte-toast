@@ -7,8 +7,11 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "tailwind:watch": "chokidar 'docs/tailwind*.*' -c 'npm run tailwind:build'",
