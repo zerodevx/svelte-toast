@@ -23,15 +23,16 @@ const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]
 
 <style>
 ul {
-  position: fixed;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  z-index: 9999;
   top: var(--toastContainerTop,1.5rem);
   right: var(--toastContainerRight,2rem);
   bottom: var(--toastContainerBottom,auto);
   left: var(--toastContainerLeft,auto);
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  pointer-events: none;
+  z-index: 9999;
 }
 </style>
 

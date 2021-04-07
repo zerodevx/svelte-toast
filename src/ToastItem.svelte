@@ -40,6 +40,9 @@ $: if (prevProgress !== item.progress) {
   padding: var(--toastMsgPadding,0.75rem 0.5rem);
   flex: 1 1 0%;
 }
+._toastMsg :global(a) {
+  pointer-events: auto;
+}
 ._toastBtn {
   width: 2rem;
   height: 100%;
