@@ -1,4 +1,2 @@
-import SvelteToast from './SvelteToast.svelte'
-import { toast } from './stores'
-
-export { SvelteToast, toast }
+export { default as SvelteToast } from './SvelteToast.svelte'
+export { toast } from './stores'
