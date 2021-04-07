@@ -1,7 +1,7 @@
 {
   "name": "@zerodevx/svelte-toast",
   "description": "Simple elegant toast notifications",
-  "version": "0.2.0",
+  "version": "0.2.1-rc.1",
   "author": "Jason Lee <jason@zerodevx.com>",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
