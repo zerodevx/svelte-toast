@@ -82,7 +82,7 @@ const buttons = [
 toast.pop()
 
 // Or remove a particular one
-const id = toast('Yo!')
+const id = toast.push('Yo!')
 toast.pop(id)`,
     run: () => {
       toast.pop()
