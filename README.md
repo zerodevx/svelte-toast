@@ -156,31 +156,39 @@ Toast messages can be in rich HTML too - for example:
 
 ```js
 // Definitely not spam
-toast.push('<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛')
+toast.push(`<strong>You won the jackpot!</strong><br>
+  Click <a href="#" target="_blank">here</a> for details! 😛`)
 ```
 
 ### Custom Fonts
 
-Apply custom font CSS on toast messages by setting styles globally on the `._toastMsg` class:
+In a Svelte app, the easiest way to apply custom font styles is to wrap the toast container
+then apply styles on the wrapper:
 
 ```html
 <style>
-/* In Svelte app, use the `:global` modifier */
-:global(._toastMsg) {
-  font-family: Roboto, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 300;
-  line-height: 1.125;
-}
-:global(._toastMsg>strong) {
-  font-weight: 600;
-}
+  .wrap {
+    font-family: Roboto, sans-serif;
+    font-size: 0.875rem;
+    ...
+  }
+  .wrap :global(strong) {
+    font-weight: 600;
+  }
+</style>
 
-/* For any others, just apply globally */
+<div class="wrap">
+  <SvelteToast />
+</div>
+```
+
+In Vanilla JS, simply apply your styles to the `._toastMsg` class:
+
+```css
 ._toastMsg {
+  font-family: Roboto, sans-serif;
   ...
 }
-</style>
 ```
 
 ## Options
