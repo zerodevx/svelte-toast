@@ -12,8 +12,13 @@ module.exports = {
     'standard'
   ],
   plugins: [
-    'svelte3'
+    'svelte3',
+    'html'
   ],
+  globals: {
+    dataLayer: true,
+    gtag: true
+  },
   overrides: [
     {
       files: ['**/*.svelte'],
