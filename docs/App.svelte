@@ -16,6 +16,7 @@ const handleClick = btn => {
   selected = btn.name
   code = btn.code
   btn.run()
+  gtag('event', 'toast', { event_label: btn.name })
 }
 
 const buttons = [
