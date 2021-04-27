@@ -21,5 +21,4 @@ declare namespace toast {
   export function push(text: string, options?: SvelteToastOptions): number;
   export function pop(id: number): void;
   export function set(id: number, options: SvelteToastOptions): void;
-  export function _opts(options: SvelteToastOptions): SvelteToastOptions;
 }
