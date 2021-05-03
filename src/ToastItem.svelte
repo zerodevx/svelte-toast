@@ -27,8 +27,8 @@ $: if (prevProgress !== item.progress) {
   margin: var(--toastMargin,0 0 0.5rem 0);
   background: var(--toastBackground,rgba(66,66,66,0.9));
   color: var(--toastColor,#FFF);
-  box-shadow: var(--toastBoxShadow, 0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06));
-  border-radius: var(--toastBorderRadius, 0.125rem);
+  box-shadow: var(--toastBoxShadow,0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06));
+  border-radius: var(--toastBorderRadius,0.125rem);
   position: relative;
   display: flex;
   flex-direction: row;
