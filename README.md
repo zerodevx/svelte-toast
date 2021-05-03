@@ -152,6 +152,38 @@ toast.push('Yo!', {
 
 where `theme` is an object containing one or more CSS var key/value pairs.
 
+### Create Your Own Toast Actions
+
+For convenient composing, the recommended way is to create your own common toast actions by stubbing them out.
+For example:
+
+`my-theme.js`
+
+```js
+import { toast } from '@zerodevx/svelte-toast'
+
+export const success = m => toast.push(m, {
+  theme: {
+    '--toastBackground': 'green',
+    '--toastColor': 'white',
+    '--toastProgressBackground': 'darkgreen'
+  }
+})
+
+export const warning = m => toast.push(m, { theme: { ... } })
+
+export const failure = m => toast.push(m, { theme: { ... } })
+```
+
+Then simply import these stubs in your consuming component:
+
+```js
+import { success, warning, failure } from './my-theme`
+
+// do something, then
+success('It works!')
+```
+
 ### Rich HTML
 
 Toast messages can be in rich HTML too - for example:
