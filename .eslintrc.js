@@ -1,7 +1,8 @@
 module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    project: './tsconfig.json'
   },
   env: {
     es6: true,
@@ -9,7 +10,7 @@ module.exports = {
     node: true
   },
   extends: [
-    'standard'
+    'standard-with-typescript'
   ],
   plugins: [
     'svelte3',
