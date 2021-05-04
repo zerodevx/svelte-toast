@@ -8,7 +8,7 @@ export default {
   input: 'src/index.js',
   output: [
     { file: pkg.module, format: 'es' },
-    { file: pkg.main, format: 'umd', name: 'SvelteToastUMD' }
+    { file: pkg.main, format: 'umd', name: 'window', extend: true }
   ],
   plugins: [
     svelte({
