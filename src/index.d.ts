@@ -1,7 +1,7 @@
 // index.d.ts
-declare module "@zerodevx/svelte-toast";
+import type { SvelteComponent } from 'svelte'
 
-import type { SvelteComponent } from "svelte";
+declare module '@zerodevx/svelte-toast'
 
 /**
  * Default Toast Options
@@ -18,21 +18,21 @@ import type { SvelteComponent } from "svelte";
  ```
  */
 export interface SvelteToastOptions {
-  duration: number;
-  dismissable: boolean;
-  initial: number;
-  progress: number;
-  reversed: boolean;
-  intro: any;
+  duration: number
+  dismissable: boolean
+  initial: number
+  progress: number
+  reversed: boolean
+  intro: any
   theme: { [key: string]: string }
 }
 
 export class SvelteToast extends SvelteComponent {
-  options: SvelteToastOptions;
+  options: SvelteToastOptions
 }
 
 declare namespace toast {
-  export function push(text: string, options?: SvelteToastOptions): number;
-  export function pop(id: number): void;
-  export function set(id: number, options: SvelteToastOptions): void;
+  export function push (text: string, options?: SvelteToastOptions): number
+  export function pop (id: number): void
+  export function set (id: number, options: SvelteToastOptions): void
 }
