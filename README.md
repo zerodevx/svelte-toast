@@ -1,6 +1,13 @@
+[![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 # svelte-toast
 
 > Simple elegant toast notifications.
+
+A lightweight, unopinionated and performant toast notification component for modern web frontends in very little
+lines of code. Compiled, it's only **15kb** minified (**6kb** gzipped) and can be used in Vanilla JS, or as a
+Svelte component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
 
@@ -78,18 +85,24 @@ Or if you prefer to go old-school javascript and a CDN:
 ```html
 <head>
   ...
+  <!-- Load `toast` and `SvelteToast` into global scope  -->
+  <script src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast@0"></script>
+  <!-- Register the app -->
   <script>
-    function registerToast() {
-      window.toastApp = new SvelteToastUMD.SvelteToast({
-        target: document.body
-      });
-      window.toast = SvelteToastUMD.toast;
+    const toastApp = new SvelteToast({
+      // Set where the toast container should be appended into
+      target: document.body,
+      props: {
+        options: {
+          // Optionally set default options here
+          ...
+        }
+      }
+    })
 
-      // Now you can `toast` anywhere!
-      toast.push('Hello world!');
-    }
+    // Now you can `toast` anywhere!
+    toast.push('Hello world!');
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast@0" onload="registerToast()"></script>
 </head>
 ```
 
