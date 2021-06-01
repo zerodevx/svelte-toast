@@ -1,5 +1,6 @@
 // index.d.ts
 import type { SvelteComponent } from 'svelte'
+import type { FlyParams } from 'svelte/types/runtime/transition/index'
 
 declare module '@zerodevx/svelte-toast'
 
@@ -15,7 +16,7 @@ declare module '@zerodevx/svelte-toast'
  *  intro: { x: 256 },    // toast intro fly animation settings
  *  theme: {}             // css var overrides
  * }
- ```
+ * ```
  */
 export interface SvelteToastOptions {
   duration: number
@@ -23,7 +24,7 @@ export interface SvelteToastOptions {
   initial: number
   progress: number
   reversed: boolean
-  intro: any
+  intro: FlyParams
   theme: { [key: string]: string }
 }
 
