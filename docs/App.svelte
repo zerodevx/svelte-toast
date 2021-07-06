@@ -2,6 +2,7 @@
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
 import Prism from './Prism.svelte'
+import camelCase from 'camelcase'
 
 // Hoist to `window` for debug
 window.toast = toast
@@ -216,6 +217,7 @@ toast.set(id, { progress: 1 })`,
     <button
       class:selected={selected === btn.name}
       on:click={() => { handleClick(btn) }}
+      data-btn={camelCase(btn.name)}
     >{btn.name}</button>
     {/each}
 

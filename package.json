@@ -24,13 +24,16 @@
     "build:dist": "rollup -c rollup.dist.config.js",
     "build:tailwind": "NODE_ENV=production tailwindcss -i docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css -m",
     "build": "run-s lint build:*",
+    "test": "cypress run",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
     "autoprefixer": "^10.2.6",
+    "camelcase": "^6.2.0",
+    "cypress": "^7.6.0",
     "eslint": "^7.30.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-html": "^6.1.2",
