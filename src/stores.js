@@ -10,7 +10,11 @@ const createToast = () => {
     return count
   }
   const pop = id => {
-    update(n => id ? n.filter(i => i.id !== id) : n.splice(1))
+    update(n => {
+      if (n.length === 0 || id === 0) return []
+      const target = id || Math.max(...n.map(i => i.id))
+      return n.filter(i => i.id !== target)
+    })
   }
   const set = (id, obj) => {
     update(n => {

@@ -85,7 +85,10 @@ toast.pop()
 
 // Or remove a particular one
 const id = toast.push('Yo!')
-toast.pop(id)`,
+toast.pop(id)
+
+// Or remove all active toasts
+toast.pop(0)`,
     run: () => {
       toast.pop()
     }
