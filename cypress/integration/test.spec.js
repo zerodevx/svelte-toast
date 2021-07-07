@@ -72,9 +72,37 @@ describe('Integration Tests', () => {
           expect($bar.val()).to.equal(0)
           cy.window().invoke('toast.set', id, { progress: 0.2 }).wait(50).then(() => {
             expect(parseFloat($bar.val())).to.equal(0.2)
-            cy.get(',_toastBtn').click()
+            cy.get('._toastBtn').click()
           })
         })
       })
+  })
+
+  it('Changes default colors', () => {
+    cy.get('[data-btn=changeDefaultColors]')
+      .click()
+      .get('._toastItem')
+      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.95)')
+      .get('._toastBtn')
+      .click()
+  })
+
+  it('Positions to bottom', () => {
+    cy.get('[data-btn=positionToBottom]')
+      .click()
+      .get('._toastItem')
+      .should('have.css', 'bottom', '0px')
+      .get('._toastBtn')
+      .click()
+  })
+
+  it('Restores defaults', () => {
+    cy.get('[data-btn=restoreDefaults]')
+      .click()
+      .get('._toastItem')
+      .should('have.css', 'right', '0px')
+      .and('have.css', 'background-color', 'rgba(66, 66, 66, 0.9)')
+      .get('._toastBtn')
+      .click()
   })
 })
