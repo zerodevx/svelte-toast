@@ -62,12 +62,19 @@
   "homepage": "https://zerodevx.github.io/svelte-toast/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AlexRevin/svelte-toast.git"
+    "url": "git+https://github.com/AlexRevin/svelte-toast.git"
   },
   "keywords": [
     "svelte",
     "vanillajs",
     "toast",
     "notifications"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/AlexRevin/svelte-toast/issues"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {}
 }
