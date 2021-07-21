@@ -80,7 +80,7 @@ $: if (prevProgress !== item.progress) {
 <div class="_toastItem">
   <div class="_toastMsg">
     {#if item.component}
-      <svelte:component this={item.component} {...item.props}/>
+      <svelte:component this="{item.component}" {...item.props}/>
     {:else}
       {@html item.msg}
     {/if}
