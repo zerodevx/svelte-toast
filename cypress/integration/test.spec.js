@@ -100,7 +100,7 @@ describe('Integration Tests', () => {
     cy.get('[data-btn=useComponent]')
       .click()
       .get('._toastItem span')
-      .should('have.text', 'I am a Dummy.svelte component')
+      .should('have.text', 'I am a Dummy.svelte component with property foo=bar')
       .get('._toastBtn')
       .click()
   })

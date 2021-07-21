@@ -4,7 +4,7 @@ const createToast = () => {
   const { subscribe, update } = writable([])
   let count = 0
   let defaults = {}
-  const push = (msgOrComponent, opts = {}) => {
+  const push = (msgOrComponent, opts = {}, props = {}) => {
     let msg, component
     if (typeof (msgOrComponent) === 'string') {
       msg = msgOrComponent
@@ -12,9 +12,10 @@ const createToast = () => {
       component = msgOrComponent
     };
     const entry = {
+      msg,
+      component,
+      props,
       id: ++count,
-      msg: msg,
-      component: component,
       ...defaults,
       ...opts,
       theme: {
