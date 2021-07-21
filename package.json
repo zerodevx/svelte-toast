@@ -1,5 +1,5 @@
 {
-  "name": "@zerodevx/svelte-toast",
+  "name": "@AlexRevin/svelte-toast",
   "version": "0.3.0",
   "description": "Simple elegant toast notifications",
   "author": "Jason Lee <jason@zerodevx.com>",
@@ -62,7 +62,7 @@
   "homepage": "https://zerodevx.github.io/svelte-toast/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zerodevx/svelte-toast.git"
+    "url": "https://github.com/AlexRevin/svelte-toast.git"
   },
   "keywords": [
     "svelte",
