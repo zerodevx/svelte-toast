@@ -35,7 +35,7 @@ ul {
 }
 </style>
 
-<ul>
+<ul class="_toastContainer">
   {#each $toast as item (item.id)}
   <li
     in:fly={item.intro}
