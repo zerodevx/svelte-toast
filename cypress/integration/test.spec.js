@@ -96,6 +96,15 @@ describe('Integration Tests', () => {
       .click()
   })
 
+  it('Uses component', () => {
+    cy.get('[data-btn=useComponent]')
+      .click()
+      .get('._toastItem span')
+      .should('have.text', 'I am a Dummy.svelte component')
+      .get('._toastBtn')
+      .click()
+  })
+
   it('Restores defaults', () => {
     cy.get('[data-btn=restoreDefaults]')
       .click()

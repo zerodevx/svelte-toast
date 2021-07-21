@@ -19,7 +19,7 @@
     "watch:tailwind": "tailwindcss -i docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css -w",
     "watch:docs": "rollup -c -w",
     "dev": "run-p watch:*",
-    "lint": "eslint . --ext .js,.svelte,.html,.ts",
+    "lint": "eslint . --ext .js,.svelte,.html,.ts --fix",
     "build:docs": "rollup -c",
     "build:dist": "rollup -c rollup.dist.config.js",
     "build:tailwind": "NODE_ENV=production tailwindcss -i docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css -m",
