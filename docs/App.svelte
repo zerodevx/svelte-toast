@@ -181,7 +181,7 @@ toast.set(id, { progress: 1 })`,
     code: `
     toast.push(DummyComponent, {}, {foo: "bar"})`,
     run: async () => {
-      toast.push(DummyComponent, {}, {foo: "bar"})
+      toast.push(DummyComponent, {}, { foo: 'bar' })
     }
   },
   {
