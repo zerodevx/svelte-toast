@@ -2,6 +2,7 @@
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
 import Prism from './Prism.svelte'
+import DummyComponent from './Dummy.svelte'
 import camelCase from 'camelcase'
 
 // Hoist to `window` for debug
@@ -173,6 +174,14 @@ toast.set(id, { progress: 1 })`,
       options = { reversed: true, intro: { y: 128 } }
       await tick()
       toast.push('Bottoms up!')
+    }
+  },
+  {
+    name: 'USE COMPONENT',
+    code: `
+    toast.push(DummyComponent)`,
+    run: async () => {
+      toast.push(DummyComponent)
     }
   },
   {
