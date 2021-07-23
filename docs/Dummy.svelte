@@ -1,4 +1,5 @@
 <script>
-    export let foo
+    export let foo = undefined
+    export let toastId;
 </script>
-<span>I am a Dummy.svelte component with property foo={foo}</span>
+<span>I am a Dummy.svelte component with property foo={foo} (id: {toastId})</span>

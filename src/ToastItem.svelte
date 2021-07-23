@@ -2,8 +2,10 @@
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
 import { toast } from './stores.js'
+import { loop_guard } from 'svelte/internal'
 
 export let item
+console.log(item)
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
 
@@ -80,7 +82,7 @@ $: if (prevProgress !== item.progress) {
 <div class="_toastItem">
   <div class="_toastMsg">
     {#if item.component}
-      <svelte:component this="{item.component}" { ...item.props, {toastId: item.id}}  />
+      <svelte:component this="{item.component}" { ...item.props} toastId={item.id}  />
     {:else}
       {@html item.msg}
     {/if}
