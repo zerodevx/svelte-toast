@@ -202,10 +202,10 @@ toast.set(id, { progress: 1 })`,
   <script>
     toast.push("custom container", {namespace: "custom"});
     toast.push("default container");
-  <\/script>`,
+  <\/script>`, // eslint-disable-line no-useless-escape
     run: async () => {
-      toast.push("custom container", {namespace: "custom"});
-      toast.push("default container");
+      toast.push('custom container', { namespace: 'custom' })
+      toast.push('default container')
     }
   },
   {
@@ -264,11 +264,11 @@ toast.set(id, { progress: 1 })`,
 <div class:colors class:bottom>
   <SvelteToast { 
     ...options, {
-      namespace: "custom", 
+      namespace: 'custom',
       rootTheme: {
-        top: "8rem", 
-        left: "2rem", 
-        right: "auto"
+        top: '8rem',
+        left: '2rem',
+        right: 'auto'
       }
     }
   } />
