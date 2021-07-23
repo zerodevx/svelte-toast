@@ -5,8 +5,8 @@ import { toast } from './stores.js'
 import ToastItem from './ToastItem.svelte'
 
 export let options = {}
-export let namespace = "default";
-export let rootTheme = {};
+export let namespace = 'default'
+export let rootTheme = {}
 
 const defaults = {
   duration: 4000,
@@ -16,7 +16,7 @@ const defaults = {
   reversed: false,
   intro: { x: 256 },
   theme: {},
-  namespace: "default",
+  namespace: 'default'
 }
 toast._opts(defaults)
 $: toast._opts(options)
@@ -41,7 +41,7 @@ ul {
 </style>
 
 <ul class="_toastContainer" style={getRootCss()} >
-  {#each $toast.filter( (i) => i.namespace === namespace) as item (item.id)}
+  {#each $toast.filter((i) => i.namespace === namespace) as item (item.id)}
   <li
     in:fly={item.intro}
     out:fade
