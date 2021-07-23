@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,node
 
 /dist/
-docs/build/
+/docs/build/
 
 ### macOS ###
 # General

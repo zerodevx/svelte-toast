@@ -185,6 +185,30 @@ toast.set(id, { progress: 1 })`,
     }
   },
   {
+    name: 'CUSTOM NAMESPACE',
+    code: `
+  <SvelteToast {options} />
+
+  <SvelteToast { 
+    ...options, {
+      namespace: "custom", 
+      rootTheme: {
+        top: "8rem", 
+        left: "2rem", 
+        right: "auto"
+      }
+    }
+  } />
+  <script>
+    toast.push("custom container", {namespace: "custom"});
+    toast.push("default container");
+  <\/script>`,
+    run: async () => {
+      toast.push("custom container", {namespace: "custom"});
+      toast.push("default container");
+    }
+  },
+  {
     name: 'RESTORE DEFAULTS',
     code: '// All default settings restored!',
     run: async () => {
@@ -235,4 +259,17 @@ toast.set(id, { progress: 1 })`,
 
 <div class:colors class:bottom>
   <SvelteToast {options} />
+</div>
+
+<div class:colors class:bottom>
+  <SvelteToast { 
+    ...options, {
+      namespace: "custom", 
+      rootTheme: {
+        top: "8rem", 
+        left: "2rem", 
+        right: "auto"
+      }
+    }
+  } />
 </div>
