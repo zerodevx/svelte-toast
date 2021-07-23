@@ -90,5 +90,7 @@ $: if (prevProgress !== item.progress) {
   <div class="_toastBtn" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
   {/if}
 
+  {#if item.showProgress}
   <progress class="_toastBar" value={$progress}></progress>
+  {/if}
 </div>

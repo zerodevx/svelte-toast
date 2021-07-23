@@ -16,7 +16,8 @@ const defaults = {
   reversed: false,
   intro: { x: 256 },
   theme: {},
-  namespace: 'default'
+  namespace: 'default',
+  showProgress: true,
 }
 toast._opts(defaults)
 $: toast._opts(options)
