@@ -30,7 +30,7 @@ ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 9999;
 }
 </style>
