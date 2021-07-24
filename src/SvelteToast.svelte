@@ -5,17 +5,12 @@ import { toast } from './stores.js'
 import ToastItem from './ToastItem.svelte'
 
 export let options = {}
-const defaults = {
-  duration: 4000,
-  dismissable: true,
-  initial: 1,
-  progress: 0,
-  reversed: false,
-  intro: { x: 256 },
-  theme: {}
-}
-toast._opts(defaults)
-$: toast._opts(options)
+export let target = 'default'
+
+$: toast._init(target, options)
+
+let items
+$: items = $toast.filter(i => i.target === target)
 
 const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
 </script>
@@ -36,7 +31,7 @@ ul {
 </style>
 
 <ul>
-  {#each $toast as item (item.id)}
+  {#each items as item (item.id)}
   <li
     in:fly={item.intro}
     out:fade
