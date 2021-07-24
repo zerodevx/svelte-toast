@@ -30,6 +30,7 @@ export interface SvelteToastOptions {
 
 export class SvelteToast extends SvelteComponent {
   options: SvelteToastOptions
+  target: string
 }
 
 declare namespace toast {
