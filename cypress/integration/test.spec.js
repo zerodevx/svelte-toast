@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-/* global cy, expect */
+/* global Cypress, cy, expect */
 
 describe('Integration Tests', () => {
   before(() => cy.visit('/'))
@@ -104,5 +104,53 @@ describe('Integration Tests', () => {
       .and('have.css', 'background-color', 'rgba(66, 66, 66, 0.9)')
       .get('._toastBtn')
       .click()
+  })
+
+  it('Clears all active toasts', () => {
+    Cypress._.times(3, () => {
+      cy.get('[data-btn=default]').click()
+    })
+    cy.get('._toastItem')
+      .should($e => {
+        expect($e).to.have.length(3)
+      })
+    cy.window().invoke('toast.pop', 0)
+      .get('._toastItem')
+      .should('not.exist')
+  })
+
+  it('push() accepts both string and object', () => {
+    cy.window().invoke('toast.push', 'Test')
+      .get('._toastItem')
+      .contains('Test')
+      .window().invoke('toast.pop')
+      .get('._toastItem')
+      .should('not.exist')
+      .window().invoke('toast.push', '{"msg":"Test2"}')
+      .get('._toastItem')
+      .contains('Test2')
+      .window().invoke('toast.pop')
+  })
+
+  it('Pushes messages to correct container target', () => {
+    cy.get('[data-btn=createNewToastContainer]')
+      .click()
+      .get('._toastItem')
+      .should('have.css', 'top', '0px')
+      .get('._toastBtn')
+      .click()
+  })
+
+  it('Removes all toasts from selected container target', () => {
+    Cypress._.times(3, () => {
+      cy.get('[data-btn=createNewToastContainer]').click()
+      cy.get('[data-btn=default]').click()
+    })
+    cy.get('[data-btn=removeAllToastsFromContainer]')
+      .click()
+      .get('._toastItem')
+      .contains('Hello')
+      .should('not.contain', 'NEW:')
+      .window().invoke('toast.pop', 0)
   })
 })
