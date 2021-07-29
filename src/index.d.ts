@@ -19,13 +19,16 @@ declare module '@zerodevx/svelte-toast'
  * ```
  */
 export interface SvelteToastOptions {
-  duration: number
-  dismissable: boolean
-  initial: number
-  progress: number
-  reversed: boolean
-  intro: FlyParams
-  theme: { [key: string]: string }
+  id?: number
+  target?: string
+  msg?: string
+  duration?: number
+  dismissable?: boolean
+  initial?: number
+  progress?: number
+  reversed?: boolean
+  intro?: FlyParams
+  theme?: { [key: string]: string }
 }
 
 export class SvelteToast extends SvelteComponent {
@@ -34,7 +37,9 @@ export class SvelteToast extends SvelteComponent {
 }
 
 declare namespace toast {
-  export function push (text: string, options?: SvelteToastOptions): number
-  export function pop (id: number): void
-  export function set (id: number, options: SvelteToastOptions): void
+  export function push (msg: string, options?: SvelteToastOptions): number
+  export function push (options: SvelteToastOptions): number
+  export function pop (arg?: any): void
+  export function set (id: number, options?: SvelteToastOptions): void
+  export function set (options: SvelteToastOptions): void
 }
