@@ -7,13 +7,6 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "src/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    },
-    "./package.json": "./package.json"
-  },
   "scripts": {
     "start": "sirv docs --no-clear",
     "watch:tailwind": "tailwindcss -i docs/tailwind.css -c docs/tailwind.config.js -o docs/build/global.css -w",
