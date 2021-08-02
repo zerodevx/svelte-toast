@@ -13,7 +13,6 @@ let items
 $: items = $toast.filter(i => i.target === target)
 
 const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
-const getRootCss = () => Object.keys(rootTheme).reduce((a, c) => `${a}${c}:${rootTheme[c]};`, '')
 </script>
 
 <style>

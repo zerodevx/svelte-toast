@@ -179,33 +179,23 @@ toast.set(id, { progress: 1 })`,
   {
     name: 'USE COMPONENT',
     code: `
-    toast.push(DummyComponent, {}, {foo: "bar"})`,
+    toast.push({
+        component: {
+          src: DummyComponent, 
+          props: {
+            foo: 'bar'
+          }
+        }
+      })`,
     run: async () => {
-      toast.push(DummyComponent, {}, { foo: 'bar' })
-    }
-  },
-  {
-    name: 'CUSTOM NAMESPACE',
-    code: `
-  <SvelteToast {options} />
-
-  <SvelteToast { 
-    ...options, {
-      namespace: "custom", 
-      rootTheme: {
-        top: "8rem", 
-        left: "2rem", 
-        right: "auto"
-      }
-    }
-  } />
-  <script>
-    toast.push("custom container", {namespace: "custom"});
-    toast.push("default container");
-  <\/script>`, // eslint-disable-line no-useless-escape
-    run: async () => {
-      toast.push('custom container', { namespace: 'custom' })
-      toast.push('default container')
+      toast.push({
+        component: {
+          src: DummyComponent, 
+          props: {
+            foo: 'bar'
+          }
+        }
+      })
     }
   },
   {
@@ -222,29 +212,36 @@ toast.set(id, { progress: 1 })`,
   {
     name: 'CREATE NEW TOAST CONTAINER',
     code: `<style>
-.wrap {
-  --toastContainerTop: 0.5rem;
-  --toastContainerRight: 2rem;
-  --toastContainerBottom: auto;
-  --toastContainerLeft: 2rem;
-  --toastWidth: 100%;
-  --toastMinHeight: 1.5rem;
-  --toastBackground: rgba(59,130,246,0.95);
-  --toastMsgPadding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
+  .wrap {
+    --toastContainerTop: 0.5rem;
+    --toastContainerRight: 2rem;
+    --toastContainerBottom: auto;
+    --toastContainerLeft: 2rem;
+    --toastWidth: 100%;
+    --toastMinHeight: 1.5rem;
+    --toastBackground: rgba(59,130,246,0.95);
+    --toastMsgPadding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
 </style>
 
 <div class="wrap">
   <SvelteToast target="new" options={{ initial: 0, intro: { y: -64 } }} />
 </div>
 
+<div>
+  <SvelteToast options={{ initial: 0, intro: { y: -64 } }} />
+</div>
+
 <script>
   // Send toast to "new" container
-  toast.push('NEW: Multiple toast container support', { target: 'new' })
+  toast.push('NEW: Multiple toast container support', { target: 'new' });
+  // Send toast to "default" container
+  toast.push('Default container toast')
 <\/script>`, // eslint-disable-line no-useless-escape
     run: () => {
-      toast.push('NEW: Multiple toast container support', { target: 'new' })
+      toast.push('NEW: Multiple toast container support', { target: 'new' });
+      toast.push('Default container toast')
     }
   },
   {
@@ -262,68 +259,55 @@ toast.pop(0)`,
 </script>
 
 <style>
-.colors {
-  --toastBackground: rgba(255,255,255,0.95);
-  --toastColor: #424242;
-  --toastProgressBackground: aquamarine;
-}
-.bottom {
-  --toastContainerTop: auto;
-  --toastContainerRight: auto;
-  --toastContainerBottom: 8rem;
-  --toastContainerLeft: calc(50vw - 8rem);
-}
-.top {
-  --toastContainerTop: 0.5rem;
-  --toastContainerRight: 2rem;
-  --toastContainerBottom: auto;
-  --toastContainerLeft: 2rem;
-  --toastWidth: 100%;
-  --toastMinHeight: 1.5rem;
-  --toastBackground: rgba(59,130,246,0.95);
-  --toastMsgPadding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
-</style>
-
-<div class="container">
-  <div class="w-full h-64 px-2 mt-4 mb-8">
-    <Prism classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4">
-      {code}
-    </Prism>
+  .colors {
+    --toastBackground: rgba(255,255,255,0.95);
+    --toastColor: #424242;
+    --toastProgressBackground: aquamarine;
+  }
+  .bottom {
+    --toastContainerTop: auto;
+    --toastContainerRight: auto;
+    --toastContainerBottom: 8rem;
+    --toastContainerLeft: calc(50vw - 8rem);
+  }
+  .top {
+    --toastContainerTop: 0.5rem;
+    --toastContainerRight: 2rem;
+    --toastContainerBottom: auto;
+    --toastContainerLeft: 2rem;
+    --toastWidth: 100%;
+    --toastMinHeight: 1.5rem;
+    --toastBackground: rgba(59,130,246,0.95);
+    --toastMsgPadding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+  </style>
+  
+  <div class="container">
+    <div class="w-full h-64 px-2 mt-4 mb-8">
+      <Prism classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4">
+        {code}
+      </Prism>
+    </div>
+  
+    <div class="flex flex-row flex-wrap items-center justify-center">
+  
+      {#each buttons as btn}
+      <button
+        class:selected={selected === btn.name}
+        on:click={() => { handleClick(btn) }}
+        data-btn={camelCase(btn.name)}>
+        {btn.name}
+      </button>
+      {/each}
+  
+    </div>
   </div>
-
-  <div class="flex flex-row flex-wrap items-center justify-center">
-
-    {#each buttons as btn}
-    <button
-      class:selected={selected === btn.name}
-      on:click={() => { handleClick(btn) }}
-      data-btn={camelCase(btn.name)}>
-      {btn.name}
-    </button>
-    {/each}
-
+  
+  <div class="top">
+    <SvelteToast options={{ initial: 0, intro: { y: -64 } }} target="new" />
   </div>
-</div>
-
-<div class="top">
-  <SvelteToast options={{ initial: 0, intro: { y: -64 } }} target="new" />
-</div>
-
-<div class:colors class:bottom>
-  <SvelteToast {options} />
-</div>
-
-<div class:colors class:bottom>
-  <SvelteToast { 
-    ...options, {
-      namespace: 'custom',
-      rootTheme: {
-        top: '8rem',
-        left: '2rem',
-        right: 'auto'
-      }
-    }
-  } />
-</div>
+  
+  <div class:colors class:bottom>
+    <SvelteToast {options} />
+  </div>
