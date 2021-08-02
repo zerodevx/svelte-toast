@@ -18,7 +18,7 @@ const handleClick = btn => {
   selected = btn.name
   code = btn.code
   btn.run()
-  gtag('event', 'toast', { event_label: btn.name })
+  gtag('event', `toast:${camelCase(btn.name)}`)
 }
 
 const buttons = [
@@ -218,9 +218,47 @@ toast.set(id, { progress: 1 })`,
       await tick()
       toast.push('All themes reset!')
     }
+  },
+  {
+    name: 'CREATE NEW TOAST CONTAINER',
+    code: `<style>
+.wrap {
+  --toastContainerTop: 0.5rem;
+  --toastContainerRight: 2rem;
+  --toastContainerBottom: auto;
+  --toastContainerLeft: 2rem;
+  --toastWidth: 100%;
+  --toastMinHeight: 1.5rem;
+  --toastBackground: rgba(59,130,246,0.95);
+  --toastMsgPadding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+</style>
+
+<div class="wrap">
+  <SvelteToast target="new" options={{ initial: 0, intro: { y: -64 } }} />
+</div>
+
+<script>
+  // Send toast to "new" container
+  toast.push('NEW: Multiple toast container support', { target: 'new' })
+<\/script>`, // eslint-disable-line no-useless-escape
+    run: () => {
+      toast.push('NEW: Multiple toast container support', { target: 'new' })
+    }
+  },
+  {
+    name: 'REMOVE ALL TOASTS FROM CONTAINER',
+    code: `// Remove all toasts from "new" container
+toast.pop(i => i.target !== 'new')
+
+// Or remove ALL active toasts from ALL containers
+toast.pop(0)`,
+    run: () => {
+      toast.pop(i => i.target !== 'new')
+    }
   }
 ]
-
 </script>
 
 <style>
@@ -234,6 +272,17 @@ toast.set(id, { progress: 1 })`,
   --toastContainerRight: auto;
   --toastContainerBottom: 8rem;
   --toastContainerLeft: calc(50vw - 8rem);
+}
+.top {
+  --toastContainerTop: 0.5rem;
+  --toastContainerRight: 2rem;
+  --toastContainerBottom: auto;
+  --toastContainerLeft: 2rem;
+  --toastWidth: 100%;
+  --toastMinHeight: 1.5rem;
+  --toastBackground: rgba(59,130,246,0.95);
+  --toastMsgPadding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
 }
 </style>
 
@@ -250,11 +299,16 @@ toast.set(id, { progress: 1 })`,
     <button
       class:selected={selected === btn.name}
       on:click={() => { handleClick(btn) }}
-      data-btn={camelCase(btn.name)}
-    >{btn.name}</button>
+      data-btn={camelCase(btn.name)}>
+      {btn.name}
+    </button>
     {/each}
 
   </div>
+</div>
+
+<div class="top">
+  <SvelteToast options={{ initial: 0, intro: { y: -64 } }} target="new" />
 </div>
 
 <div class:colors class:bottom>

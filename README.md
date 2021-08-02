@@ -191,7 +191,7 @@ export const failure = m => toast.push(m, { theme: { ... } })
 Then simply import these stubs in your consuming component:
 
 ```js
-import { success, warning, failure } from './my-theme`
+import { success, warning, failure } from './my-theme'
 
 // do something, then
 success('It works!')
@@ -238,6 +238,73 @@ In Vanilla JS, simply apply your styles to the `._toastMsg` class:
 }
 ```
 
+### New from `v0.4`
+
+#### Supporting Multiple Toast Containers
+
+It's now easy to send toasts to different container targets within your app. For example:
+
+```html
+<script>
+import { SvelteToast, toast } from '@zerodevx/svelte-toast'
+
+// Sends a toast to default toast container
+toast.push('Yo!')
+
+// Sends a toast to "new" toast container
+toast.push('Hey!', { target: 'new' })
+</script>
+
+<style>
+.wrap {
+  --toastContainerTop: 0.5rem;
+  --toastContainerRight: 2rem;
+  --toastContainerBottom: auto;
+  --toastContainerLeft: 2rem;
+  --toastWidth: 100%;
+  font-size: 0.875rem;
+  ...
+}
+</style>
+
+<!-- Default toast container -->
+<SvelteToast />
+
+<!-- Another toast container -->
+<div class="wrap">
+  <!-- Declare container with a unique `target` name -->
+  <SvelteToast target="new" options={{ duration: 8000, intro: { y: -64 } }} />
+</div>
+```
+
+#### Removing Multiple Toasts
+
+`pop()` now accepts a filter function.
+
+```js
+// Remove all toasts from "new" container
+toast.pop(i => i.target !== 'new')
+
+// Or remove ALL active toasts from ALL containers
+toast.pop(0)
+```
+
+#### Accepts Object as First Param
+
+`push()` and `set()` can also take an object as its first parameter.
+
+```js
+let id = toast.push('Yo!', { duration: 2000 })
+
+// is semantically equivalent to
+id = toast.push({ msg: 'Yo!', duration: 2000 })
+
+toast.set(id, { msg: 'Waddup!' })
+
+// is semantically equivalent to
+toast.set({ id, msg: 'Waddup!' })
+```
+
 ## Options
 
 ```js
@@ -261,11 +328,22 @@ toast.pop(id)
 toast.set(id, { options })
 ```
 
+## Development
+
+Standard Github [contribution workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962) applies.
+
+### Tests
+
+Testing is through [Cypress](https://www.cypress.io/). To run the tests headlessly:
+
+```
+$ npm run test
+```
+
+## Changelog
+
+Please refer to the [releases](https://github.com/zerodevx/svelte-toast/releases) page.
+
 ## License
 
 ISC
-
-## To-do
-
-- [ ] Definitely improve the docs
-- [ ] Create some option presets
