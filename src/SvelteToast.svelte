@@ -25,7 +25,7 @@ ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  pointer-events: auto;
+  pointer-events: var(--toastContainerPointerEvents, auto);
   z-index: 9999;
 }
 </style>

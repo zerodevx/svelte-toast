@@ -259,29 +259,29 @@ toast.pop(0)`,
 </script>
 
 <style>
-  .colors {
-    --toastBackground: rgba(255,255,255,0.95);
-    --toastColor: #424242;
-    --toastProgressBackground: aquamarine;
-  }
-  .bottom {
-    --toastContainerTop: auto;
-    --toastContainerRight: auto;
-    --toastContainerBottom: 8rem;
-    --toastContainerLeft: calc(50vw - 8rem);
-  }
-  .top {
-    --toastContainerTop: 0.5rem;
-    --toastContainerRight: 2rem;
-    --toastContainerBottom: auto;
-    --toastContainerLeft: 2rem;
-    --toastWidth: 100%;
-    --toastMinHeight: 1.5rem;
-    --toastBackground: rgba(59,130,246,0.95);
-    --toastMsgPadding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-  }
-  </style>
+.colors {
+  --toastBackground: rgba(255,255,255,0.95);
+  --toastColor: #424242;
+  --toastProgressBackground: aquamarine;
+}
+.bottom {
+  --toastContainerTop: auto;
+  --toastContainerRight: auto;
+  --toastContainerBottom: 8rem;
+  --toastContainerLeft: calc(50vw - 8rem);
+}
+.top {
+  --toastContainerTop: 0.5rem;
+  --toastContainerRight: 2rem;
+  --toastContainerBottom: auto;
+  --toastContainerLeft: 2rem;
+  --toastWidth: 100%;
+  --toastMinHeight: 1.5rem;
+  --toastBackground: rgba(59,130,246,0.95);
+  --toastMsgPadding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+</style>
   
   <div class="container">
     <div class="w-full h-64 px-2 mt-4 mb-8">
