@@ -190,7 +190,7 @@ toast.set(id, { progress: 1 })`,
     run: async () => {
       toast.push({
         component: {
-          src: DummyComponent, 
+          src: DummyComponent,
           props: {
             foo: 'bar'
           }
@@ -240,7 +240,7 @@ toast.set(id, { progress: 1 })`,
   toast.push('Default container toast')
 <\/script>`, // eslint-disable-line no-useless-escape
     run: () => {
-      toast.push('NEW: Multiple toast container support', { target: 'new' });
+      toast.push('NEW: Multiple toast container support', { target: 'new' })
       toast.push('Default container toast')
     }
   },
