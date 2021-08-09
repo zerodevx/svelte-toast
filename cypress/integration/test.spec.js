@@ -96,15 +96,6 @@ describe('Integration Tests', () => {
       .click()
   })
 
-  it('Uses component', () => {
-    cy.get('[data-btn=useComponent]')
-      .click()
-      .get('._toastItem span')
-      .should('have.text', 'I am a Dummy.svelte component with property foo=bar (id: 10)')
-      .get('._toastBtn')
-      .click()
-  })
-
   it('Restores defaults', () => {
     cy.get('[data-btn=restoreDefaults]')
       .click()
@@ -147,10 +138,7 @@ describe('Integration Tests', () => {
       .get('._toastItem')
       .should('have.css', 'top', '0px')
       .get('._toastBtn')
-      .should($e => {
-        expect($e).to.have.length(2)
-      })
-    cy.window().invoke('toast.pop', 2)
+      .click()
   })
 
   it('Removes all toasts from selected container target', () => {
@@ -164,5 +152,13 @@ describe('Integration Tests', () => {
       .contains('Hello')
       .should('not.contain', 'NEW:')
       .window().invoke('toast.pop', 0)
+  })
+
+  it('Uses component', () => {
+    cy.get('[data-btn=sendComponentAsAMessage]')
+      .click()
+      .get('._toastItem h1')
+      .should('have.text', 'A Dummy Cookie Component')
+      .window().invoke('toast.pop')
   })
 })

@@ -29,6 +29,10 @@ export interface SvelteToastOptions {
   reversed?: boolean
   intro?: FlyParams
   theme?: { [key: string]: string }
+  component?: {
+    src: object
+    props?: { [key: string]: any }
+  }
 }
 
 export class SvelteToast extends SvelteComponent {

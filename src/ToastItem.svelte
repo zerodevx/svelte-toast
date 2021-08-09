@@ -40,7 +40,7 @@ $: if (prevProgress !== item.progress) {
   padding: var(--toastMsgPadding,0.75rem 0.5rem);
   flex: 1 1 0%;
 }
-._toastMsg :global(a) {
+.pe, ._toastMsg :global(a) {
   pointer-events: auto;
 }
 ._toastBtn {
@@ -52,7 +52,6 @@ $: if (prevProgress !== item.progress) {
   justify-content: center;
   cursor: pointer;
   outline: none;
-  pointer-events: auto;
 }
 ._toastBar {
   display: block;
@@ -78,17 +77,15 @@ $: if (prevProgress !== item.progress) {
 </style>
 
 <div class="_toastItem">
-  <div class="_toastMsg">
+  <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
-      <svelte:component this="{item.component.src}" { ...item.component.props} toastId={item.id}  />
+    <svelte:component this="{item.component.src}" {...item.component.props} toastId={item.id}  />
     {:else}
-      {@html item.msg}
+    {@html item.msg}
     {/if}
   </div>
-
   {#if item.dismissable}
-  <div class="_toastBtn" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
+  <div class="_toastBtn pe" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
   {/if}
-
   <progress class="_toastBar" value={$progress}></progress>
 </div>
