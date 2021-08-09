@@ -1,15 +1,14 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const dt = require('tailwindcss/defaultTheme')
 
 module.exports = {
   mode: 'jit',
   purge: [
-    './docs/App.svelte',
-    './docs/index.html'
+    './docs/*.{html,js,svelte}'
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans]
+        sans: ['Inter', ...dt.fontFamily.sans]
       }
     },
     screens: {
