@@ -65,12 +65,24 @@ describe('Integration Tests', () => {
   })
 
   it('Dynamically update progress bar', () => {
-    cy.window()
-      .invoke('toast.push', 'Test', { duration: 1, initial: 0, progress: 0 })
-      .then(id => {
+    cy.window().invoke('toast.push', 'Test', { duration: 1, initial: 0, next: 0 })
+      .then($id => {
         cy.get('._toastBar').then($bar => {
           expect($bar.val()).to.equal(0)
-          cy.window().invoke('toast.set', id, { progress: 0.2 }).wait(50).then(() => {
+          cy.window().invoke('toast.set', $id, { next: 0.2 }).wait(50).then(() => {
+            expect(parseFloat($bar.val())).to.equal(0.2)
+            cy.get('._toastBtn').click()
+          })
+        })
+      })
+  })
+
+  it('Allows backward compatibility for `progress` key', () => {
+    cy.window().invoke('toast.push', 'Test', { duration: 1, initial: 0, progress: 0 })
+      .then($id => {
+        cy.get('._toastBar').then($bar => {
+          expect($bar.val()).to.equal(0)
+          cy.window().invoke('toast.set', $id, { progress: 0.2 }).wait(50).then(() => {
             expect(parseFloat($bar.val())).to.equal(0.2)
             cy.get('._toastBtn').click()
           })

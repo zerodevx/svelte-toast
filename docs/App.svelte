@@ -72,11 +72,11 @@ const buttons = [
     name: 'NON-DISMISSABLE',
     code: `toast.push('Where the close btn?!?', {
   initial: 0,
-  progress: 0,
+  next: 0,
   dismissable: false
 })`,
     run: () => {
-      toast.push('Where the close btn?!?', { initial: 0, progress: 0, dismissable: false })
+      toast.push('Where the close btn?!?', { initial: 0, dismissable: false })
     }
   },
   {
@@ -95,10 +95,10 @@ toast.pop(id)`,
     name: 'FLIP PROGRESS BAR',
     code: `toast.push('Progress bar is flipped', {
   initial: 0,
-  progress: 1
+  next: 1
 })`,
     run: () => {
-      toast.push('Progress bar is flipped', { initial: 0, progress: 1 })
+      toast.push('Progress bar is flipped', { initial: 0, next: 1 })
     }
   },
   {
@@ -108,32 +108,32 @@ toast.pop(id)`,
 const id = toast.push('Loading, please wait...', {
   duration: 300,
   initial: 0,
-  progress: 0,
+  next: 0,
   dismissable: false
 })
 
 await sleep(500)
-toast.set(id, { progress: 0.1 })
+toast.set(id, { next: 0.1 })
 
 await sleep(3000)
-toast.set(id, { progress: 0.7 })
+toast.set(id, { next: 0.7 })
 
 await sleep(1000)
-toast.set(id, { msg: 'Just a bit more', progress: 0.8 })
+toast.set(id, { msg: 'Just a bit more', next: 0.8 })
 
 await sleep(2000)
-toast.set(id, { progress: 1 })`,
+toast.set(id, { next: 1 })`,
     run: async () => {
       const sleep = t => new Promise(resolve => setTimeout(resolve, t))
-      const id = toast.push('Loading, please wait...', { duration: 300, initial: 0, progress: 0, dismissable: false })
+      const id = toast.push('Loading, please wait...', { duration: 300, initial: 0, dismissable: false })
       await sleep(500)
-      toast.set(id, { progress: 0.1 })
+      toast.set(id, { next: 0.1 })
       await sleep(3000)
-      toast.set(id, { progress: 0.7 })
+      toast.set(id, { next: 0.7 })
       await sleep(1000)
-      toast.set(id, { msg: 'Just a bit more', progress: 0.8 })
+      toast.set(id, { msg: 'Just a bit more', next: 0.8 })
       await sleep(2000)
-      toast.set(id, { progress: 1 })
+      toast.set(id, { next: 1 })
     }
   },
   {
@@ -244,17 +244,10 @@ toast.pop(0)`,
 })`,
     run: () => {
       toast.push({
-        component: {
-          src: DummyComponent,
-          props: {
-            title: 'A Dummy Cookie Component'
-          }
-        },
+        component: { src: DummyComponent, props: { title: 'A Dummy Cookie Component' } },
         dismissable: false,
         initial: 0,
-        theme: {
-          '--toastMsgPadding': '0'
-        }
+        theme: { '--toastMsgPadding': '0' }
       })
     }
   }

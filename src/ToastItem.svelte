@@ -6,16 +6,20 @@ import { toast } from './stores.js'
 export let item
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
+let prev = item.initial
 
-let prevProgress = item.initial
-
-$: if (prevProgress !== item.progress) {
-  if (item.progress === 1 || item.progress === 0) {
-    progress.set(item.progress).then(() => toast.pop(item.id))
+$: if (prev !== item.next) {
+  if (item.next === 1 || item.next === 0) {
+    progress.set(item.next).then(() => toast.pop(item.id))
   } else {
-    progress.set(item.progress)
+    progress.set(item.next)
   }
-  prevProgress = item.progress
+  prev = item.next
+}
+
+// `progress` has been renamed to `next`; shim included for backward compatibility, to remove in next major
+$: if (typeof item.progress !== 'undefined') {
+  item.next = item.progress
 }
 </script>
 
@@ -79,7 +83,7 @@ $: if (prevProgress !== item.progress) {
 <div class="_toastItem">
   <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
-    <svelte:component this="{item.component.src}" {...item.component.props} toastId={item.id}  />
+    <svelte:component this={item.component.src} {...item.component.props} toastId={item.id}  />
     {:else}
     {@html item.msg}
     {/if}
