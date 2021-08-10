@@ -8,7 +8,7 @@ declare module '@zerodevx/svelte-toast'
  * Default Toast Options
  * ```typescript
  * {
- *  duration: 4000,       // duration of progress bar tween from previous to `next`
+ *  duration: 4000,       // duration of progress bar tween to the `next` value
  *  initial: 1,           // initial progress bar value
  *  next: 0,              // next progress value
  *  dismissable: true,    // allow dismiss with close button
@@ -33,6 +33,7 @@ export interface SvelteToastOptions {
   component?: {
     src: object
     props?: { [key: string]: any }
+    sendIdTo?: string
   }
 }
 

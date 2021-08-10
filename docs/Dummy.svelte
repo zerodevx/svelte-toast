@@ -12,6 +12,6 @@ const clicked = () => toast.pop(toastId)
   <p class="text-sm mx-2 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
   <div class="flex-1 flex flex-row justify-between">
     <button class="w-28" on:click={clicked}>DECLINE</button>
-    <button class="w-28"  on:click={clicked}>ACCEPT</button>
+    <button class="w-28" on:click={clicked} data-btn="dummyAccept">ACCEPT</button>
   </div>
 </div>

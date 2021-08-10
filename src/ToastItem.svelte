@@ -17,6 +17,14 @@ $: if (prev !== item.next) {
   prev = item.next
 }
 
+const getProps = () => {
+  const { props, sendIdTo } = item.component
+  if (sendIdTo) {
+    props[sendIdTo] = item.id
+  }
+  return props
+}
+
 // `progress` has been renamed to `next`; shim included for backward compatibility, to remove in next major
 $: if (typeof item.progress !== 'undefined') {
   item.next = item.progress
@@ -83,7 +91,7 @@ $: if (typeof item.progress !== 'undefined') {
 <div class="_toastItem">
   <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
-    <svelte:component this={item.component.src} {...item.component.props} toastId={item.id}  />
+    <svelte:component this={item.component.src} {...getProps()} />
     {:else}
     {@html item.msg}
     {/if}

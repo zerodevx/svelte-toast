@@ -167,10 +167,12 @@ describe('Integration Tests', () => {
   })
 
   it('Uses component', () => {
-    cy.get('[data-btn=sendComponentAsAMessage]')
-      .click()
-      .get('._toastItem h1')
-      .should('have.text', 'A Dummy Cookie Component')
-      .window().invoke('toast.pop')
+    cy.get('[data-btn=sendComponentAsAMessage]').click()
+      .get('._toastItem').contains('A Dummy Cookie Component')
+      .get('[data-btn=default]').click()
+      .get('[data-btn=dummyAccept').click()
+      .get('._toastItem h1').should('not.exist')
+      .get('._toastBtn').click()
+      .get('._toastItem').should('not.exist')
   })
 })

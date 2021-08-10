@@ -234,7 +234,8 @@ toast.pop(0)`,
     src: DummyComponent,
     props: {
       title: 'A Dummy Cookie Component'
-    }
+    },
+    sendIdTo: 'toastId'
   },
   dismissable: false,
   initial: 0,
@@ -244,7 +245,7 @@ toast.pop(0)`,
 })`,
     run: () => {
       toast.push({
-        component: { src: DummyComponent, props: { title: 'A Dummy Cookie Component' } },
+        component: { src: DummyComponent, props: { title: 'A Dummy Cookie Component' }, sendIdTo: 'toastId' },
         dismissable: false,
         initial: 0,
         theme: { '--toastMsgPadding': '0' }
