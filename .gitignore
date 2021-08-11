@@ -1,7 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,node
-
-/dist/
+# Created by https://www.toptal.com/developers/gitignore/api/macos,node,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,node,visualstudiocode
 
 ### macOS ###
 # General
@@ -11,6 +9,7 @@
 
 # Icon must end with two \r
 Icon
+
 
 # Thumbnails
 ._*
@@ -39,6 +38,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -75,8 +75,8 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -105,12 +105,15 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.production
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
 # Next.js build output
 .next
+out
 
 # Nuxt.js build / generate output
 .nuxt
@@ -140,4 +143,27 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,node
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,node,visualstudiocode
