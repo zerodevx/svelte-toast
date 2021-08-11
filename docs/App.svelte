@@ -231,11 +231,11 @@ toast.pop(0)`,
     name: 'SEND COMPONENT AS A MESSAGE',
     code: `toast.push({
   component: {
-    src: DummyComponent,
+    src: DummyComponent, // where \`src\` is a Svelte component
     props: {
       title: 'A Dummy Cookie Component'
     },
-    sendIdTo: 'toastId'
+    sendIdTo: 'toastId' // send toast id to \`toastId\` prop
   },
   dismissable: false,
   initial: 0,
@@ -250,6 +250,13 @@ toast.pop(0)`,
         initial: 0,
         theme: { '--toastMsgPadding': '0' }
       })
+    }
+  },
+  {
+    name: 'PAUSE ON MOUSE HOVER',
+    code: `toast.push('Hover me!', { pausable: true })`, // eslint-disable-line
+    run: () => {
+      toast.push('Hover me!', { pausable: true })
     }
   }
 ]
