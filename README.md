@@ -1,13 +1,21 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Lines of code](https://img.shields.io/tokei/lines/github/zerodevx/svelte-toast?label=lines%20of%20code)](https://github.com/XAMPPRocky/tokei)
+[![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast?label=minified)](https://bundlephobia.com/)
+[![Size gzipped](https://img.shields.io/bundlephobia/minzip/@zerodevx/svelte-toast?label=gzipped)](https://bundlephobia.com/)
 
 # svelte-toast
 
 > Simple elegant toast notifications.
 
-A lightweight, unopinionated and performant toast notification component for modern web frontends in very little
-lines of code. Compiled, it's only **15kb** minified (**6kb** gzipped) and can be used in Vanilla JS, or as a
-Svelte component.
+A lightweight, unopinionated and performant toast notification component for modern web frontends in
+[very](https://github.com/zerodevx/svelte-toast/blob/master/src/SvelteToast.svelte)
+[little](https://github.com/zerodevx/svelte-toast/blob/master/src/ToastItem.svelte)
+[lines](https://github.com/zerodevx/svelte-toast/blob/master/src/store.js)
+[of](https://github.com/zerodevx/svelte-toast/blob/master/src/index.js)
+[code](https://github.com/zerodevx/svelte-toast/blob/master/src/index.d.ts).
+Compiled (into UMD), it's only **17kb** minified (**7kb** gzipped) and can be used in Vanilla JS,
+as a Svelte component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
 
@@ -101,7 +109,7 @@ Or if you prefer to go old-school javascript and a CDN:
     })
 
     // Now you can `toast` anywhere!
-    toast.push('Hello world!');
+    toast.push('Hello world!')
   </script>
 </head>
 ```
@@ -214,14 +222,15 @@ then apply styles on the wrapper:
 
 ```html
 <style>
-  .wrap {
-    font-family: Roboto, sans-serif;
-    font-size: 0.875rem;
-    ...
-  }
-  .wrap :global(strong) {
-    font-weight: 600;
-  }
+.wrap {
+  display: contents;
+  font-family: Roboto, sans-serif;
+  font-size: 0.875rem;
+  ...
+}
+.wrap :global(strong) {
+  font-weight: 600;
+}
 </style>
 
 <div class="wrap">
@@ -237,6 +246,8 @@ In Vanilla JS, simply apply your styles to the `._toastMsg` class:
   ...
 }
 ```
+
+## Features
 
 ### New from `v0.4`
 
@@ -289,43 +300,74 @@ toast.pop(i => i.target !== 'new')
 toast.pop(0)
 ```
 
-#### Accepts Object as First Param
+#### Accepting Object as First Param
 
 `push()` and `set()` can also take an object as its first parameter.
 
 ```js
 let id = toast.push('Yo!', { duration: 2000 })
-
 // is semantically equivalent to
 id = toast.push({ msg: 'Yo!', duration: 2000 })
 
 toast.set(id, { msg: 'Waddup!' })
-
 // is semantically equivalent to
 toast.set({ id, msg: 'Waddup!' })
 ```
 
-## Options
+### New from `v0.5`
+
+#### Pausable Toasts
+
+Progress bar tweens can now be paused when the mouse cursor (on desktop) is hovered on the toast item.
+This behaviour by default is **disabled**. To enable, set option `pausable: true`:
+
+```js
+toast.push('Hover me!', { pausable: true })
+```
+
+#### Send Svelte Component as a Message
+
+To allow for complex UI or workflows, a Svelte component can be pushed instead of a standard message.
+Obviously, this works only if you're consuming `svelte-toast` as part of a larger Svelte project.
+To do so, push options with `component` property defined:
+
+```js
+import MyCustomSvelteComponent from './MyCustomSvelteComponent.svelte'
+
+toast.push({
+  component: {
+    src: MyCustomSvelteComponent, // set the `src` to the component itself (required)
+    props: {                      // optionally pass in `props` as key/value pairs
+      ...
+    },
+    sendIdTo: 'toastId'           // optionally forward the toast id to `toastId` prop
+  },
+  ...                             // any other toast options
+})
+```
+
+## Toast Options
 
 ```js
 // Default options
 const options = {
-  duration: 4000,       // duration of progress bar tween
-  dismissable: true,    // allow dismiss with close button
+  duration: 4000,       // duration of progress bar tween to the `next` value
   initial: 1,           // initial progress bar value
-  progress: 0,          // current progress
+  next: 0,              // next progress value
+  dismissable: true,    // allow dismiss with close button
+  pausable: false,      // allow pause on mouse hover
   reversed: false,      // insert new toast to bottom of stack
   intro: { x: 256 },    // toast intro fly animation settings
   theme: {}             // css var overrides
 }
 ```
 
-## Toast API
+## Toast Methods
 
 ```js
-const id = toast.push(message, { options })
-toast.pop(id)
-toast.set(id, { options })
+const id = toast.push(message, { ...options })
+toast.pop(id) // accepts a filter function too
+toast.set(id, { ...options })
 ```
 
 ## Development
