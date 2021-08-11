@@ -5,6 +5,7 @@ const defaults = {
   initial: 1,
   next: 0,
   dismissable: true,
+  pausable: false,
   reversed: false,
   intro: { x: 256 },
   theme: {}

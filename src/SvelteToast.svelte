@@ -32,12 +32,7 @@ ul {
 
 <ul>
   {#each items as item (item.id)}
-  <li
-    in:fly={item.intro}
-    out:fade
-    animate:flip={{ duration: 200 }}
-    style={getCss(item.theme)}
-    >
+  <li in:fly={item.intro} out:fade animate:flip={{ duration: 200 }} style={getCss(item.theme)}>
     <ToastItem {item} />
   </li>
   {/each}

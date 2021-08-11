@@ -6,19 +6,34 @@ import { toast } from './stores.js'
 export let item
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
+const autoclose = () => {
+  if ($progress === 1 || $progress === 0) {
+    toast.pop(item.id)
+  }
+}
 let prev = item.initial
 
 $: if (prev !== item.next) {
-  if (item.next === 1 || item.next === 0) {
-    progress.set(item.next).then(() => toast.pop(item.id))
-  } else {
-    progress.set(item.next)
-  }
+  progress.set(item.next).then(autoclose)
   prev = item.next
 }
 
+const pause = () => {
+  if (item.pausable) {
+    progress.set($progress, { duration: 0 })
+  }
+}
+
+const play = () => {
+  if (item.pausable) {
+    const pct = ($progress - item.initial) / (item.next - item.initial)
+    const remaining = item.duration - (item.duration * pct)
+    progress.set(item.next, { duration: remaining }).then(autoclose)
+  }
+}
+
 const getProps = () => {
-  const { props, sendIdTo } = item.component
+  const { props = {}, sendIdTo } = item.component
   if (sendIdTo) {
     props[sendIdTo] = item.id
   }
@@ -88,7 +103,7 @@ $: if (typeof item.progress !== 'undefined') {
 }
 </style>
 
-<div class="_toastItem">
+<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={play}>
   <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
     <svelte:component this={item.component.src} {...getProps()} />
