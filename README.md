@@ -1,8 +1,8 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Lines of code](https://img.shields.io/tokei/lines/github/zerodevx/svelte-toast?label=lines%20of%20code)](https://github.com/XAMPPRocky/tokei)
-[![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast?label=minified)](https://bundlephobia.com/)
-[![Size gzipped](https://img.shields.io/bundlephobia/minzip/@zerodevx/svelte-toast?label=gzipped)](https://bundlephobia.com/)
+[![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast@latest?label=minified)](https://bundlephobia.com/)
+[![Size gzipped](https://img.shields.io/bundlephobia/minzip/@zerodevx/svelte-toast@latest?label=gzipped)](https://bundlephobia.com/)
 
 # svelte-toast
 
@@ -15,7 +15,7 @@ A lightweight, unopinionated and performant toast notification component for mod
 [of](https://github.com/zerodevx/svelte-toast/blob/master/src/index.js)
 [code](https://github.com/zerodevx/svelte-toast/blob/master/src/index.d.ts).
 Compiled (into UMD), it's only **17kb** minified (**7kb** gzipped) and can be used in Vanilla JS,
-as a Svelte component.
+or as a Svelte component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
 
@@ -327,9 +327,8 @@ toast.push('Hover me!', { pausable: true })
 
 #### Send Svelte Component as a Message
 
-To allow for complex UI or workflows, a Svelte component can be pushed instead of a standard message.
-Obviously, this works only if you're consuming `svelte-toast` as part of a larger Svelte project.
-To do so, push options with `component` property defined:
+To support complex UI or workflows, a Svelte component can be pushed instead of a standard message if
+you're using this package in a Svelte project. To do so, push options with `component` property defined:
 
 ```js
 import MyCustomSvelteComponent from './MyCustomSvelteComponent.svelte'
