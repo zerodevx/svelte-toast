@@ -4,8 +4,8 @@ const defaults = {
   duration: 4000,
   initial: 1,
   next: 0,
-  dismissable: true,
   pausable: false,
+  dismissable: true,
   reversed: false,
   intro: { x: 256 },
   theme: {}

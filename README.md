@@ -1,8 +1,8 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Lines of code](https://img.shields.io/tokei/lines/github/zerodevx/svelte-toast?label=lines%20of%20code)](https://github.com/XAMPPRocky/tokei)
-[![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast@latest?label=minified)](https://bundlephobia.com/)
-[![Size gzipped](https://img.shields.io/bundlephobia/minzip/@zerodevx/svelte-toast@latest?label=gzipped)](https://bundlephobia.com/)
+[![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast?label=minified)](https://bundlephobia.com/)
+[![Size gzipped](https://img.shields.io/bundlephobia/minzip/@zerodevx/svelte-toast?label=gzipped)](https://bundlephobia.com/)
 
 # svelte-toast
 
@@ -319,7 +319,7 @@ toast.set({ id, msg: 'Waddup!' })
 #### Pausable Toasts
 
 Progress bar tweens can now be paused when the mouse cursor (on desktop) is hovered on the toast item.
-This behaviour by default is **disabled**. To enable, set option `pausable: true`:
+This behaviour by default is **disabled**. To enable, set option `pausable: true`.
 
 ```js
 toast.push('Hover me!', { pausable: true })
@@ -328,18 +328,18 @@ toast.push('Hover me!', { pausable: true })
 #### Send Svelte Component as a Message
 
 To support complex UI or workflows, a Svelte component can be pushed instead of a standard message if
-you're using this package in a Svelte project. To do so, push options with `component` property defined:
+you're using this package in a Svelte project. To do so, push options with `component` defined:
 
 ```js
 import MyCustomSvelteComponent from './MyCustomSvelteComponent.svelte'
 
 toast.push({
   component: {
-    src: MyCustomSvelteComponent, // set the `src` to the component itself (required)
+    src: MyCustomSvelteComponent, // set `src` to the component itself (required)
     props: {                      // optionally pass in `props` as key/value pairs
       ...
     },
-    sendIdTo: 'toastId'           // optionally forward the toast id to `toastId` prop
+    sendIdTo: 'toastId'           // optionally forward toast id to `toastId` prop
   },
   ...                             // any other toast options
 })
@@ -353,8 +353,8 @@ const options = {
   duration: 4000,       // duration of progress bar tween to the `next` value
   initial: 1,           // initial progress bar value
   next: 0,              // next progress value
+  pausable: false,      // pause progress bar tween on mouse hover
   dismissable: true,    // allow dismiss with close button
-  pausable: false,      // allow pause on mouse hover
   reversed: false,      // insert new toast to bottom of stack
   intro: { x: 256 },    // toast intro fly animation settings
   theme: {}             // css var overrides
