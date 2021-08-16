@@ -11,24 +11,29 @@ const autoclose = () => {
     toast.pop(item.id)
   }
 }
-let prev = item.initial
+let next = item.initial
+let prev = next
+let paused = false
 
-$: if (prev !== item.next) {
-  progress.set(item.next).then(autoclose)
-  prev = item.next
+$: if (next !== item.next) {
+  next = item.next
+  prev = $progress
+  paused = false
+  progress.set(next).then(autoclose)
 }
 
 const pause = () => {
-  if (item.pausable) {
+  if (item.pausable && !paused && $progress !== next) {
     progress.set($progress, { duration: 0 })
+    paused = true
   }
 }
 
-const play = () => {
-  if (item.pausable) {
-    const pct = ($progress - item.initial) / (item.next - item.initial)
-    const remaining = item.duration - (item.duration * pct)
-    progress.set(item.next, { duration: remaining }).then(autoclose)
+const resume = () => {
+  if (item.pausable && paused) {
+    const remaining = item.duration - (item.duration * (($progress - prev) / (next - prev)))
+    progress.set(next, { duration: remaining }).then(autoclose)
+    paused = false
   }
 }
 
@@ -103,7 +108,7 @@ $: if (typeof item.progress !== 'undefined') {
 }
 </style>
 
-<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={play}>
+<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
   <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
     <svelte:component this={item.component.src} {...getProps()} />

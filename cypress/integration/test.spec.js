@@ -210,4 +210,17 @@ describe('Integration Tests', () => {
         }).get('._toastBtn').click()
       })
   })
+
+  it('Passes pausable edge case when `next` is changed on hover', () => {
+    cy.window().invoke('toast.push', 'test', { pausable: true, duration: 50 })
+      .then($id => {
+        cy.get('._toastItem').trigger('mouseenter', { force: true })
+          .window().invoke('toast.set', $id, { next: 0.1 })
+          .wait(100)
+          .get('._toastBar').then($bar => {
+            expect(parseFloat($bar.val())).to.equal(0.1)
+            cy.get('._toastBtn').click()
+          })
+      })
+  })
 })
