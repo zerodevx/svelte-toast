@@ -16,7 +16,7 @@ const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]
 </script>
 
 <style>
-ul {
+._toastContainer {
   top: var(--toastContainerTop,1.5rem);
   right: var(--toastContainerRight,2rem);
   bottom: var(--toastContainerBottom,auto);
@@ -30,7 +30,7 @@ ul {
 }
 </style>
 
-<ul>
+<ul class="_toastContainer">
   {#each items as item (item.id)}
   <li in:fly={item.intro} out:fade animate:flip={{ duration: 200 }} style={getCss(item.theme)}>
     <ToastItem {item} />
