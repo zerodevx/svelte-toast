@@ -141,7 +141,7 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
   padding: var(--toastMsgPadding, 0.75rem 0.5rem);
 }
 
-._toastProgressBar {
+._toastBar {
   background: var(--toastProgressBackground, rgba(33,150,243,0.75));
 }
 ```
@@ -318,8 +318,8 @@ toast.set({ id, msg: 'Waddup!' })
 
 #### Pausable Toasts
 
-Progress bar tweens can now be paused when the mouse cursor (on desktop) is hovered on the toast item.
-This behaviour by default is **disabled**. To enable, set option `pausable: true`.
+Progress bar tweens can now be paused when the mouse cursor (on desktop) is hovered over the toast item.
+This behaviour is **disabled** by default. To enable, set option `pausable: true`.
 
 ```js
 toast.push('Hover me!', { pausable: true })
@@ -364,8 +364,8 @@ const options = {
 ## Toast Methods
 
 ```js
-const id = toast.push(message, { ...options })
-toast.pop(id) // accepts a filter function too
+const id = toast.push(msg, { ...options })
+toast.pop(id || fn || undefined)
 toast.set(id, { ...options })
 ```
 
