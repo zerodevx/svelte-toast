@@ -30,7 +30,7 @@ const pause = () => {
 }
 
 const resume = () => {
-  if (item.pausable && paused) {
+  if (paused) {
     const remaining = item.duration - (item.duration * (($progress - prev) / (next - prev)))
     progress.set(next, { duration: remaining }).then(autoclose)
     paused = false
