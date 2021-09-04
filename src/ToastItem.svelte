@@ -100,11 +100,12 @@ $: if (typeof item.progress !== 'undefined') {
 ._toastBar::-webkit-progress-bar {
   background: transparent;
 }
+/* `--toastProgressBackground` has been renamed to `--toastBarBackground`; override included for backward compatibility */
 ._toastBar::-webkit-progress-value {
-  background: var(--toastProgressBackground,rgba(33,150,243,0.75));
+  background: var(--toastProgressBackground,var(--toastBarBackground,rgba(33,150,243,0.75)));
 }
 ._toastBar::-moz-progress-bar {
-  background: var(--toastProgressBackground,rgba(33,150,243,0.75));
+  background: var(--toastProgressBackground,var(--toastBarBackground,rgba(33,150,243,0.75)));
 }
 </style>
 
