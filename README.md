@@ -119,6 +119,21 @@ Or if you prefer to go old-school javascript and a CDN:
 In general, use CSS variables - the following (self-explanatory) vars are exposed:
 
 ```css
+/**
+ *         ._toastContainer
+ *    ┌───────────────────────────────────────┐
+ *    │    ._toastItem                        │
+ *    │ ┌───────────────────────────────────┐ │
+ *    │ │  ._toastMsg             ._toastBtn│ │
+ *    │ │ ┌───────────────────────┐ ┌─────┐ │ │
+ *    │ │ │                       │ │  ✕  │ │ │
+ *    │ │ └───────────────────────┘ └─────┘ │ │
+ *    │ │  ._toastBar                       │ │
+ *    │ │ ═════════════════════════════════ │ │
+ *    │ └───────────────────────────────────┘ │
+ *    └───────────────────────────────────────┘
+ */
+
 ._toastContainer {
   top: var(--toastContainerTop, 1.5rem);
   right: var(--toastContainerRight, 2rem);
