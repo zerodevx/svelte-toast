@@ -1,4 +1,4 @@
-[![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
+[![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast/latest)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Lines of code](https://img.shields.io/tokei/lines/github/zerodevx/svelte-toast?label=lines%20of%20code)](https://github.com/XAMPPRocky/tokei)
 [![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast?label=minified)](https://bundlephobia.com/)
