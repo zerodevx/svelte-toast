@@ -55,7 +55,7 @@ onMount(() => {
   }
 })
 
-afterUpdate(async (node) => {
+afterUpdate(async () => {
   // code variable if they are using a prop
   // Have to use innerText because innerHTML will create weird escape characaters
   if (fakeCodeEl && fakeCodeEl.innerText !== '') {
