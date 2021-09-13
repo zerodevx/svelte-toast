@@ -45,9 +45,9 @@ export class SvelteToast extends SvelteComponent {
 }
 
 declare namespace toast {
-  export function push (msg: string, options?: SvelteToastOptions): number
-  export function push (options: SvelteToastOptions): number
-  export function pop (arg?: any): void
-  export function set (id: number, options?: SvelteToastOptions): void
-  export function set (options: SvelteToastOptions): void
+  export function push(msg: string, options?: SvelteToastOptions): number
+  export function push(options: SvelteToastOptions): number
+  export function pop(arg?: any): void
+  export function set(id: number, options?: SvelteToastOptions): void
+  export function set(options: SvelteToastOptions): void
 }

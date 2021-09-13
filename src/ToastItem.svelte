@@ -31,7 +31,7 @@ const pause = () => {
 
 const resume = () => {
   if (paused) {
-    const remaining = item.duration - (item.duration * (($progress - prev) / (next - prev)))
+    const remaining = item.duration - item.duration * (($progress - prev) / (next - prev))
     progress.set(next, { duration: remaining }).then(autoclose)
     paused = false
   }
@@ -53,29 +53,34 @@ $: if (typeof item.progress !== 'undefined') {
 
 <style>
 ._toastItem {
-  width: var(--toastWidth,16rem);
-  height: var(--toastHeight,auto);
-  min-height: var(--toastMinHeight,3.5rem);
-  margin: var(--toastMargin,0 0 0.5rem 0);
-  padding: var(--toastPadding,0);
-  background: var(--toastBackground,rgba(66,66,66,0.9));
-  color: var(--toastColor,#FFF);
-  box-shadow: var(--toastBoxShadow,0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06));
-  border: var(--toastBorder,none);
-  border-radius: var(--toastBorderRadius,0.125rem);
+  width: var(--toastWidth, 16rem);
+  height: var(--toastHeight, auto);
+  min-height: var(--toastMinHeight, 3.5rem);
+  margin: var(--toastMargin, 0 0 0.5rem 0);
+  padding: var(--toastPadding, 0);
+  background: var(--toastBackground, rgba(66, 66, 66, 0.9));
+  color: var(--toastColor, #fff);
+  box-shadow: var(
+    --toastBoxShadow,
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06)
+  );
+  border: var(--toastBorder, none);
+  border-radius: var(--toastBorderRadius, 0.125rem);
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   overflow: hidden;
-  will-change: transform,opacity;
+  will-change: transform, opacity;
   -webkit-tap-highlight-color: transparent;
 }
 ._toastMsg {
-  padding: var(--toastMsgPadding,0.75rem 0.5rem);
+  padding: var(--toastMsgPadding, 0.75rem 0.5rem);
   flex: 1 1 0%;
 }
-.pe, ._toastMsg :global(a) {
+.pe,
+._toastMsg :global(a) {
   pointer-events: auto;
 }
 ._toastBtn {
@@ -89,12 +94,12 @@ $: if (typeof item.progress !== 'undefined') {
   outline: none;
 }
 ._toastBar {
-  top: var(--toastBarTop,auto);
-  right: var(--toastBarRight,auto);
-  bottom: var(--toastBarBottom,0);
-  left: var(--toastBarLeft,0);
-  height: var(--toastBarHeight,6px);
-  width: var(--toastBarWidth,100%);
+  top: var(--toastBarTop, auto);
+  right: var(--toastBarRight, auto);
+  bottom: var(--toastBarBottom, 0);
+  left: var(--toastBarLeft, 0);
+  height: var(--toastBarHeight, 6px);
+  width: var(--toastBarWidth, 100%);
   position: absolute;
   display: block;
   -webkit-appearance: none;
@@ -109,23 +114,25 @@ $: if (typeof item.progress !== 'undefined') {
 }
 /* `--toastProgressBackground` has been renamed to `--toastBarBackground`; override included for backward compatibility */
 ._toastBar::-webkit-progress-value {
-  background: var(--toastProgressBackground,var(--toastBarBackground,rgba(33,150,243,0.75)));
+  background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
 }
 ._toastBar::-moz-progress-bar {
-  background: var(--toastProgressBackground,var(--toastBarBackground,rgba(33,150,243,0.75)));
+  background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
 }
 </style>
 
 <div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
   <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
-    <svelte:component this={item.component.src} {...getProps()} />
+      <svelte:component this={item.component.src} {...getProps()} />
     {:else}
-    {@html item.msg}
+      {@html item.msg}
     {/if}
   </div>
   {#if item.dismissable}
-  <div class="_toastBtn pe" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>✕</div>
+    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>
+      ✕
+    </div>
   {/if}
-  <progress class="_toastBar" value={$progress}></progress>
+  <progress class="_toastBar" value={$progress} />
 </div>

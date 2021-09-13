@@ -14,7 +14,7 @@ let colors = false
 let bottom = false
 let options = {}
 
-const handleClick = btn => {
+const handleClick = (btn) => {
   selected = btn.name
   code = btn.code
   btn.run()
@@ -38,7 +38,9 @@ const buttons = [
   }
 })`,
     run: () => {
-      toast.push('Success!', { theme: { '--toastBackground': '#48BB78', '--toastProgressBackground': '#2F855A' } })
+      toast.push('Success!', {
+        theme: { '--toastBackground': '#48BB78', '--toastProgressBackground': '#2F855A' }
+      })
     }
   },
   {
@@ -50,7 +52,9 @@ const buttons = [
   }
 })`,
     run: () => {
-      toast.push('Danger!', { theme: { '--toastBackground': '#F56565', '--toastProgressBackground': '#C53030' } })
+      toast.push('Danger!', {
+        theme: { '--toastBackground': '#F56565', '--toastProgressBackground': '#C53030' }
+      })
     }
   },
   {
@@ -58,7 +62,9 @@ const buttons = [
     code: `toast.push(\`<strong>You won the jackpot!</strong><br>
   Click <a href="#" target="_blank">here</a> for details! 😛\`)`,
     run: () => {
-      toast.push('<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛')
+      toast.push(
+        '<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛'
+      )
     }
   },
   {
@@ -124,8 +130,12 @@ toast.set(id, { msg: 'Just a bit more', next: 0.8 })
 await sleep(2000)
 toast.set(id, { next: 1 })`,
     run: async () => {
-      const sleep = t => new Promise(resolve => setTimeout(resolve, t))
-      const id = toast.push('Loading, please wait...', { duration: 300, initial: 0, dismissable: false })
+      const sleep = (t) => new Promise((resolve) => setTimeout(resolve, t))
+      const id = toast.push('Loading, please wait...', {
+        duration: 300,
+        initial: 0,
+        dismissable: false
+      })
       await sleep(500)
       toast.set(id, { next: 0.1 })
       await sleep(3000)
@@ -224,7 +234,7 @@ toast.pop(i => i.target !== 'new')
 // Or remove ALL active toasts from ALL containers
 toast.pop(0)`,
     run: () => {
-      toast.pop(i => i.target !== 'new')
+      toast.pop((i) => i.target !== 'new')
     }
   },
   {
@@ -245,7 +255,11 @@ toast.pop(0)`,
 })`,
     run: () => {
       toast.push({
-        component: { src: DummyComponent, props: { title: 'A Dummy Cookie Component' }, sendIdTo: 'toastId' },
+        component: {
+          src: DummyComponent,
+          props: { title: 'A Dummy Cookie Component' },
+          sendIdTo: 'toastId'
+        },
         dismissable: false,
         initial: 0,
         theme: { '--toastMsgPadding': '0' }
@@ -264,7 +278,7 @@ toast.pop(0)`,
 
 <style>
 .colors {
-  --toastBackground: rgba(255,255,255,0.95);
+  --toastBackground: rgba(255, 255, 255, 0.95);
   --toastColor: #424242;
   --toastProgressBackground: aquamarine;
 }
@@ -281,7 +295,7 @@ toast.pop(0)`,
   --toastContainerLeft: 2rem;
   --toastWidth: 100%;
   --toastMinHeight: 1.5rem;
-  --toastBackground: rgba(59,130,246,0.95);
+  --toastBackground: rgba(59, 130, 246, 0.95);
   --toastMsgPadding: 0.25rem 0.5rem;
   font-size: 0.875rem;
 }
@@ -289,18 +303,23 @@ toast.pop(0)`,
 
 <div class="container">
   <div class="w-full h-64 px-2 mt-4 mb-8">
-    <Prism classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4">
+    <Prism
+      classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4"
+    >
       {code}
     </Prism>
   </div>
   <div class="flex flex-row flex-wrap items-center justify-center">
     {#each buttons as btn}
-    <button
-      class:selected={selected === btn.name}
-      on:click={() => { handleClick(btn) }}
-      data-btn={camelCase(btn.name)}>
-      {btn.name}
-    </button>
+      <button
+        class:selected={selected === btn.name}
+        on:click={() => {
+          handleClick(btn)
+        }}
+        data-btn={camelCase(btn.name)}
+      >
+        {btn.name}
+      </button>
     {/each}
   </div>
 </div>

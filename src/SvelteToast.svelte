@@ -10,17 +10,17 @@ export let target = 'default'
 $: toast._init(target, options)
 
 let items
-$: items = $toast.filter(i => i.target === target)
+$: items = $toast.filter((i) => i.target === target)
 
-const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
+const getCss = (theme) => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
 </script>
 
 <style>
 ._toastContainer {
-  top: var(--toastContainerTop,1.5rem);
-  right: var(--toastContainerRight,2rem);
-  bottom: var(--toastContainerBottom,auto);
-  left: var(--toastContainerLeft,auto);
+  top: var(--toastContainerTop, 1.5rem);
+  right: var(--toastContainerRight, 2rem);
+  bottom: var(--toastContainerBottom, auto);
+  left: var(--toastContainerLeft, auto);
   position: fixed;
   margin: 0;
   padding: 0;
@@ -32,8 +32,8 @@ const getCss = theme => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]
 
 <ul class="_toastContainer">
   {#each items as item (item.id)}
-  <li in:fly={item.intro} out:fade animate:flip={{ duration: 200 }} style={getCss(item.theme)}>
-    <ToastItem {item} />
-  </li>
+    <li in:fly={item.intro} out:fade animate:flip={{ duration: 200 }} style={getCss(item.theme)}>
+      <ToastItem {item} />
+    </li>
   {/each}
 </ul>
