@@ -1,35 +1,23 @@
 module.exports = {
+  root: true,
+  extends: ['eslint:recommended', 'prettier'],
+  overrides: [
+    { files: ['*.svelte'], plugins: ['svelte3'], processor: 'svelte3/svelte3' },
+    { files: ['*.html'], plugins: ['html'] },
+    {
+      files: ['*.ts'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      extends: ['plugin:@typescript-eslint/recommended']
+    }
+  ],
   parserOptions: {
-    ecmaVersion: 2018,
     sourceType: 'module',
-    project: './tsconfig.json'
+    ecmaVersion: 2019
   },
   env: {
-    es6: true,
     browser: true,
+    es2017: true,
     node: true
-  },
-  extends: [
-    'standard-with-typescript'
-  ],
-  plugins: [
-    'svelte3',
-    'html'
-  ],
-  globals: {
-    dataLayer: true,
-    gtag: true
-  },
-  overrides: [
-    {
-      files: ['**/*.svelte'],
-      processor: 'svelte3/svelte3',
-      rules: {
-        'import/first': 0,
-        'import/no-duplicates': 0,
-        'import/no-mutable-exports': 0,
-        'no-multiple-empty-lines': 0
-      }
-    }
-  ]
+  }
 }
