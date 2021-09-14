@@ -1,4 +1,5 @@
 <script>
+/*eslint no-useless-escape: "off"*/
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
 import Prism from './Prism.svelte'
@@ -24,7 +25,7 @@ const handleClick = (btn) => {
 const buttons = [
   {
     name: 'DEFAULT',
-    code: `toast.push('Hello world!')`, // eslint-disable-line quotes
+    code: `toast.push('Hello world!')`,
     run: () => {
       toast.push('Hello world!')
     }
@@ -34,12 +35,12 @@ const buttons = [
     code: `toast.push('Success!', {
   theme: {
     '--toastBackground': '#48BB78',
-    '--toastProgressBackground': '#2F855A'
+    '--toastBarBackground': '#2F855A'
   }
 })`,
     run: () => {
       toast.push('Success!', {
-        theme: { '--toastBackground': '#48BB78', '--toastProgressBackground': '#2F855A' }
+        theme: { '--toastBackground': '#48BB78', '--toastBarBackground': '#2F855A' }
       })
     }
   },
@@ -48,12 +49,12 @@ const buttons = [
     code: `toast.push('Danger!', {
   theme: {
     '--toastBackground': '#F56565',
-    '--toastProgressBackground': '#C53030'
+    '--toastBarBackground': '#C53030'
   }
 })`,
     run: () => {
       toast.push('Danger!', {
-        theme: { '--toastBackground': '#F56565', '--toastProgressBackground': '#C53030' }
+        theme: { '--toastBackground': '#F56565', '--toastBarBackground': '#C53030' }
       })
     }
   },
@@ -62,14 +63,12 @@ const buttons = [
     code: `toast.push(\`<strong>You won the jackpot!</strong><br>
   Click <a href="#" target="_blank">here</a> for details! 😛\`)`,
     run: () => {
-      toast.push(
-        '<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛'
-      )
+      toast.push('<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛')
     }
   },
   {
     name: 'LONG DURATION',
-    code: `toast.push('Watching the paint dry...', { duration: 20000 })`, // eslint-disable-line quotes
+    code: `toast.push('Watching the paint dry...', { duration: 20000 })`,
     run: () => {
       toast.push('Watching the paint dry...', { duration: 20000 })
     }
@@ -150,15 +149,15 @@ toast.set(id, { next: 1 })`,
     name: 'CHANGE DEFAULT COLORS',
     code: `<style>
   :root {
-    --toastBackground: rgba(255,255,255,0.95);
+    --toastBackground: rgba(245, 208, 254, 0.95);
     --toastColor: #424242;
-    --toastProgressBackground: aquamarine;
+    --toastBarBackground: fuchsia;
   }
 </style>
 
 <script>
   toast.push('Changed some colors')
-<\/script>`, // eslint-disable-line no-useless-escape
+<\/script>`,
     run: () => {
       colors = true
       toast.push('Changed some colors')
@@ -179,7 +178,7 @@ toast.set(id, { next: 1 })`,
 
 <script>
   toast.push('Bottoms up!')
-<\/script>`, // eslint-disable-line no-useless-escape
+<\/script>`,
     run: async () => {
       bottom = true
       options = { reversed: true, intro: { y: 128 } }
@@ -200,30 +199,36 @@ toast.set(id, { next: 1 })`,
   },
   {
     name: 'CREATE NEW TOAST CONTAINER',
-    code: `<style>
-  .wrap {
-    --toastContainerTop: 0.5rem;
-    --toastContainerRight: 2rem;
-    --toastContainerBottom: auto;
-    --toastContainerLeft: 2rem;
-    --toastWidth: 100%;
-    --toastMinHeight: 1.5rem;
-    --toastBackground: rgba(59,130,246,0.95);
-    --toastMsgPadding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-  }
-</style>
-
-<div class="wrap">
+    code: `<div class="wrap">
   <SvelteToast target="new" options={{ initial: 0, intro: { y: -64 } }} />
 </div>
 
 <script>
   // Send toast to "new" container
-  toast.push('NEW: Multiple toast container support', { target: 'new' })
-<\/script>`, // eslint-disable-line no-useless-escape
+  toast.push('NEW: Multiple toast container support!', { target: 'new' })
+<\/script>
+
+<style>
+  .wrap {
+    --toastContainerTop: 0.5rem;
+    --toastContainerRight: 0.5rem;
+    --toastContainerBottom: auto;
+    --toastContainerLeft: 0.5rem;
+    --toastWidth: 100%;
+    --toastMinHeight: 2rem;
+    --toastPadding: 0 0.5rem;
+    font-size: 0.875rem;
+  }
+  @media (min-width: 40rem) {
+    .wrap {
+      --toastContainerRight: auto;
+      --toastContainerLeft: calc(50vw - 20rem);
+      --toastWidth: 40rem;
+    }
+  }
+</style>`,
     run: () => {
-      toast.push('NEW: Multiple toast container support', { target: 'new' })
+      toast.push('<strong>NEW:</strong> Multiple toast container support!', { target: 'new' })
     }
   },
   {
@@ -250,6 +255,7 @@ toast.pop(0)`,
   dismissable: false,
   initial: 0,
   theme: {
+    '--toastPadding': '0',
     '--toastMsgPadding': '0'
   }
 })`,
@@ -260,17 +266,38 @@ toast.pop(0)`,
           props: { title: 'A Dummy Cookie Component' },
           sendIdTo: 'toastId'
         },
+        target: 'new',
         dismissable: false,
         initial: 0,
-        theme: { '--toastMsgPadding': '0' }
+        theme: {
+          '--toastPadding': '0',
+          '--toastMsgPadding': '0',
+          '--toastBackground': 'transparent',
+          '--toastBorderRadius': '1rem'
+        }
       })
     }
   },
   {
     name: 'PAUSE ON MOUSE HOVER',
-    code: `toast.push('Hover me!', { pausable: true })`, // eslint-disable-line
+    code: `toast.push('Hover me!', { pausable: true })`,
     run: () => {
       toast.push('Hover me!', { pausable: true })
+    }
+  },
+  {
+    name: 'RUN CALLBACK ON TOAST REMOVAL',
+    code: `toast.push('Wait for it...', {
+  onpop: () => {
+    toast.push('onpop() callback has been executed.', { target: 'new' })
+  }
+})`,
+    run: () => {
+      toast.push('Wait for it...', {
+        onpop: () => {
+          toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, { target: 'new' })
+        }
+      })
     }
   }
 ]
@@ -278,9 +305,9 @@ toast.pop(0)`,
 
 <style>
 .colors {
-  --toastBackground: rgba(255, 255, 255, 0.95);
+  --toastBackground: rgba(245, 208, 254, 0.95);
   --toastColor: #424242;
-  --toastProgressBackground: aquamarine;
+  --toastBarBackground: fuchsia;
 }
 .bottom {
   --toastContainerTop: auto;
@@ -290,22 +317,26 @@ toast.pop(0)`,
 }
 .top {
   --toastContainerTop: 0.5rem;
-  --toastContainerRight: 2rem;
+  --toastContainerRight: 0.5rem;
   --toastContainerBottom: auto;
-  --toastContainerLeft: 2rem;
+  --toastContainerLeft: 0.5rem;
   --toastWidth: 100%;
-  --toastMinHeight: 1.5rem;
-  --toastBackground: rgba(59, 130, 246, 0.95);
-  --toastMsgPadding: 0.25rem 0.5rem;
+  --toastMinHeight: 2rem;
+  --toastPadding: 0 0.5rem;
   font-size: 0.875rem;
+}
+@media (min-width: 40rem) {
+  .top {
+    --toastContainerRight: auto;
+    --toastContainerLeft: calc(50vw - 20rem);
+    --toastWidth: 40rem;
+  }
 }
 </style>
 
 <div class="container">
   <div class="w-full h-64 px-2 mt-4 mb-8">
-    <Prism
-      classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4"
-    >
+    <Prism classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4">
       {code}
     </Prism>
   </div>

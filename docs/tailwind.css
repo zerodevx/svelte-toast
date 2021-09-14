@@ -11,7 +11,7 @@
     @apply text-blue-400 hover:text-blue-600 underline;
   }
   button {
-    @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 rounded-sm focus:outline-none focus:ring px-2 m-2;
+    @apply w-40 h-12 text-gray-600 hover:text-gray-900 text-xs font-bold tracking-wide bg-white border border-gray-300 hover:border-blue-800 rounded-sm focus:outline-none focus:ring px-2 m-2;
   }
   button.selected {
     @apply bg-blue-200;
