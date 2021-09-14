@@ -6,9 +6,16 @@ import { toast } from './stores.js'
 export let item
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
+const close = () => {
+  const { id, onpop } = item
+  toast.pop(id)
+  if (typeof onpop === 'function') {
+    onpop(id)
+  }
+}
 const autoclose = () => {
   if ($progress === 1 || $progress === 0) {
-    toast.pop(item.id)
+    close()
   }
 }
 let next = item.initial
@@ -31,8 +38,9 @@ const pause = () => {
 
 const resume = () => {
   if (paused) {
-    const remaining = item.duration - item.duration * (($progress - prev) / (next - prev))
-    progress.set(next, { duration: remaining }).then(autoclose)
+    const d = item.duration
+    const duration = d - d * (($progress - prev) / (next - prev))
+    progress.set(next, { duration }).then(autoclose)
     paused = false
   }
 }
@@ -60,11 +68,7 @@ $: if (typeof item.progress !== 'undefined') {
   padding: var(--toastPadding, 0);
   background: var(--toastBackground, rgba(66, 66, 66, 0.9));
   color: var(--toastColor, #fff);
-  box-shadow: var(
-    --toastBoxShadow,
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06)
-  );
+  box-shadow: var(--toastBoxShadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
   border: var(--toastBorder, none);
   border-radius: var(--toastBorderRadius, 0.125rem);
   position: relative;
@@ -112,7 +116,7 @@ $: if (typeof item.progress !== 'undefined') {
 ._toastBar::-webkit-progress-bar {
   background: transparent;
 }
-/* `--toastProgressBackground` has been renamed to `--toastBarBackground`; override included for backward compatibility */
+/* `--toastProgressBackground` renamed to `--toastBarBackground`; override included for backward compatibility */
 ._toastBar::-webkit-progress-value {
   background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
 }
@@ -130,9 +134,7 @@ $: if (typeof item.progress !== 'undefined') {
     {/if}
   </div>
   {#if item.dismissable}
-    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={() => toast.pop(item.id)}>
-      ✕
-    </div>
+    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close}>✕</div>
   {/if}
   <progress class="_toastBar" value={$progress} />
 </div>
