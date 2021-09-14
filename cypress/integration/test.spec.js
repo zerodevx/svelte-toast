@@ -24,11 +24,7 @@ describe('Integration Tests', () => {
   })
 
   it('Can change duration', () => {
-    cy.window()
-      .invoke('toast.push', 'Test', { duration: 1000 })
-      .get('._toastItem')
-      .wait(1500)
-      .should('not.exist')
+    cy.window().invoke('toast.push', 'Test', { duration: 1000 }).get('._toastItem').wait(1500).should('not.exist')
   })
 
   it('Can be non-dismissable then popped', () => {
@@ -94,7 +90,7 @@ describe('Integration Tests', () => {
     cy.get('[data-btn=changeDefaultColors]')
       .click()
       .get('._toastItem')
-      .should('have.css', 'background-color', 'rgba(255, 255, 255, 0.95)')
+      .should('have.css', 'background-color', 'rgba(245, 208, 254, 0.95)')
       .get('._toastBtn')
       .click()
   })
@@ -250,5 +246,19 @@ describe('Integration Tests', () => {
             cy.get('._toastBtn').click()
           })
       })
+  })
+
+  it('Runs callback when toast is popped', () => {
+    cy.get('[data-btn=runCallbackOnToastRemoval]')
+      .click()
+      .get('._toastItem')
+      .contains('Wait for it')
+      .get('._toastBtn')
+      .click()
+      .wait(500)
+      .get('._toastItem')
+      .contains('callback has been executed')
+      .get('._toastBtn')
+      .click()
   })
 })
