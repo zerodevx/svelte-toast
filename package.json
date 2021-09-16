@@ -1,6 +1,6 @@
 {
   "name": "@zerodevx/svelte-toast",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Simple elegant toast notifications",
   "author": "Jason Lee <jason@zerodevx.com>",
   "svelte": "src/index.js",
@@ -37,7 +37,7 @@
     "eslint-plugin-svelte3": "^3.2.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.3.6",
-    "prettier": "^2.4.0",
+    "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
     "prismjs": "^1.24.1",
     "rollup": "^2.56.3",
@@ -45,7 +45,7 @@
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "sirv-cli": "^1.0.14",
-    "svelte": "^3.42.5",
+    "svelte": "^3.42.6",
     "tailwindcss": "^2.2.15",
     "typescript": "^4.4.3"
   },
