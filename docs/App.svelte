@@ -269,6 +269,7 @@ toast.pop(0)`,
         target: 'new',
         dismissable: false,
         initial: 0,
+        intro: { y: -192 },
         theme: {
           '--toastPadding': '0',
           '--toastMsgPadding': '0',
