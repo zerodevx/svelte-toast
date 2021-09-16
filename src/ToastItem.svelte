@@ -1,4 +1,5 @@
 <script>
+import { onDestroy } from 'svelte'
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
 import { toast } from './stores.js'
@@ -6,13 +7,7 @@ import { toast } from './stores.js'
 export let item
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
-const close = () => {
-  const { id, onpop } = item
-  toast.pop(id)
-  if (typeof onpop === 'function') {
-    onpop(id)
-  }
-}
+const close = () => toast.pop(item.id)
 const autoclose = () => {
   if ($progress === 1 || $progress === 0) {
     close()
@@ -57,6 +52,12 @@ const getProps = () => {
 $: if (typeof item.progress !== 'undefined') {
   item.next = item.progress
 }
+
+onDestroy(() => {
+  if (typeof item.onpop === 'function') {
+    item.onpop(item.id)
+  }
+})
 </script>
 
 <style>

@@ -261,4 +261,18 @@ describe('Integration Tests', () => {
       .get('._toastBtn')
       .click()
   })
+
+  it('Runs callback when toast is popped programatically', () => {
+    cy.get('[data-btn=runCallbackOnToastRemoval]')
+      .click()
+      .get('._toastItem')
+      .contains('Wait for it')
+      .window()
+      .invoke('toast.pop')
+      .wait(500)
+      .get('._toastItem')
+      .contains('callback has been executed')
+      .get('._toastBtn')
+      .click()
+  })
 })
