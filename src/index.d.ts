@@ -33,7 +33,7 @@ export interface SvelteToastOptions {
   intro?: FlyParams
   theme?: { [key: string]: string }
   component?: {
-    src: SvelteComponent
+    src: typeof SvelteComponent
     props?: { [key: string]: any }
     sendIdTo?: string
   }
