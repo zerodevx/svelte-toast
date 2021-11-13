@@ -32,7 +32,7 @@ const createToast = () => {
   const pop = (id) => {
     update((n) => {
       if (!n.length || id === 0) return []
-      if (_obj(id)) return n.filter((i) => id(i))
+      if (_obj(id)) return n.filter((i) => !id(i))
       const target = id || Math.max(...n.map((i) => i.id))
       return n.filter((i) => i.id !== target)
     })

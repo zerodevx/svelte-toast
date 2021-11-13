@@ -234,12 +234,12 @@ toast.set(id, { next: 1 })`,
   {
     name: 'REMOVE ALL TOASTS FROM CONTAINER',
     code: `// Remove all toasts from "new" container
-toast.pop(i => i.target !== 'new')
+toast.pop(i => i.target === 'new')
 
 // Or remove ALL active toasts from ALL containers
 toast.pop(0)`,
     run: () => {
-      toast.pop((i) => i.target !== 'new')
+      toast.pop((i) => i.target === 'new')
     }
   },
   {
