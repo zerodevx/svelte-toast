@@ -1,8 +1,7 @@
 const dt = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./docs/*.{html,js,svelte}'],
+  content: ['./docs/*.{html,js,svelte}'],
   theme: {
     extend: {
       fontFamily: {
