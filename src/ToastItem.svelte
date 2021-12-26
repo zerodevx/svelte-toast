@@ -127,7 +127,7 @@ onDestroy(() => {
 </style>
 
 <div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
-  <div class="_toastMsg" class:pe={item.component}>
+  <div role="status" class="_toastMsg" class:pe={item.component}>
     {#if item.component}
       <svelte:component this={item.component.src} {...getProps()} />
     {:else}
