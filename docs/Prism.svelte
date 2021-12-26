@@ -78,12 +78,8 @@ $: if (typeof Prism !== 'undefined' && code) {
 <code style="display: none" bind:this={fakeCodeEl}>
   <slot />
 </code>
-<pre
-  class="{prismClasses} {classes}"
-  bind:this={preEl}
-  {...$$restProps}>
-  <code
-    class="language-{language}">
+<pre class="{prismClasses} {classes}" bind:this={preEl} {...$$restProps}>
+  <code class="language-{language}">
     {@html formattedCode}
   </code>
 </pre>
