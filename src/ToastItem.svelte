@@ -16,7 +16,6 @@ const autoclose = () => {
 let next = item.initial
 let prev = next
 let paused = false
-let hideProgressBar = item.hideProgressBar || false
 
 $: if (next !== item.next) {
   next = item.next
@@ -107,7 +106,7 @@ onDestroy(() => {
   height: var(--toastBarHeight, 6px);
   width: var(--toastBarWidth, 100%);
   position: absolute;
-  display: var(--toastBarDisplay, block);
+  display: block;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -127,7 +126,7 @@ onDestroy(() => {
 }
 </style>
 
-<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume} style="--toastBarDisplay: {hideProgressBar ? 'none' : 'block'}">
+<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
   <div role="status" class="_toastMsg" class:pe={item.component}>
     {#if item.component}
       <svelte:component this={item.component.src} {...getProps()} />
@@ -138,5 +137,7 @@ onDestroy(() => {
   {#if item.dismissable}
     <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close}>✕</div>
   {/if}
-  <progress class="_toastBar" value={$progress} />
+  {#if item.showProgress}
+    <progress class="_toastBar" value={$progress} />
+  {/if}
 </div>

@@ -7,6 +7,7 @@ const defaults = {
   pausable: false,
   dismissable: true,
   reversed: false,
+  showProgress: true,
   intro: { x: 256 },
   theme: {}
 }

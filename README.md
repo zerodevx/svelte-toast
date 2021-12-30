@@ -157,7 +157,6 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
 }
 
 ._toastBar {
-  display: var(--toastBarDisplay, block);
   background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
   top: var(--toastBarTop, auto);
   right: var(--toastBarRight, auto);
@@ -392,6 +391,7 @@ const options = {
   pausable: false,      // pause progress bar tween on mouse hover
   dismissable: true,    // allow dismiss with close button
   reversed: false,      // insert new toast to bottom of stack
+  showProgress: true,   // show or hide the progress bar
   intro: { x: 256 },    // toast intro fly animation settings
   theme: {}             // css var overrides
 }

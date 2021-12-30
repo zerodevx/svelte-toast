@@ -303,9 +303,9 @@ toast.pop(0)`,
   },
   {
     name: 'DISABLE PROGRESS BAR DISPLAY',
-    code: `toast.push('No progress bar', { hideProgressBar: true })`,
+    code: `toast.push('No progress bar', { showProgress: false })`,
     run: () => {
-      toast.push('No progress bar', { hideProgressBar: true })
+      toast.push('No progress bar', { showProgress: false })
     }
   }
 ]
