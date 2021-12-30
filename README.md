@@ -157,6 +157,7 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
 }
 
 ._toastBar {
+  display: var(--toastBarDisplay, block);
   background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
   top: var(--toastBarTop, auto);
   right: var(--toastBarRight, auto);
