@@ -8,7 +8,8 @@ const defaults = {
   dismissable: true,
   reversed: false,
   intro: { x: 256 },
-  theme: {}
+  theme: {},
+  itemCssClassList: []
 }
 
 const createToast = () => {
