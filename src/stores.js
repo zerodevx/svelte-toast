@@ -9,7 +9,7 @@ const defaults = {
   reversed: false,
   intro: { x: 256 },
   theme: {},
-  itemCssClassList: []
+  classes: []
 }
 
 const createToast = () => {
