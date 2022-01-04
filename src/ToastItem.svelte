@@ -126,8 +126,7 @@ onDestroy(() => {
 }
 </style>
 
-<div class={item.itemCssClassList.length ? '_toastItem ' + item.itemCssClassList.join(' ') : '_toastItem'}
-     class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
+<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
   <div role="status" class="_toastMsg" class:pe={item.component}>
     {#if item.component}
       <svelte:component this={item.component.src} {...getProps()} />
