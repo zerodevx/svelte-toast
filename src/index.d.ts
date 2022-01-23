@@ -15,7 +15,8 @@ declare module '@zerodevx/svelte-toast'
  *   dismissable: true,    // allow dismiss with close button
  *   reversed: false,      // insert new toast to bottom of stack
  *   intro: { x: 256 },    // toast intro fly animation settings
- *   theme: {}             // css var overrides
+ *   theme: {},            // css var overrides
+ *   classes: []           // user-defined classes
  * }
  * ```
  */
@@ -32,6 +33,7 @@ export interface SvelteToastOptions {
   reversed?: boolean
   intro?: FlyParams
   theme?: { [key: string]: string }
+  classes?: string[]
   component?: {
     src: typeof SvelteComponent
     props?: { [key: string]: any }
