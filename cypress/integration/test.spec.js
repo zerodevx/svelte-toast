@@ -275,4 +275,17 @@ describe('Integration Tests', () => {
       .get('._toastBtn')
       .click()
   })
+
+  it('Adds and merges user-defined classes', () => {
+    cy.get('[data-btn=styleWithUserDefinedClasses]')
+      .click()
+      .get('._toastItem')
+      .should('have.css', 'background-color', 'rgb(66, 153, 225)')
+      .get('._toastContainer li')
+      .should('have.class', 'custom')
+      .and('have.class', 'merge1')
+      .and('have.class', 'merge2')
+      .get('._toastBtn')
+      .click()
+  })
 })
