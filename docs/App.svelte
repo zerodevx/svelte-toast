@@ -192,7 +192,7 @@ toast.set(id, { next: 1 })`,
     run: async () => {
       colors = false
       bottom = false
-      options = { reversed: false, intro: { x: 256 } }
+      options = {}
       await tick()
       toast.push('All themes reset!')
     }
@@ -300,11 +300,41 @@ toast.pop(0)`,
         }
       })
     }
+  },
+  {
+    name: 'STYLE WITH USER-DEFINED CLASSES',
+    code: `<style>
+  :global(.custom) {
+    --toastBackground: #4299E1;
+    --toastBarBackground: #2B6CB0;
+  }
+</style>
+
+<script>
+  toast.push('Styled with custom class', { classes: ['custom'] })
+<\/script>
+
+<SvelteToast />`,
+    run: async () => {
+      const opts = options
+      options = { ...options, classes: ['merge1'] }
+      await tick()
+      toast.push('Styled with custom class', {
+        classes: ['custom', 'merge2'],
+        onpop: () => {
+          options = opts
+        }
+      })
+    }
   }
 ]
 </script>
 
 <style>
+:global(.custom) {
+  --toastBackground: #4299e1;
+  --toastBarBackground: #2b6cb0;
+}
 .colors {
   --toastBackground: rgba(245, 208, 254, 0.95);
   --toastColor: #424242;
