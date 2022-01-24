@@ -13,7 +13,6 @@ let items
 $: items = $toast.filter((i) => i.target === target)
 
 const getCss = (theme) => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
-const getClasses = (classes) => (classes.length ? classes.join(' ') : '')
 </script>
 
 <style>
@@ -34,7 +33,7 @@ const getClasses = (classes) => (classes.length ? classes.join(' ') : '')
 <ul class="_toastContainer">
   {#each items as item (item.id)}
     <li
-      class={getClasses(item.classes)}
+      class={item.classes.join(' ')}
       in:fly={item.intro}
       out:fade
       animate:flip={{ duration: 200 }}
