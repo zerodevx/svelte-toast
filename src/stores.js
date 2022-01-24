@@ -7,9 +7,7 @@ const defaults = {
   pausable: false,
   dismissable: true,
   reversed: false,
-  intro: { x: 256 },
-  theme: {},
-  classes: []
+  intro: { x: 256 }
 }
 
 const createToast = () => {
@@ -25,6 +23,7 @@ const createToast = () => {
       ...conf,
       ...param,
       theme: { ...conf.theme, ...param.theme },
+      classes: [...(conf.classes || []), ...(param.classes || [])],
       id: ++count
     }
     update((n) => (entry.reversed ? [...n, entry] : [entry, ...n]))
