@@ -11,10 +11,11 @@
 A lightweight, unopinionated and performant toast notification component for modern web frontends in
 [very](https://github.com/zerodevx/svelte-toast/blob/master/src/SvelteToast.svelte)
 [little](https://github.com/zerodevx/svelte-toast/blob/master/src/ToastItem.svelte)
-[lines](https://github.com/zerodevx/svelte-toast/blob/master/src/store.js)
+[lines](https://github.com/zerodevx/svelte-toast/blob/master/src/stores.js)
 [of](https://github.com/zerodevx/svelte-toast/blob/master/src/index.js)
-[code](https://github.com/zerodevx/svelte-toast/blob/master/src/index.d.ts). Compiled (into UMD), it's only **18kb**
-minified (**7kb** gzipped) and can be used in Vanilla JS, or as a Svelte component.
+[code](https://github.com/zerodevx/svelte-toast/blob/master/src/index.d.ts). Compiled (into UMD),
+it's only **18kb** minified (**7kb** gzipped) and can be used in Vanilla JS, or as a Svelte
+component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
 
@@ -147,7 +148,11 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
   padding: var(--toastPadding, 0);
   background: var(--toastBackground, rgba(66, 66, 66, 0.9));
   color: var(--toastColor, #fff);
-  box-shadow: var(--toastBoxShadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06));
+  box-shadow: var(
+    --toastBoxShadow,
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06)
+  );
   border: var(--toastBorder, none);
   border-radius: var(--toastBorderRadius, 0.125rem);
 }
@@ -180,7 +185,8 @@ So to apply your custom theme globally, do something like:
 </style>
 ```
 
-To apply CSS overrides to a particular Toast Item (on a per-toast basis), emit the toast with options:
+To apply CSS overrides to a particular Toast Item (on a per-toast basis), emit the toast with
+options:
 
 ```js
 toast.push('Yo!', {
@@ -196,8 +202,9 @@ where `theme` is an object containing one or more CSS var key/value pairs.
 
 ### Create Your Own Toast Actions
 
-For convenient composing, the recommended way is to create your own common toast actions by stubbing them out. For
-example:
+For convenient composing, you can either push toasts with
+[user-defined classes](#styling-with-user-defined-classes) (from `v0.7`), or create your own common
+toast actions by stubbing them out. For example:
 
 `my-theme.js`
 
@@ -238,8 +245,8 @@ toast.push(`<strong>You won the jackpot!</strong><br>
 
 ### Custom Fonts
 
-In a Svelte app, the easiest way to apply custom font styles is to wrap the toast container then apply styles on the
-wrapper:
+In a Svelte app, the easiest way to apply custom font styles is to wrap the toast container then
+apply styles on the wrapper:
 
 ```html
 <style>
@@ -339,8 +346,8 @@ toast.set({ id, msg: 'Waddup!' })
 
 #### Pausable Toasts
 
-Progress bar tweens can now be paused when the mouse cursor (on desktop) is hovered over the toast item. This behaviour
-is **disabled** by default. To enable, set option `pausable: true`.
+Progress bar tweens can now be paused when the mouse cursor (on desktop) is hovered over the toast
+item. This behaviour is **disabled** by default. To enable, set option `pausable: true`.
 
 ```js
 toast.push('Hover me!', { pausable: true })
@@ -348,8 +355,8 @@ toast.push('Hover me!', { pausable: true })
 
 #### Send Svelte Component as a Message
 
-To support complex UIs or workflows, a Svelte component can be pushed instead of a standard message if you're using this
-in a Svelte project. To do so, push options with `component` defined:
+To support complex UIs or workflows, a Svelte component can be pushed instead of a standard message
+if you're using this in a Svelte project. To do so, push options with `component` defined:
 
 ```js
 import MyCustomSvelteComponent from './MyCustomSvelteComponent.svelte'
@@ -368,7 +375,8 @@ toast.push({
 
 #### `onpop()` Callback Function
 
-A callback function can be run when a toast is closed. To do so, pass the function to the `onpop` toast option:
+A callback function can be run when a toast is closed. To do so, pass the function to the `onpop`
+toast option:
 
 ```js
 toast.push('Hello world', {
@@ -377,6 +385,29 @@ toast.push('Hello world', {
   },
   ...                             // any other toast options
 })
+```
+
+### New from `v0.7`
+
+#### Styling with User-Defined Classes
+
+Custom class names can now be passed into each toast item. Very useful for composing toast actions,
+or implementing CSS-only dark modes.
+
+```html
+<script>
+  toast.push('Foo', { classes: ['info'] }) // background green
+  toast.push('Bar', { classes: ['warn'] }) // background red
+</script>
+<SvelteToast options={{ classes: ['log'] }} />
+<style>
+  :global(.log.info) {
+    --toastBackground: green;
+  }
+  :global(.log.warn) {
+    --toastBackground: red;
+  }
+</style>
 ```
 
 ## Toast Options
@@ -392,7 +423,8 @@ const options = {
   dismissable: true,    // allow dismiss with close button
   reversed: false,      // insert new toast to bottom of stack
   intro: { x: 256 },    // toast intro fly animation settings
-  theme: {}             // css var overrides
+  theme: {},            // css var overrides
+  classes: []           // user-defined classes
 }
 ```
 <!-- prettier-ignore-end -->
@@ -407,7 +439,8 @@ toast.set(id, { ...options })
 
 ## Development
 
-Standard Github [contribution workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962) applies.
+Standard Github [contribution workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
+applies.
 
 ### Tests
 
