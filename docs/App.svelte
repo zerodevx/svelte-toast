@@ -2,9 +2,10 @@
 /*eslint no-useless-escape: "off"*/
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
-import Prism from './Prism.svelte'
+//import Prism from './Prism.svelte'
 import DummyComponent from './Dummy.svelte'
 import camelCase from 'camelcase'
+import Prism from 'prismjs'
 
 // Hoist to `window` for debug
 window.toast = toast
@@ -63,7 +64,9 @@ const buttons = [
     code: `toast.push(\`<strong>You won the jackpot!</strong><br>
   Click <a href="#" target="_blank">here</a> for details! 😛\`)`,
     run: () => {
-      toast.push('<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛')
+      toast.push(
+        '<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛'
+      )
     }
   },
   {
@@ -296,7 +299,9 @@ toast.pop(0)`,
     run: () => {
       toast.push('Wait for it...', {
         onpop: () => {
-          toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, { target: 'new' })
+          toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, {
+            target: 'new'
+          })
         }
       })
     }
@@ -328,6 +333,9 @@ toast.pop(0)`,
     }
   }
 ]
+
+let formatted
+$: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
 </script>
 
 <style>
@@ -367,9 +375,10 @@ toast.pop(0)`,
 
 <div class="container">
   <div class="w-full h-64 px-2 mt-4 mb-8">
-    <Prism classes="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4">
-      {code}
-    </Prism>
+    <pre
+      class="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4"><code
+        class="language-javascript">{@html formatted}</code
+      ></pre>
   </div>
   <div class="flex flex-row flex-wrap items-center justify-center">
     {#each buttons as btn}
