@@ -25,11 +25,13 @@ const declined = () => clicked(false)
     <span class="font-mono text-xs font-bold">[toastId: {toastId}]</span>
   </div>
   <p class="flex-1 text-sm overflow-y-scroll">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
   </p>
   <div class="h-12 flex flex-row justify-around">
     <button class="w-28 h-10 rounded-full" on:click={declined}>DECLINE</button>
-    <button class="w-28 h-10 rounded-full" on:click={accepted} data-btn="dummyAccept">ACCEPT</button>
+    <button class="w-28 h-10 rounded-full" on:click={accepted} data-btn="dummyAccept">ACCEPT</button
+    >
   </div>
 </div>

@@ -1,9 +1,8 @@
 {
-  "useTabs": false,
+  "printWidth": 100,
   "semi": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "printWidth": 120,
   "proseWrap": "always",
   "svelteSortOrder": "options-scripts-styles-markup",
   "svelteIndentScriptAndStyle": false

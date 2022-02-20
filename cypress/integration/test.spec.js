@@ -24,7 +24,11 @@ describe('Integration Tests', () => {
   })
 
   it('Can change duration', () => {
-    cy.window().invoke('toast.push', 'Test', { duration: 1000 }).get('._toastItem').wait(1500).should('not.exist')
+    cy.window()
+      .invoke('toast.push', 'Test', { duration: 1000 })
+      .get('._toastItem')
+      .wait(1500)
+      .should('not.exist')
   })
 
   it('Can be non-dismissable then popped', () => {
