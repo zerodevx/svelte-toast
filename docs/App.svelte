@@ -2,7 +2,6 @@
 /*eslint no-useless-escape: "off"*/
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
-//import Prism from './Prism.svelte'
 import DummyComponent from './Dummy.svelte'
 import camelCase from 'camelcase'
 import Prism from 'prismjs'
@@ -338,6 +337,36 @@ let formatted
 $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
 </script>
 
+<div class="container">
+  <div class="w-full h-64 px-2 mt-4 mb-8">
+    <pre
+      class="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4"><code
+        class="language-javascript">{@html formatted}</code
+      ></pre>
+  </div>
+  <div class="flex flex-row flex-wrap items-center justify-center">
+    {#each buttons as btn}
+      <button
+        class:selected={selected === btn.name}
+        on:click={() => {
+          handleClick(btn)
+        }}
+        data-btn={camelCase(btn.name)}
+      >
+        {btn.name}
+      </button>
+    {/each}
+  </div>
+</div>
+
+<div class="top">
+  <SvelteToast options={{ initial: 0, intro: { y: -64 } }} target="new" />
+</div>
+
+<div class:colors class:bottom>
+  <SvelteToast {options} />
+</div>
+
 <style>
 :global(.custom) {
   --toastBackground: #4299e1;
@@ -372,33 +401,3 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
   }
 }
 </style>
-
-<div class="container">
-  <div class="w-full h-64 px-2 mt-4 mb-8">
-    <pre
-      class="w-full h-full bg-gray-700 text-gray-200 font-mono shadow rounded-sm overflow-scroll p-4"><code
-        class="language-javascript">{@html formatted}</code
-      ></pre>
-  </div>
-  <div class="flex flex-row flex-wrap items-center justify-center">
-    {#each buttons as btn}
-      <button
-        class:selected={selected === btn.name}
-        on:click={() => {
-          handleClick(btn)
-        }}
-        data-btn={camelCase(btn.name)}
-      >
-        {btn.name}
-      </button>
-    {/each}
-  </div>
-</div>
-
-<div class="top">
-  <SvelteToast options={{ initial: 0, intro: { y: -64 } }} target="new" />
-</div>
-
-<div class:colors class:bottom>
-  <SvelteToast {options} />
-</div>

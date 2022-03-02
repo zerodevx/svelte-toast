@@ -15,6 +15,20 @@ $: items = $toast.filter((i) => i.target === target)
 const getCss = (theme) => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
 </script>
 
+<ul class="_toastContainer">
+  {#each items as item (item.id)}
+    <li
+      class={item.classes.join(' ')}
+      in:fly={item.intro}
+      out:fade
+      animate:flip={{ duration: 200 }}
+      style={getCss(item.theme)}
+    >
+      <ToastItem {item} />
+    </li>
+  {/each}
+</ul>
+
 <style>
 ._toastContainer {
   top: var(--toastContainerTop, 1.5rem);
@@ -29,17 +43,3 @@ const getCss = (theme) => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[
   z-index: var(--toastContainerZIndex, 9999);
 }
 </style>
-
-<ul class="_toastContainer">
-  {#each items as item (item.id)}
-    <li
-      class={item.classes.join(' ')}
-      in:fly={item.intro}
-      out:fade
-      animate:flip={{ duration: 200 }}
-      style={getCss(item.theme)}
-    >
-      <ToastItem {item} />
-    </li>
-  {/each}
-</ul>

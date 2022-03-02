@@ -60,6 +60,20 @@ onDestroy(() => {
 })
 </script>
 
+<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
+  <div role="status" class="_toastMsg" class:pe={item.component}>
+    {#if item.component}
+      <svelte:component this={item.component.src} {...getProps()} />
+    {:else}
+      {@html item.msg}
+    {/if}
+  </div>
+  {#if item.dismissable}
+    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close}>✕</div>
+  {/if}
+  <progress class="_toastBar" value={$progress} />
+</div>
+
 <style>
 ._toastItem {
   width: var(--toastWidth, 16rem);
@@ -129,17 +143,3 @@ onDestroy(() => {
   background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
 }
 </style>
-
-<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
-  <div role="status" class="_toastMsg" class:pe={item.component}>
-    {#if item.component}
-      <svelte:component this={item.component.src} {...getProps()} />
-    {:else}
-      {@html item.msg}
-    {/if}
-  </div>
-  {#if item.dismissable}
-    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close}>✕</div>
-  {/if}
-  <progress class="_toastBar" value={$progress} />
-</div>

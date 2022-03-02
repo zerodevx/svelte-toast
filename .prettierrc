@@ -4,6 +4,6 @@
   "singleQuote": true,
   "trailingComma": "none",
   "proseWrap": "always",
-  "svelteSortOrder": "options-scripts-styles-markup",
+  "svelteSortOrder": "options-scripts-markup-styles",
   "svelteIndentScriptAndStyle": false
 }
