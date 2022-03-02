@@ -138,6 +138,7 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
   right: var(--toastContainerRight, 2rem);
   bottom: var(--toastContainerBottom, auto);
   left: var(--toastContainerLeft, auto);
+  z-index: var(--toastContainerZIndex, 9999);
 }
 
 ._toastItem {
