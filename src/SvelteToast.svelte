@@ -26,7 +26,7 @@ const getCss = (theme) => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[
   padding: 0;
   list-style-type: none;
   pointer-events: none;
-  z-index: 9999;
+  z-index: var(--toastContainerZIndex, 9999);
 }
 </style>
 
