@@ -1,6 +1,7 @@
 // index.d.ts
 import type { SvelteComponent } from 'svelte'
 import type { FlyParams } from 'svelte/types/runtime/transition/index'
+import type { Subscriber, Unsubscriber } from 'svelte/types/runtime/store/index'
 
 declare module '@zerodevx/svelte-toast'
 
@@ -53,4 +54,5 @@ declare namespace toast {
   export function pop(arg?: any): void
   export function set(id: number, options?: SvelteToastOptions): void
   export function set(options: SvelteToastOptions): void
+  export function subscribe(run: Subscriber): Unsubscriber
 }

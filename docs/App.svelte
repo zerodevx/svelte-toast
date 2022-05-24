@@ -7,6 +7,7 @@ import camelCase from 'camelcase'
 import Prism from 'prismjs'
 
 // Hoist to `window` for debug
+// @ts-ignore
 window.toast = toast
 
 let selected
@@ -19,6 +20,7 @@ const handleClick = (btn) => {
   selected = btn.name
   code = btn.code
   btn.run()
+  // @ts-ignore
   window.gtag('event', 'toast', { event_label: btn.name })
 }
 
