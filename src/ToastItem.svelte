@@ -40,12 +40,10 @@ const resume = () => {
   }
 }
 
-const getProps = () => {
+let componentProps = {}
+$: if (item.component) {
   const { props = {}, sendIdTo } = item.component
-  if (sendIdTo) {
-    props[sendIdTo] = item.id
-  }
-  return props
+  componentProps = { ...props, ...(sendIdTo && { [sendIdTo]: item.id }) }
 }
 
 // `progress` has been renamed to `next`; shim included for backward compatibility, to remove in next major
@@ -63,7 +61,7 @@ onDestroy(() => {
 <div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
   <div role="status" class="_toastMsg" class:pe={item.component}>
     {#if item.component}
-      <svelte:component this={item.component.src} {...getProps()} />
+      <svelte:component this={item.component.src} {...componentProps} />
     {:else}
       {@html item.msg}
     {/if}
