@@ -1,5 +1,5 @@
 <script>
-import { onDestroy } from 'svelte'
+import { onMount, onDestroy } from 'svelte'
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
 import { toast } from './stores.js'
@@ -25,7 +25,7 @@ $: if (next !== item.next) {
 }
 
 const pause = () => {
-  if (item.pausable && !paused && $progress !== next) {
+  if (!paused && $progress !== next) {
     progress.set($progress, { duration: 0 })
     paused = true
   }
@@ -51,14 +51,32 @@ $: if (typeof item.progress !== 'undefined') {
   item.next = item.progress
 }
 
+const handler = () => (document.hidden ? pause() : resume())
+const listener = (add) => {
+  const { hidden, addEventListener, removeEventListener } = document
+  if (typeof hidden === 'undefined') return
+  const name = 'visibilitychange'
+  add ? addEventListener(name, handler) : removeEventListener(name, handler)
+  return true
+}
+onMount(() => listener(true) && handler())
+
 onDestroy(() => {
   if (typeof item.onpop === 'function') {
     item.onpop(item.id)
   }
+  listener(false)
 })
 </script>
 
-<div class="_toastItem" class:pe={item.pausable} on:mouseenter={pause} on:mouseleave={resume}>
+<div
+  class="_toastItem"
+  class:pe={item.pausable}
+  on:mouseenter={() => {
+    if (item.pausable) pause()
+  }}
+  on:mouseleave={resume}
+>
   <div role="status" class="_toastMsg" class:pe={item.component}>
     {#if item.component}
       <svelte:component this={item.component.src} {...componentProps} />

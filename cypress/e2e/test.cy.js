@@ -292,4 +292,37 @@ describe('Integration Tests', () => {
       .get('._toastBtn')
       .click()
   })
+
+  it('Toggles pause and resume on visibilitychange', () => {
+    cy.get('[data-btn=default]')
+      .click()
+      .document()
+      .then((doc) => {
+        cy.stub(doc, 'hidden').value(true)
+      })
+      .document()
+      .trigger('visibilitychange')
+      .get('._toastBar')
+      .then(($bar) => {
+        const old = parseFloat($bar.val())
+        cy.wait(500).then(() => {
+          expect(parseFloat($bar.val())).to.be.equal(old)
+        })
+      })
+      .document()
+      .then((doc) => {
+        cy.stub(doc, 'hidden').value(false)
+      })
+      .document()
+      .trigger('visibilitychange')
+      .get('._toastBar')
+      .then(($bar) => {
+        const old = parseFloat($bar.val())
+        cy.wait(500).then(() => {
+          expect(parseFloat($bar.val())).to.be.below(old)
+        })
+      })
+      .get('._toastBtn')
+      .click()
+  })
 })
