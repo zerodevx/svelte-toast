@@ -168,11 +168,11 @@ describe('Integration Tests', () => {
       .invoke('toast.pop', 0)
   })
 
-  it('Uses component', () => {
+  it('Renders custom component and is reactive', () => {
     cy.get('[data-btn=sendComponentAsAMessage]')
       .click()
-      .get('._toastItem')
-      .contains('A Dummy Cookie Component')
+      .get('._toastItem h1')
+      .should('have.text', 'Test Reactivity')
       .get('[data-btn=default]')
       .click()
       .get('[data-btn=dummyAccept')

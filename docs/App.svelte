@@ -264,7 +264,7 @@ toast.pop(0)`,
   }
 })`,
     run: () => {
-      toast.push({
+      const id = toast.push({
         component: {
           src: DummyComponent,
           props: { title: 'A Dummy Cookie Component' },
@@ -281,6 +281,16 @@ toast.pop(0)`,
           '--toastBorderRadius': '1rem'
         }
       })
+      // @ts-ignore
+      if (window.Cypress) {
+        toast.set(id, {
+          component: {
+            src: DummyComponent,
+            props: { title: 'Test Reactivity' },
+            sendIdTo: 'toastId'
+          }
+        })
+      }
     }
   },
   {
