@@ -85,7 +85,15 @@ onDestroy(() => {
     {/if}
   </div>
   {#if item.dismissable}
-    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close} />
+    <div
+      class="_toastBtn pe"
+      role="button"
+      tabindex="0"
+      on:click={close}
+      on:keydown={(e) => {
+        if (e instanceof KeyboardEvent && ['Enter', ' '].includes(e.key)) close()
+      }}
+    />
   {/if}
   <progress class="_toastBar" value={$progress} />
 </div>
