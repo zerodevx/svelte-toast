@@ -33,7 +33,7 @@ export interface SvelteToastOptions {
   dismissable?: boolean
   reversed?: boolean
   intro?: FlyParams
-  theme?: { [key: string]: string }
+  theme?: { [key: string]: string | number }
   classes?: string[]
   component?: {
     src: typeof SvelteComponent
@@ -54,5 +54,5 @@ declare namespace toast {
   export function pop(arg?: any): void
   export function set(id: number, options?: SvelteToastOptions): void
   export function set(options: SvelteToastOptions): void
-  export function subscribe(run: Subscriber): Unsubscriber
+  export function subscribe(run: Subscriber<any>): Unsubscriber
 }
