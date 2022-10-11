@@ -11,10 +11,10 @@ describe('Integration Tests', () => {
   })
 
   it('Displays colored toast', () => {
-    cy.get('[data-btn=green]')
+    cy.get('[data-btn=coloredToast]')
       .click()
       .get('._toastItem')
-      .should('have.css', 'background-color', 'rgb(72, 187, 120)')
+      .should('have.css', 'background-color', 'rgba(72, 187, 120, 0.9)')
       .get('._toastBtn')
       .click()
   })
@@ -323,6 +323,19 @@ describe('Integration Tests', () => {
         })
       })
       .get('._toastBtn')
+      .click()
+  })
+
+  it('Can change dismiss button char', () => {
+    cy.get('[data-btn=customDismissButton]')
+      .click()
+      .get('._toastBtn')
+      .then(($els) => {
+        const win = $els[0].ownerDocument.defaultView
+        const computed = win.getComputedStyle($els[0], 'after')
+        const val = computed.getPropertyValue('content')
+        expect(val).to.eq('"x"')
+      })
       .click()
   })
 })
