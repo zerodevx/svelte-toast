@@ -14,7 +14,7 @@ A lightweight, unopinionated and performant toast notification component for mod
 [lines](https://github.com/zerodevx/svelte-toast/blob/master/src/stores.js)
 [of](https://github.com/zerodevx/svelte-toast/blob/master/src/index.js)
 [code](https://github.com/zerodevx/svelte-toast/blob/master/src/index.d.ts). Compiled (into UMD),
-it's only **18kb** minified (**7kb** gzipped) and can be used in Vanilla JS, or as a Svelte
+it's only **19kb** minified (**8kb** gzipped) and can be used in Vanilla JS, or as a Svelte
 component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
@@ -34,10 +34,12 @@ The following are exported:
 
 ### Svelte
 
-If you're using this in a Svelte app, import the toast container and place it in your app shell.
+If you're using this in a Svelte app, import the toast container and place it in your app shell or
+root layout.
 
-`App.svelte`:
+`+layout.svelte`:
 
+<!-- prettier-ignore -->
 ```html
 <script>
   import { SvelteToast } from '@zerodevx/svelte-toast'
@@ -58,7 +60,7 @@ Use anywhere in your app - just import the toast emitter.
 
 ```html
 <script>
-import { toast } from '@zerodevx/svelte-toast'
+  import { toast } from '@zerodevx/svelte-toast'
 </script>
 
 <button on:click={() => toast.push('Hello world!')}>EMIT TOAST</button>
@@ -162,6 +164,16 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
   padding: var(--toastMsgPadding, 0.75rem 0.5rem);
 }
 
+._toastBtn {
+  width: var(--toastBtnWidth, 2rem);
+  height: var(--toastBtnHeight, 100%);
+  font: var(--toastBtnFont, 1rem sans-serif);
+}
+
+._toastBtn::after {
+  content: var(--toastBtnContent, '✕');
+}
+
 ._toastBar {
   background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
   top: var(--toastBarTop, auto);
@@ -175,13 +187,14 @@ In general, use CSS variables - the following (self-explanatory) vars are expose
 
 So to apply your custom theme globally, do something like:
 
+<!-- prettier-ignore -->
 ```html
 <style>
   :root {
     --toastBackground: #abcdef;
     --toastColor: #123456;
     --toastHeight: 300px;
-    ...;
+    ...
   }
 </style>
 ```
@@ -244,18 +257,21 @@ toast.push(`<strong>You won the jackpot!</strong><br>
   Click <a href="#" target="_blank">here</a> for details! 😛`)
 ```
 
-### Custom Fonts
+### Custom Fonts and Styles
 
-In a Svelte app, the easiest way to apply custom font styles is to wrap the toast container then
-apply styles on the wrapper:
+In a Svelte app, the quickest way to apply custom styles is to wrap the toast container then apply
+styles on the wrapper:
 
+<!-- prettier-ignore -->
 ```html
 <style>
   .wrap {
     display: contents;
     font-family: Roboto, sans-serif;
     font-size: 0.875rem;
-    ...;
+    /* You can set CSS vars here too */
+    --toastBackground: pink;
+    ...
   }
   .wrap :global(strong) {
     font-weight: 600;
@@ -267,12 +283,14 @@ apply styles on the wrapper:
 </div>
 ```
 
-In Vanilla JS, simply apply your styles to the `._toastMsg` class:
+In Vanilla JS, simply apply your styles to the `._toastContainer` class:
 
+<!-- prettier-ignore -->
 ```css
-._toastMsg {
+._toastContainer {
   font-family: Roboto, sans-serif;
-  ...;
+  --toastBackground: yellow;
+  ...
 }
 ```
 
@@ -284,6 +302,7 @@ In Vanilla JS, simply apply your styles to the `._toastMsg` class:
 
 It's now easy to send toasts to different container targets within your app. For example:
 
+<!-- prettier-ignore -->
 ```html
 <script>
   import { SvelteToast, toast } from '@zerodevx/svelte-toast'
@@ -303,7 +322,7 @@ It's now easy to send toasts to different container targets within your app. For
     --toastContainerLeft: 2rem;
     --toastWidth: 100%;
     font-size: 0.875rem;
-    ...;
+    ...
   }
 </style>
 
@@ -411,9 +430,42 @@ or implementing CSS-only dark modes.
 </style>
 ```
 
+### New from `v0.8`
+
+#### Auto-pause Toasts when Page Hidden
+
+This feature uses the
+[Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) (if it's
+supported) to pause/resume a toast whenever the browser tab visibility changes - allowing one to
+emit notifications in the background without it being dismissed prematurely. This now happens
+automatically and is default behaviour, since notifications should by nature ensure that they're
+seen.
+
+#### Customise Dismiss Button
+
+Additional CSS vars are exposed - specifically, `--toastBtnContent` allows the '✕' default character
+to be changed. As with CSS `content` keys for pseudo elements, `url()` can be used to load external
+or inline icons.
+
+```html
+<script>
+  import { toast, SvelteToast } from '@zerodevx/svelte-toast'
+
+  const options = {
+    theme: {
+      '--toastBtnContent': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' ...")`
+    }
+  }
+</script>
+
+<button on:click={() => toast.push('Ping!')}>PONG</button>
+
+<SvelteToast {options} />
+```
+
 ## Toast Options
 
-<!-- prettier-ignore-start -->
+<!-- prettier-ignore -->
 ```js
 // Default options
 const options = {
@@ -428,7 +480,6 @@ const options = {
   classes: []           // user-defined classes
 }
 ```
-<!-- prettier-ignore-end -->
 
 ## Toast Methods
 
@@ -440,7 +491,8 @@ toast.set(id, { ...options })
 
 ## Development
 
-Standard Github [contribution workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
+Standard Github
+[contribution workflow](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
 applies.
 
 ### Tests
