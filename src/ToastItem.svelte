@@ -85,7 +85,7 @@ onDestroy(() => {
     {/if}
   </div>
   {#if item.dismissable}
-    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close}>✕</div>
+    <div class="_toastBtn pe" role="button" tabindex="-1" on:click={close} />
   {/if}
   <progress class="_toastBar" value={$progress} />
 </div>
@@ -123,14 +123,17 @@ onDestroy(() => {
   pointer-events: auto;
 }
 ._toastBtn {
-  width: 2rem;
-  height: 100%;
-  font: 1rem sans-serif;
+  width: var(--toastBtnWidth, 2rem);
+  height: var(--toastBtnHeight, 100%);
+  font: var(--toastBtnFont, 1rem sans-serif);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
+}
+._toastBtn::after {
+  content: var(--toastBtnContent, '✕');
 }
 ._toastBar {
   top: var(--toastBarTop, auto);
