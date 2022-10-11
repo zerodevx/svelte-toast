@@ -1,5 +1,5 @@
 <script>
-/*eslint no-useless-escape: "off"*/
+/* eslint no-useless-escape: "off" */
 import { tick } from 'svelte'
 import { SvelteToast, toast } from '../src'
 import DummyComponent from './Dummy.svelte'
@@ -33,30 +33,21 @@ const buttons = [
     }
   },
   {
-    name: 'GREEN',
+    name: 'COLORED TOAST',
     code: `toast.push('Success!', {
   theme: {
-    '--toastBackground': '#48BB78',
+    '--toastColor': 'mintcream',
+    '--toastBackground': 'rgba(72,187,120,0.9)',
     '--toastBarBackground': '#2F855A'
   }
 })`,
     run: () => {
       toast.push('Success!', {
-        theme: { '--toastBackground': '#48BB78', '--toastBarBackground': '#2F855A' }
-      })
-    }
-  },
-  {
-    name: 'RED',
-    code: `toast.push('Danger!', {
-  theme: {
-    '--toastBackground': '#F56565',
-    '--toastBarBackground': '#C53030'
-  }
-})`,
-    run: () => {
-      toast.push('Danger!', {
-        theme: { '--toastBackground': '#F56565', '--toastBarBackground': '#C53030' }
+        theme: {
+          '--toastColor': 'mintcream',
+          '--toastBackground': 'rgba(72,187,120,0.9)',
+          '--toastBarBackground': '#2F855A'
+        }
       })
     }
   },
@@ -71,6 +62,21 @@ const buttons = [
     }
   },
   {
+    name: 'HIDE PROGRESS BAR',
+    code: `toast.push('Hide the progress bar', { 
+  theme: {
+    '--toastBarHeight': 0
+  }
+})`,
+    run: () => {
+      toast.push('Hide the progress bar', {
+        theme: {
+          '--toastBarHeight': 0
+        }
+      })
+    }
+  },
+  {
     name: 'LONG DURATION',
     code: `toast.push('Watching the paint dry...', { duration: 20000 })`,
     run: () => {
@@ -78,10 +84,20 @@ const buttons = [
     }
   },
   {
+    name: 'NO EXPIRY',
+    code: `toast.push('Tap button to dismiss', { 
+  // Effectively disables autoclose when \`initial\`==\`next\`
+  initial: 0
+})`,
+    run: () => {
+      toast.push('Tap button to dismiss', { initial: 0 })
+    }
+  },
+  {
     name: 'NON-DISMISSABLE',
     code: `toast.push('Where the close btn?!?', {
+  // Toast can only be dismissed programatically
   initial: 0,
-  next: 0,
   dismissable: false
 })`,
     run: () => {
@@ -103,11 +119,17 @@ toast.pop(id)`,
   {
     name: 'FLIP PROGRESS BAR',
     code: `toast.push('Progress bar is flipped', {
+  // Sets the bar to progress from 0 to 1 in 6s
   initial: 0,
-  next: 1
+  next: 1,
+  duration: 6000
 })`,
     run: () => {
-      toast.push('Progress bar is flipped', { initial: 0, next: 1 })
+      toast.push('Progress bar is flipped', {
+        initial: 0,
+        next: 1,
+        duration: 6000
+      })
     }
   },
   {
@@ -115,7 +137,7 @@ toast.pop(id)`,
     code: `const sleep = t => new Promise(resolve => setTimeout(resolve, t))
 
 const id = toast.push('Loading, please wait...', {
-  duration: 300,
+  duration: 300, // Each progress change takes 300ms
   initial: 0,
   next: 0,
   dismissable: false
@@ -339,6 +361,24 @@ toast.pop(0)`,
         classes: ['custom', 'merge2'],
         onpop: () => {
           options = opts
+        }
+      })
+    }
+  },
+  {
+    name: 'CUSTOM DISMISS BUTTON',
+    code: `toast.push('Say cheese!', {
+  theme: {
+    '--toastBtnContent': \`url("data:image/svg+xml,...")\`
+  }
+}`,
+    run: () => {
+      toast.push('Say cheese!', {
+        theme: {
+          // @ts-ignore
+          '--toastBtnContent': window.Cypress
+            ? `'x'`
+            : `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1.5rem' height='1.5rem' fill='%23F1CB30' viewBox='0 0 512 512' xml:space='preserve'%3E%3Cpath d='M256,0C114.842,0,0,114.842,0,256s114.842,256,256,256s256-114.842,256-256S397.158,0,256,0z'/%3E%3Cg%3E%3Cpath style='fill:%2357575C;' d='M355.297,175.321c-8.161,0-16.167,3.305-21.938,9.092c-5.773,5.772-9.092,13.762-9.092,21.938 c0,8.163,3.32,16.168,9.092,21.94c5.772,5.772,13.777,9.09,21.938,9.09c8.161,0,16.167-3.32,21.938-9.09 c5.773-5.772,9.092-13.777,9.092-21.94c0-8.176-3.32-16.167-9.092-21.938C371.464,178.626,363.472,175.321,355.297,175.321z'/%3E%3Cpath style='fill:%2357575C;' d='M178.641,228.291c5.773-5.772,9.092-13.762,9.092-21.94c0-8.176-3.32-16.167-9.092-21.938 c-5.772-5.787-13.777-9.092-21.938-9.092c-8.161,0-16.167,3.305-21.938,9.092c-5.772,5.772-9.092,13.762-9.092,21.938 c0,8.176,3.32,16.168,9.092,21.94c5.772,5.786,13.777,9.09,21.938,9.09C164.864,237.382,172.87,234.077,178.641,228.291z'/%3E%3C/g%3E%3Cpath style='fill:%23DF6246;' d='M356.49,326.085c-3.603-8.696-12.088-14.367-21.501-14.367H256h-78.991 c-9.413,0-17.898,5.671-21.501,14.367c-3.601,8.696-1.61,18.708,5.046,25.363c25.495,25.493,59.392,39.534,95.446,39.534 s69.952-14.041,95.446-39.534C358.102,344.792,360.093,334.78,356.49,326.085z'/%3E%3Cpath style='fill:%23E69629;' d='M160.552,351.448c-6.656-6.654-8.647-16.665-5.046-25.363c3.603-8.696,12.088-14.367,21.501-14.367 H256V0C114.842,0,0,114.842,0,256s114.842,256,256,256V390.982C219.946,390.982,186.048,376.941,160.552,351.448z M125.673,206.352 c0-8.176,3.32-16.167,9.092-21.938c5.772-5.787,13.777-9.092,21.938-9.092c8.161,0,16.167,3.305,21.938,9.092 c5.773,5.772,9.092,13.762,9.092,21.938c0,8.176-3.32,16.168-9.092,21.94c-5.772,5.786-13.777,9.09-21.938,9.09 c-8.161,0-16.167-3.305-21.938-9.09C128.993,222.52,125.673,214.528,125.673,206.352z'/%3E%3Cpath style='fill:%23DD512A;' d='M177.009,311.718c-9.413,0-17.898,5.671-21.501,14.367c-3.601,8.696-1.61,18.708,5.046,25.363 c25.495,25.493,59.39,39.534,95.445,39.534v-79.264H177.009z'/%3E%3C/svg%3E")`
         }
       })
     }
