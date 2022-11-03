@@ -46,26 +46,28 @@ $: if (item.component) {
   componentProps = { ...props, ...(sendIdTo && { [sendIdTo]: item.id }) }
 }
 
+const check = (prop, kind = 'undefined') => typeof prop === kind
 // `progress` has been renamed to `next`; shim included for backward compatibility, to remove in next major
-$: if (typeof item.progress !== 'undefined') {
+$: if (!check(item.progress)) {
   item.next = item.progress
 }
 
-const handler = () => (document.hidden ? pause() : resume())
-const listener = (add) => {
-  const { hidden, addEventListener, removeEventListener } = document
-  if (typeof hidden === 'undefined') return
+let unlisten
+const listen = (d = document) => {
+  if (check(d.hidden)) return
+  const handler = () => (d.hidden ? pause() : resume())
   const name = 'visibilitychange'
-  add ? addEventListener(name, handler) : removeEventListener(name, handler)
-  return true
+  d.addEventListener(name, handler)
+  unlisten = () => d.removeEventListener(name, handler)
+  handler()
 }
-onMount(() => listener(true) && handler())
 
+onMount(listen)
 onDestroy(() => {
-  if (typeof item.onpop === 'function') {
+  if (check(item.onpop, 'function')) {
     item.onpop(item.id)
   }
-  listener(false)
+  unlisten && unlisten()
 })
 </script>
 
