@@ -1,6 +1,6 @@
 {
   "name": "@zerodevx/svelte-toast",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Simple elegant toast notifications",
   "author": "Jason Lee <jason@zerodevx.com>",
   "svelte": "src/index.js",
@@ -27,12 +27,12 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
     "autoprefixer": "^10.4.13",
     "camelcase": "^7.0.0",
     "cypress": "^10.11.0",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-svelte3": "^4.0.0",
