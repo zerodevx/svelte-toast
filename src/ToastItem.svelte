@@ -135,15 +135,15 @@ onDestroy(() => {
 ._toastBtn {
   width: var(--toastBtnWidth, 2rem);
   height: var(--toastBtnHeight, 100%);
-  font: var(--toastBtnFont, 1rem sans-serif);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   outline: none;
 }
 ._toastBtn::after {
   content: var(--toastBtnContent, '✕');
+  font: var(--toastBtnFont, 1rem sans-serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 ._toastBar {
   top: var(--toastBarTop, auto);
