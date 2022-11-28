@@ -5,5 +5,8 @@
   "trailingComma": "none",
   "proseWrap": "always",
   "svelteSortOrder": "options-scripts-markup-styles",
-  "svelteIndentScriptAndStyle": false
+  "svelteIndentScriptAndStyle": false,
+  "plugins": ["prettier-plugin-svelte"],
+  "pluginSearchDirs": ["."],
+  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
 }
