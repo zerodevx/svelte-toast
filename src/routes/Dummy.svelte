@@ -1,5 +1,5 @@
 <script>
-import { toast } from '../src'
+import { toast } from '$lib'
 
 export let toastId
 export let title

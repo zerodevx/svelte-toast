@@ -5,7 +5,10 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', ...dt.fontFamily.sans]
+        sans: ['InterVariable', ...dt.fontFamily.sans]
+      },
+      opacity: {
+        97: '.97'
       }
     },
     screens: {
