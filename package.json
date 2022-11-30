@@ -1,6 +1,6 @@
 {
   "name": "@zerodevx/svelte-toast",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.1",
   "description": "Simple elegant toast notifications",
   "author": "Jason Lee <jason@zerodevx.com>",
   "scripts": {
@@ -8,38 +8,50 @@
     "prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
-    "test": "playwright test",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
-    "size": "gzip-size dist/index.js --include-original",
-    "build:package": "svelte-kit sync && svelte-package"
+    "build": "vite build",
+    "package": "svelte-kit sync && svelte-package && vite build -c vite.dist.config.js",
+    "test": "playwright test"
   },
   "devDependencies": {
+    "@fontsource/inter": "4.5.14",
     "@playwright/test": "1.28.1",
     "@sveltejs/adapter-static": "1.0.0-next.48",
-    "@sveltejs/kit": "1.0.0-next.563",
+    "@sveltejs/kit": "1.0.0-next.567",
     "@sveltejs/package": "1.0.0-next.6",
+    "@sveltejs/vite-plugin-svelte": "1.3.1",
+    "autoprefixer": "10.4.13",
     "camelcase": "7.0.0",
     "eslint": "8.28.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
-    "gzip-size-cli": "5.1.0",
     "npm-run-all": "4.1.5",
+    "postcss": "8.4.19",
+    "postcss-load-config": "4.0.1",
     "prettier": "2.8.0",
     "prettier-plugin-svelte": "2.8.1",
     "prismjs": "1.29.0",
     "svelte": "3.53.1",
-    "svelte-check": "2.9.2",
+    "svelte-check": "2.10.0",
+    "svelte-preprocess": "4.10.7",
+    "tailwindcss": "3.2.4",
+    "terser": "5.16.0",
     "tslib": "2.4.1",
     "typescript": "4.9.3",
-    "vite": "3.2.4",
-    "postcss": "8.4.14",
-    "postcss-load-config": "4.0.1",
-    "svelte-preprocess": "4.10.7",
-    "autoprefixer": "10.4.7",
-    "tailwindcss": "3.1.5"
+    "vite": "3.2.4"
   },
   "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "exports": {
+    "./dist": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
+  "files": [
+    "**/*"
+  ],
   "license": "ISC",
   "repository": "github:zerodevx/svelte-toast",
   "homepage": "https://zerodevx.github.io/svelte-toast/",
