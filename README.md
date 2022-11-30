@@ -19,6 +19,18 @@ component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
 
+**:warning: IMPORTANT NOTICE!**
+
+If you're using the latest SvelteKit, install this component with the `@next` tag:
+
+```
+$ npm i --save-exact @zerodevx/svelte-toast@next
+```
+
+That's because of a [breaking change](https://github.com/sveltejs/kit/pull/7489) that landed in
+SvelteKit. Background of the issue [here](https://github.com/zerodevx/svelte-toast/issues/60). Track
+progress as we work towards `v1` [here](https://github.com/zerodevx/svelte-toast/pull/63).
+
 ## Usage
 
 Install the package:
