@@ -1,18 +1,22 @@
 <script>
 import { fade, fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
-import { toast } from './stores.js'
+import { toast } from './stores'
 import ToastItem from './ToastItem.svelte'
 
+/** @type {import('./stores').SvelteToastOptions} */
 export let options = {}
 export let target = 'default'
 
+let items = []
+
+function getCss(theme) {
+  return Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
+}
+
 $: toast._init(target, options)
 
-let items
 $: items = $toast.filter((i) => i.target === target)
-
-const getCss = (theme) => Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
 </script>
 
 <ul class="_toastContainer">
