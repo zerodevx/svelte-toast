@@ -1,11 +1,17 @@
 <script>
-import { tick } from 'svelte'
+/* eslint no-useless-escape: "off" */
+/* global PUBLIC_VERSION */
+
 import { SvelteToast, toast } from '$lib'
+import { tick } from 'svelte'
+import { browser, dev } from '$app/environment'
 import DummyComponent from './Dummy.svelte'
 import camelCase from 'camelcase'
 import Prism from 'prismjs'
 
-// @ts-ignore
+// Hoist to `window` for debug
+if (browser) window.toast = toast
+
 const version = PUBLIC_VERSION
 
 let selected
@@ -19,9 +25,7 @@ const buttons = [
   {
     name: 'DEFAULT',
     code: `toast.push('Hello world!')`,
-    run: () => {
-      toast.push('Hello world!')
-    }
+    run: () => toast.push('Hello world!')
   },
   {
     name: 'COLORED TOAST',
@@ -32,7 +36,7 @@ const buttons = [
     '--toastBarBackground': '#2F855A'
   }
 })`,
-    run: () => {
+    run: () =>
       toast.push('Success!', {
         theme: {
           '--toastColor': 'mintcream',
@@ -40,17 +44,15 @@ const buttons = [
           '--toastBarBackground': '#2F855A'
         }
       })
-    }
   },
   {
     name: 'RICH HTML',
     code: `toast.push(\`<strong>You won the jackpot!</strong><br>
   Click <a href="#" target="_blank">here</a> for details! 😛\`)`,
-    run: () => {
+    run: () =>
       toast.push(
         '<strong>You won the jackpot!</strong><br>Click <a href="#" target="_blank">here</a> for details! 😛'
       )
-    }
   },
   {
     name: 'HIDE PROGRESS BAR',
@@ -59,20 +61,12 @@ const buttons = [
     '--toastBarHeight': 0
   }
 })`,
-    run: () => {
-      toast.push('Hide the progress bar', {
-        theme: {
-          '--toastBarHeight': 0
-        }
-      })
-    }
+    run: () => toast.push('Hide the progress bar', { theme: { '--toastBarHeight': 0 } })
   },
   {
     name: 'LONG DURATION',
     code: `toast.push('Watching the paint dry...', { duration: 20000 })`,
-    run: () => {
-      toast.push('Watching the paint dry...', { duration: 20000 })
-    }
+    run: () => toast.push('Watching the paint dry...', { duration: 20000 })
   },
   {
     name: 'NO EXPIRY',
@@ -80,9 +74,7 @@ const buttons = [
   // Effectively disables autoclose when \`initial\`==\`next\`
   initial: 0
 })`,
-    run: () => {
-      toast.push('Tap button to dismiss', { initial: 0 })
-    }
+    run: () => toast.push('Tap button to dismiss', { initial: 0 })
   },
   {
     name: 'NON-DISMISSABLE',
@@ -91,9 +83,7 @@ const buttons = [
   initial: 0,
   dismissable: false
 })`,
-    run: () => {
-      toast.push('Where the close btn?!?', { initial: 0, dismissable: false })
-    }
+    run: () => toast.push('Where the close btn?!?', { initial: 0, dismissable: false })
   },
   {
     name: 'REMOVE LAST TOAST',
@@ -103,9 +93,7 @@ toast.pop()
 // Or remove a particular one
 const id = toast.push('Yo!')
 toast.pop(id)`,
-    run: () => {
-      toast.pop()
-    }
+    run: () => toast.pop()
   },
   {
     name: 'FLIP PROGRESS BAR',
@@ -115,13 +103,12 @@ toast.pop(id)`,
   next: 1,
   duration: 6000
 })`,
-    run: () => {
+    run: () =>
       toast.push('Progress bar is flipped', {
         initial: 0,
         next: 1,
         duration: 6000
       })
-    }
   },
   {
     name: 'USE AS LOADING INDICATOR',
@@ -244,9 +231,8 @@ toast.set(id, { next: 1 })`,
     }
   }
 </style>`,
-    run: () => {
+    run: () =>
       toast.push('<strong>NEW:</strong> Multiple toast container support!', { target: 'new' })
-    }
   },
   {
     name: 'REMOVE ALL TOASTS FROM CONTAINER',
@@ -255,9 +241,7 @@ toast.pop(i => i.target !== 'new')
 
 // Or remove ALL active toasts from ALL containers
 toast.pop(0)`,
-    run: () => {
-      toast.pop((i) => i.target !== 'new')
-    }
+    run: () => toast.pop((i) => i.target !== 'new')
   },
   {
     name: 'SEND COMPONENT AS A MESSAGE',
@@ -309,9 +293,7 @@ toast.pop(0)`,
   {
     name: 'PAUSE ON MOUSE HOVER',
     code: `toast.push('Hover me!', { pausable: true })`,
-    run: () => {
-      toast.push('Hover me!', { pausable: true })
-    }
+    run: () => toast.push('Hover me!', { pausable: true })
   },
   {
     name: 'RUN CALLBACK ON TOAST REMOVAL',
@@ -320,7 +302,7 @@ toast.pop(0)`,
     toast.push('onpop() callback has been executed.', { target: 'new' })
   }
 })`,
-    run: () => {
+    run: () =>
       toast.push('Wait for it...', {
         onpop: () => {
           toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, {
@@ -328,7 +310,6 @@ toast.pop(0)`,
           })
         }
       })
-    }
   },
   {
     name: 'STYLE WITH USER-DEFINED CLASSES',
@@ -363,7 +344,7 @@ toast.pop(0)`,
     '--toastBtnContent': \`url("data:image/svg+xml,...")\`
   }
 }`,
-    run: () => {
+    run: () =>
       toast.push('Say cheese!', {
         theme: {
           // @ts-ignore
@@ -372,7 +353,6 @@ toast.pop(0)`,
             : `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' fill='%23F1CB30' viewBox='0 0 512 512' xml:space='preserve'%3E%3Cpath d='M256,0C114.842,0,0,114.842,0,256s114.842,256,256,256s256-114.842,256-256S397.158,0,256,0z'/%3E%3Cg%3E%3Cpath style='fill:%2357575C;' d='M355.297,175.321c-8.161,0-16.167,3.305-21.938,9.092c-5.773,5.772-9.092,13.762-9.092,21.938 c0,8.163,3.32,16.168,9.092,21.94c5.772,5.772,13.777,9.09,21.938,9.09c8.161,0,16.167-3.32,21.938-9.09 c5.773-5.772,9.092-13.777,9.092-21.94c0-8.176-3.32-16.167-9.092-21.938C371.464,178.626,363.472,175.321,355.297,175.321z'/%3E%3Cpath style='fill:%2357575C;' d='M178.641,228.291c5.773-5.772,9.092-13.762,9.092-21.94c0-8.176-3.32-16.167-9.092-21.938 c-5.772-5.787-13.777-9.092-21.938-9.092c-8.161,0-16.167,3.305-21.938,9.092c-5.772,5.772-9.092,13.762-9.092,21.938 c0,8.176,3.32,16.168,9.092,21.94c5.772,5.786,13.777,9.09,21.938,9.09C164.864,237.382,172.87,234.077,178.641,228.291z'/%3E%3C/g%3E%3Cpath style='fill:%23DF6246;' d='M356.49,326.085c-3.603-8.696-12.088-14.367-21.501-14.367H256h-78.991 c-9.413,0-17.898,5.671-21.501,14.367c-3.601,8.696-1.61,18.708,5.046,25.363c25.495,25.493,59.392,39.534,95.446,39.534 s69.952-14.041,95.446-39.534C358.102,344.792,360.093,334.78,356.49,326.085z'/%3E%3Cpath style='fill:%23E69629;' d='M160.552,351.448c-6.656-6.654-8.647-16.665-5.046-25.363c3.603-8.696,12.088-14.367,21.501-14.367 H256V0C114.842,0,0,114.842,0,256s114.842,256,256,256V390.982C219.946,390.982,186.048,376.941,160.552,351.448z M125.673,206.352 c0-8.176,3.32-16.167,9.092-21.938c5.772-5.787,13.777-9.092,21.938-9.092c8.161,0,16.167,3.305,21.938,9.092 c5.773,5.772,9.092,13.762,9.092,21.938c0,8.176-3.32,16.168-9.092,21.94c-5.772,5.786-13.777,9.09-21.938,9.09 c-8.161,0-16.167-3.305-21.938-9.09C128.993,222.52,125.673,214.528,125.673,206.352z'/%3E%3Cpath style='fill:%23DD512A;' d='M177.009,311.718c-9.413,0-17.898,5.671-21.501,14.367c-3.601,8.696-1.61,18.708,5.046,25.363 c25.495,25.493,59.39,39.534,95.445,39.534v-79.264H177.009z'/%3E%3C/svg%3E")`
         }
       })
-    }
   }
 ]
 
@@ -380,7 +360,7 @@ function clicked(btn) {
   selected = btn.name
   code = btn.code
   btn.run()
-  window.gtag('event', 'toast', { event_label: btn.name })
+  if (browser && !dev) window.gtag('event', 'toast', { event_label: btn.name })
 }
 
 $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
@@ -405,10 +385,10 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
       rel="noreferrer">GITHUB v{version}</a
     >
   </div>
-  <p class="text-center mb-6">
-    Simple elegant toast notifications for modern web frontends in very little lines of code.<br />
-    Because a demo helps better than a thousand API docs, so here it is.<br />
-    Use in Vanilla JS (8kb gzipped) or as a Svelte component.
+  <p class="max-w-2xl mx-auto text-center mb-6">
+    Simple elegant toast notifications for modern web frontends in very little lines of code.
+    Because a demo helps better than a thousand API docs, so here it is. Use in Vanilla JS (8kb
+    gzipped) or as a Svelte component.
   </p>
   <div class="mockup-code h-80 mb-4 text-sm overflow-auto">
     <pre><code class="language-javascript">{@html formatted}</code></pre>
