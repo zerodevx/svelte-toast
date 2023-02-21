@@ -7,6 +7,9 @@ declare global {
     // interface PageData {}
     // interface Platform {}
   }
+  var PUBLIC_VERSION
+  var toast
+  var gtag
 }
 
 export {}
