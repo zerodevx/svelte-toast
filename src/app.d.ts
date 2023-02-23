@@ -10,6 +10,7 @@ declare global {
   var PUBLIC_VERSION
   var toast
   var gtag
+  var TEST_MODE
 }
 
 export {}
