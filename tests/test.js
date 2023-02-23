@@ -89,6 +89,14 @@ test('clears all active toasts', async ({ page }) => {
   await expect(page.locator('._toastItem')).toHaveCount(0)
 })
 
+test('`push()` accepts both string and obj', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'networkidle' })
+  await page.evaluate(`window.toast.push('push with string')`)
+  await expect(page.getByText('push with string')).toBeVisible()
+  await page.evaluate(`window.toast.push({msg:'push with obj'})`)
+  await expect(page.getByText('push with obj')).toBeVisible()
+})
+
 test('pushes to correct container target', async ({ page }) => {
   await page.goto('/')
   await page.getByTestId('createNewToastContainer').click()
@@ -252,14 +260,6 @@ test('`progress` key still works', async ({ page }) => {
   expect(await get()).toBe(0.2)
 })
 
-test('`push()` accepts both string and obj', async ({ page }) => {
-  await page.goto('/', { waitUntil: 'networkidle' })
-  await page.evaluate(`window.toast.push('push with string')`)
-  await expect(page.getByText('push with string')).toBeVisible()
-  await page.evaluate(`window.toast.push({msg:'push with obj'})`)
-  await expect(page.getByText('push with obj')).toBeVisible()
-})
-
 test('removes toasts from container via filter fn', async ({ page }) => {
   await page.goto('/', { waitUntil: 'networkidle' })
   for (let a = 0; a < 3; a++) {
@@ -267,4 +267,16 @@ test('removes toasts from container via filter fn', async ({ page }) => {
   }
   await page.evaluate(`window.toast.pop(i=>i.target!=='new')`)
   await expect(page.locator('._toastItem')).toHaveCount(0)
+})
+
+test('deprecated css vars still work', async ({ page }) => {
+  const snap = async (sel) => await page.locator(sel).screenshot({ animations: 'disabled' })
+  await page.goto('/', { waitUntil: 'networkidle' })
+  await page.evaluate(() => {
+    window.toast.push('', { next: 1, theme: { '--toastBarBackground': 'red' } })
+    window.toast.push('', { next: 1, theme: { '--toastProgressBackground': 'red' } })
+  })
+  const ss0 = await snap('._toastContainer li:first-child ._toastBar')
+  const ss1 = await snap('._toastContainer li:last-child ._toastBar')
+  expect(ss0).toEqual(ss1)
 })
