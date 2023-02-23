@@ -29,9 +29,10 @@ const declined = () => clicked(false)
     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
     laboris nisi ut aliquip ex ea commodo consequat.
   </p>
-  <div class="h-12 flex flex-row justify-around">
-    <button class="w-28 h-10 rounded-full" on:click={declined}>DECLINE</button>
-    <button class="w-28 h-10 rounded-full" on:click={accepted} data-btn="dummyAccept">ACCEPT</button
+  <div class="h-10 flex flex-row justify-around">
+    <button class="btn btn-sm" on:click={declined}>DECLINE</button>
+    <button class="btn btn-sm btn-primary" on:click={accepted} data-testid="dummyAccept"
+      >ACCEPT</button
     >
   </div>
 </div>
