@@ -193,8 +193,18 @@ test('can change dismiss btn char', async ({ page }) => {
   expect(btn).toBe('"x"')
 })
 
-// Playwright currently does not provide a way to test this
+test('removes all toasts from a container target', async ({ page }) => {
+  await page.goto('/')
+  for (let a = 0; a < 3; a++) {
+    await page.getByTestId('createNewToastContainer').click()
+  }
+  await page.getByTestId('removeAllToastsFromContainer').click()
+  await expect(page.locator('._toastItem')).toHaveCount(0)
+})
+
+// Playwright currently doesn't provide a way to test this
 // https://github.com/microsoft/playwright/issues/2286
+// TODO: migrate this Cypress test
 /*
 it('Toggles pause and resume on visibilitychange', () => {
   cy.get('[data-btn=default]')
@@ -248,4 +258,13 @@ test('`push()` accepts both string and obj', async ({ page }) => {
   await expect(page.getByText('push with string')).toBeVisible()
   await page.evaluate(`window.toast.push({msg:'push with obj'})`)
   await expect(page.getByText('push with obj')).toBeVisible()
+})
+
+test('removes toasts from container via filter fn', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'networkidle' })
+  for (let a = 0; a < 3; a++) {
+    await page.getByTestId('createNewToastContainer').click()
+  }
+  await page.evaluate(`window.toast.pop(i=>i.target!=='new')`)
+  await expect(page.locator('._toastItem')).toHaveCount(0)
 })
