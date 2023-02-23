@@ -115,7 +115,7 @@ test('removes all toast from particular container', async ({ page }) => {
 })
 
 test('renders custom component and is reactive', async ({ page }) => {
-  await page.goto('/', { waitUntil: 'networkidle' })
+  await page.goto('/')
   await page.getByTestId('sendComponentAsAMessage').click()
   await expect(page.locator('._toastItem h1')).toHaveText('A Dummy Cookie Component')
   await page.getByTestId('removeLastToast').click()
@@ -210,43 +210,25 @@ test('removes all toasts from a container target', async ({ page }) => {
   await expect(page.locator('._toastItem')).toHaveCount(0)
 })
 
-// Playwright currently doesn't provide a way to test this
-// https://github.com/microsoft/playwright/issues/2286
-// TODO: migrate this Cypress test
-/*
-it('Toggles pause and resume on visibilitychange', () => {
-  cy.get('[data-btn=default]')
-    .click()
-    .document()
-    .then((doc) => {
-      cy.stub(doc, 'hidden').value(true)
-    })
-    .document()
-    .trigger('visibilitychange')
-    .get('._toastBar')
-    .then(($bar) => {
-      const old = parseFloat($bar.val())
-      cy.wait(500).then(() => {
-        expect(parseFloat($bar.val())).to.be.equal(old)
-      })
-    })
-    .document()
-    .then((doc) => {
-      cy.stub(doc, 'hidden').value(false)
-    })
-    .document()
-    .trigger('visibilitychange')
-    .get('._toastBar')
-    .then(($bar) => {
-      const old = parseFloat($bar.val())
-      cy.wait(500).then(() => {
-        expect(parseFloat($bar.val())).to.be.below(old)
-      })
-    })
-    .get('._toastBtn')
-    .click()
+test('toggles pause and resume on visibilitychange', async ({ page }) => {
+  const get = async () => parseFloat(await page.locator('._toastBar').getAttribute('value'))
+  const fire = async (hidden = false) =>
+    await page.evaluate((value) => {
+      Object.defineProperty(document, 'hidden', { value, writable: true })
+      document.dispatchEvent(new Event('visibilitychange'))
+    }, hidden)
+  await page.goto('/')
+  await page.getByTestId('default').click()
+  await fire(true)
+  const v0 = await get()
+  await sleep(100)
+  const v1 = await get()
+  expect(v0).toEqual(v1)
+  await fire(false)
+  await sleep(100)
+  const v2 = await get()
+  expect(v2).toBeLessThan(v1)
 })
-*/
 
 // Backward compatibility tests
 
