@@ -6,6 +6,7 @@ import ToastItem from './ToastItem.svelte'
 
 /** @type {import('./stores').SvelteToastOptions} */
 export let options = {}
+/** @type {(string|'default')} */
 export let target = 'default'
 
 let items = []
