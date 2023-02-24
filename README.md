@@ -8,28 +8,15 @@
 
 > Simple elegant toast notifications.
 
-A lightweight, unopinionated and performant toast notification component for modern web frontends in
-[very](https://github.com/zerodevx/svelte-toast/blob/master/src/SvelteToast.svelte)
-[little](https://github.com/zerodevx/svelte-toast/blob/master/src/ToastItem.svelte)
-[lines](https://github.com/zerodevx/svelte-toast/blob/master/src/stores.js)
-[of](https://github.com/zerodevx/svelte-toast/blob/master/src/index.js)
-[code](https://github.com/zerodevx/svelte-toast/blob/master/src/index.d.ts). Compiled (into UMD),
+A feather-light and well-tested toast notification component for modern web frontends in
+[very](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/SvelteToast.svelte)
+[little](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/ToastItem.svelte)
+[lines](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/stores.js) of
+[code](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/index.js). Compiled (into UMD),
 it's only **19kb** minified (**8kb** gzipped) and can be used in Vanilla JS, or as a Svelte
 component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
-
-**:warning: IMPORTANT NOTICE!**
-
-If you're using the latest SvelteKit, install this component with the `@next` tag:
-
-```
-$ npm i --save-exact @zerodevx/svelte-toast@next
-```
-
-That's because of a [breaking change](https://github.com/sveltejs/kit/pull/7489) that landed in
-SvelteKit. Background of the issue [here](https://github.com/zerodevx/svelte-toast/issues/60). Track
-progress as we work towards `v1` [here](https://github.com/zerodevx/svelte-toast/pull/63).
 
 ## Usage
 
@@ -42,7 +29,7 @@ $ npm i -D @zerodevx/svelte-toast
 The following are exported:
 
 - `SvelteToast` as the toast container;
-- `toast` as the toast emitter.
+- `toast` as the toast controller.
 
 ### Svelte
 
@@ -66,7 +53,7 @@ root layout.
 <SvelteToast {options} />
 ```
 
-Use anywhere in your app - just import the toast emitter.
+Use anywhere in your app - just import the toast controller.
 
 `MyComponent.svelte`:
 
@@ -75,7 +62,7 @@ Use anywhere in your app - just import the toast emitter.
   import { toast } from '@zerodevx/svelte-toast'
 </script>
 
-<button on:click={() => toast.push('Hello world!')}>EMIT TOAST</button>
+<button on:click={() => toast.push('Hello world!')}>SHOW TOAST</button>
 ```
 
 ### Vanilla JS
@@ -83,7 +70,8 @@ Use anywhere in your app - just import the toast emitter.
 For any other application with a bundler, something like this should work:
 
 ```js
-import { SvelteToast, toast } from '@zerodevx/svelte-toast'
+// Import the compiled code from `/dist`
+import { SvelteToast, toast } from '@zerodevx/svelte-toast/dist'
 
 const app = new SvelteToast({
   // Set where the toast container should be appended into
@@ -348,13 +336,15 @@ It's now easy to send toasts to different container targets within your app. For
 </div>
 ```
 
-#### Removing Multiple Toasts
+#### Removing Multiple Toasts (Outdated)
 
-`pop()` now accepts a filter function.
+~~`pop()` now accepts a filter function.~~ This has been deprecated, but will remain for backward
+compatibility until the next major. The recommended way to remove all toasts from a container target
+[has changed from `v0.9`](#remove-multiple-toasts).
 
 ```js
 // Remove all toasts from "new" container
-toast.pop((i) => i.target !== 'new')
+toast.pop((i) => i.target !== 'new') // DEPRECATED
 
 // Or remove ALL active toasts from ALL containers
 toast.pop(0)
@@ -470,9 +460,37 @@ or inline icons.
   }
 </script>
 
-<button on:click={() => toast.push('Ping!')}>PONG</button>
+<button on:click={() => toast.push('Hello!')}>SHOW TOAST</button>
 
 <SvelteToast {options} />
+```
+
+### New from `v0.9`
+
+#### Removing Multiple Toasts
+
+Removing all toasts from a particular container target has just become more _targeted_. Simply call
+`pop()` with param `{ target: 'containerName' }`, or call `pop(0)` to clear everything.
+
+```js
+// Remove all toasts from "new" container
+toast.pop({ target: 'new' })
+
+// Or remove ALL active toasts from ALL containers
+toast.pop(0)
+```
+
+#### Big Tooling Upgrade
+
+Under the hood, the project's been migrated to
+[`svelte-package`](https://github.com/sveltejs/kit/tree/master/packages/package). For Svelte
+consumers, this helps keep in sync with breaking changes that happen in Svelte-world. For other
+consumers, there's a change in import path:
+
+```js
+// Import the compiled code.
+import { toast, SvelteToast } from '@zerodevx/svelte-toast/dist' // ESM
+const { toast, SvelteToast } = require('@zerodevx/svelte-toast/dist') // CJS
 ```
 
 ## Toast Options
@@ -496,9 +514,26 @@ const options = {
 ## Toast Methods
 
 ```js
-const id = toast.push(msg, { ...options })
-toast.pop(id || fn || undefined)
-toast.set(id, { ...options })
+/**
+ * Send a new toast
+ * @param {(string|SvelteToastOptions)} msg
+ * @param {SvelteToastOptions} [opts]
+ * @returns {number}
+ */
+function push(msg, opts) { ... }
+
+/**
+ * Remove toast(s)
+ * @param {(number|Object.<'target', string>)} [id]
+ */
+function pop(id) { ... }
+
+/**
+ * Update an existing toast
+ * @param {(number|SvelteToastOptions)} id
+ * @param {SvelteToastOptions} [opts]
+ */
+function set(id, opts) { ... }
 ```
 
 ## Development
@@ -509,7 +544,7 @@ applies.
 
 ### Tests
 
-Testing is through [Cypress](https://www.cypress.io/). To run the tests headlessly:
+Testing is through [Playwright](https://playwright.dev/). To run the tests headlessly:
 
 ```
 $ npm run test
