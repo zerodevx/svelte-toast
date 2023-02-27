@@ -1,12 +1,7 @@
 #!/usr/bin/env zx
 
-const args = process.argv.slice(2)
-
-await $`npm run lint`
-await $`npm run check`
-await $`npx svelte-package`
+await $`npm run lint && npm run check && npx svelte-package`
 const out = await $`npx vite build -c vite.dist.config.js`
-await fs.copy('dist/dist/index.umd.js', 'dist/dist/index.umd.cjs')
 
 // Prepare `/dist`
 const pkg = await fs.readJson('package.json')
@@ -14,9 +9,10 @@ pkg.scripts = undefined
 await fs.writeJson('dist/package.json', pkg, { spaces: 2 })
 await fs.copy('README.md', 'dist/README.md')
 await fs.copy('LICENSE', 'dist/LICENSE')
+await fs.copy('dist/dist/index.umd.js', 'dist/dist/index.umd.cjs')
 await $`cd dist && npx publint`
 
-if (args.includes('--packageOnly')) process.exit()
+if (argv.packageOnly) process.exit()
 
 await $`npm run build`
 
