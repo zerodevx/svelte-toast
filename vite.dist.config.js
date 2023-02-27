@@ -13,12 +13,12 @@ export default defineConfig({
     })
   ],
   build: {
-    outDir: './package/dist',
+    outDir: './dist/dist',
     minify: 'terser',
     lib: {
       entry: './src/lib/index.js',
       name: 'window',
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format === 'umd' ? 'umd.cjs' : 'es.js'}`
     },
     rollupOptions: {
       output: {
