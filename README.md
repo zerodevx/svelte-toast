@@ -1,7 +1,7 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast/latest)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
-![Lines of code](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_loc.json)
-![Size minified](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_min.json)
-![Size gzipped](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_gzip.json)
+[![Lines of code](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_loc.json)](https://github.com/AlDanial/cloc)
+[![Size minified](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_min.json)](https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast)
+[![Size gzipped](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_gzip.json)](https://cdn.jsdelivr.net/npm/@zerodevx/svelte-toast)
 
 # svelte-toast
 
