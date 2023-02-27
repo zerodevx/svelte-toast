@@ -1,21 +1,20 @@
 {
   "name": "@zerodevx/svelte-toast",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Simple elegant toast notifications",
   "author": "Jason Lee <jason@zerodevx.com>",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "package": "svelte-package -o package && vite build -c vite.dist.config.js && publint",
+    "package": "svelte-kit sync && svelte-package && vite build -c vite.dist.config.js",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "test": "playwright test",
-    "qc": "npm run format && npm run lint && npm run check",
-    "publish": "npm run qc && npm run package && npm publish --access public",
-    "deploy": "npm run qc && npm run build && gh-pages -d build -t -f"
+    "prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
+    "build-all": "zx build-all.mjs"
   },
   "peerDependencies": {
     "svelte": "^3.55.1"
@@ -33,14 +32,12 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "gh-pages": "^5.0.0",
     "is-port-reachable": "^4.0.0",
     "postcss": "^8.4.21",
     "postcss-load-config": "^4.0.1",
     "prettier": "^2.8.4",
     "prettier-plugin-svelte": "^2.9.0",
     "prismjs": "^1.29.0",
-    "publint": "^0.1.9",
     "svelte-check": "^3.0.4",
     "svelte-preprocess": "^5.0.1",
     "tailwindcss": "^3.2.7",
@@ -52,19 +49,18 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./package/index.d.ts",
-      "svelte": "./package/index.js"
+      "types": "./index.d.ts",
+      "svelte": "./index.js"
     },
     "./dist": {
-      "import": "./package/dist/index.es.js",
-      "require": "./package/dist/index.umd.js"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.cjs"
     }
   },
-  "svelte": "./package/index.js",
-  "types": "./package/index.d.ts",
-  "jsdelivr": "./package/dist/index.umd.js",
+  "svelte": "./index.js",
+  "jsdelivr": "./dist/index.umd.cjs",
   "files": [
-    "package"
+    "**/*"
   ],
   "license": "ISC",
   "repository": "github:zerodevx/svelte-toast",
