@@ -1,8 +1,7 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@zerodevx/svelte-toast/latest)](https://www.npmjs.com/package/@zerodevx/svelte-toast)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Lines of code](https://img.shields.io/tokei/lines/github/zerodevx/svelte-toast?label=lines%20of%20code)](https://github.com/XAMPPRocky/tokei)
-[![Size minified](https://img.shields.io/bundlephobia/min/@zerodevx/svelte-toast?label=minified)](https://bundlephobia.com/)
-[![Size gzipped](https://img.shields.io/bundlephobia/minzip/@zerodevx/svelte-toast?label=gzipped)](https://bundlephobia.com/)
+![Lines of code](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_loc.json)
+![Size minified](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_min.json)
+![Size gzipped](https://img.shields.io/endpoint?url=https%3A%2F%2Fzerodevx.github.io%2Fsvelte-toast%2F_gzip.json)
 
 # svelte-toast
 
@@ -488,7 +487,7 @@ consumers, this helps keep in sync with breaking changes that happen in Svelte-w
 consumers, there's a change in import path:
 
 ```js
-// Import the compiled code.
+// For non-Svelte users, import the compiled code
 import { toast, SvelteToast } from '@zerodevx/svelte-toast/dist' // ESM
 const { toast, SvelteToast } = require('@zerodevx/svelte-toast/dist') // CJS
 ```
