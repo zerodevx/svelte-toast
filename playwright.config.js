@@ -9,7 +9,7 @@ const config = {
     port: dev ? 5173 : 4173,
     reuseExistingServer: dev
   },
-  testDir: 'tests'
+  testDir: 'tests',
 }
 
 export default config
