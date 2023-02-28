@@ -266,10 +266,15 @@ test('deprecated css vars still work', async ({ page }) => {
 
 test('can add icon next to the message', async ({ page }) => {
   await page.goto('/')
-  await page.evaluate(`window.TEST_MODE=true`)
   await page.getByTestId('toastWithAnIcon').click()
-  const btn = await page
+ const icon = await page
     .locator('._toastIcon')
     .evaluate((e) => window.getComputedStyle(e, ':after').content)
-  expect(btn).toBe('"✓"')
+    expect(icon).toBe('"✓"')
+  })
+  
+  test('can add image next to the message', async ({ page }) => {
+    await page.goto('/')
+    await page.getByTestId('toastWithAnImage').click()
+    await expect(page.locator('._toastImg')).toHaveAttribute("src", "/favicon.png")
 })

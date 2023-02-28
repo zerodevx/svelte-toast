@@ -360,8 +360,9 @@ toast.pop(0)`,
     })`,
     run: () => {
       toast.push('I am with an image', {
-      image: '/favicon.png'
-    })
+        duration: 20000,
+        image: '/favicon.png'
+      })
    }
   },
   {
