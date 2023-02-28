@@ -262,3 +262,14 @@ test('deprecated css vars still work', async ({ page }) => {
   const ss1 = await snap('._toastContainer li:last-child ._toastBar')
   expect(ss0).toEqual(ss1)
 })
+
+
+test('can add icon next to the message', async ({ page }) => {
+  await page.goto('/')
+  await page.evaluate(`window.TEST_MODE=true`)
+  await page.getByTestId('toastWithAnIcon').click()
+  const btn = await page
+    .locator('._toastIcon')
+    .evaluate((e) => window.getComputedStyle(e, ':after').content)
+  expect(btn).toBe('"✓"')
+})

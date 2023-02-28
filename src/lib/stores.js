@@ -37,6 +37,7 @@ import { writable } from 'svelte/store'
  * @property {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
  * @property {SvelteToastCustomComponent} [component] - send custom Svelte Component as a message
  * @property {number} [progress] - DEPRECATED
+ * @property {string} [image] - The image next to the text in the toast
  */
 
 /** @type {SvelteToastOptions} */

@@ -12,7 +12,11 @@ export let target = 'default'
 let items = []
 
 function getCss(theme) {
-  return Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
+  let ret = Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
+  console.log('====================================');
+  console.log(ret);
+  console.log('====================================');
+  return ret;
 }
 
 $: toast._init(target, options)

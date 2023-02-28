@@ -87,6 +87,10 @@ onDestroy(() => {
   }}
   on:mouseleave={resume}
 >
+  {#if item.image}
+    <img src={item.image} alt="toast" class="_toastImg" />
+  {/if}
+    <div class="_toastIcon"></div>
   <div role="status" class="_toastMsg" class:pe={item.component}>
     {#if item.component}
       <svelte:component this={item.component.src} {...cprops} />
@@ -136,6 +140,13 @@ onDestroy(() => {
   padding: var(--toastMsgPadding, 0.75rem 0.5rem);
   flex: 1 1 0%;
 }
+
+._toastImg {
+  height: 100%;
+  width: 2rem;
+  padding-left: 0.75rem;
+}
+
 .pe,
 ._toastMsg :global(a) {
   pointer-events: auto;
@@ -153,6 +164,7 @@ onDestroy(() => {
   align-items: center;
   justify-content: center;
 }
+
 ._toastBar {
   top: var(--toastBarTop, auto);
   right: var(--toastBarRight, auto);
@@ -179,4 +191,15 @@ onDestroy(() => {
 ._toastBar::-moz-progress-bar {
   background: var(--toastProgressBackground, var(--toastBarBackground, rgba(33, 150, 243, 0.75)));
 }
+
+._toastIcon::after {
+  content: var(--toastIconContent);
+  font: var(--toastIconFont, 1rem sans-serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--toastIconWidth, 2rem);
+  height: var(--toastIconHeight, 100%);
+}
+
 </style>
