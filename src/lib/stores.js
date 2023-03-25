@@ -11,7 +11,7 @@ import { writable } from 'svelte/store'
 /**
  * @typedef {Object} SvelteToastCustomComponent
  * @property {SvelteComponent} src - custom Svelte Component
- * @property {Object.<string, *>} [props] - props to pass into custom component
+ * @property {Object<string,any>} [props] - props to pass into custom component
  * @property {string} [sendIdTo] - forward toast id to prop name
  */
 
@@ -32,7 +32,7 @@ import { writable } from 'svelte/store'
  * @property {boolean} [dismissable] - allow dissmiss with close button
  * @property {boolean} [reversed] - display toasts in reverse order
  * @property {FlyParams} [intro] - toast intro fly animation settings
- * @property {Object.<string, string|number>} [theme] - css var overrides
+ * @property {Object<string,string|number>} [theme] - css var overrides
  * @property {string[]} [classes] - user-defined classes
  * @property {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
  * @property {SvelteToastCustomComponent} [component] - send custom Svelte Component as a message
@@ -50,13 +50,13 @@ const defaults = {
   intro: { x: 256 }
 }
 
-const createToast = () => {
-  const { subscribe, update } = writable([])
-  /** @type {Object.<string, SvelteToastOptions>} */
+function createToast() {
+  const { subscribe, update } = writable(new Array())
+  /** @type {Object<string,SvelteToastOptions>} */
   const options = {}
   let count = 0
 
-  /** @param {*} obj */
+  /** @param {any} obj */
   function _obj(obj) {
     return obj instanceof Object
   }
@@ -96,14 +96,15 @@ const createToast = () => {
    * - toast.pop(0) // remove all toasts
    * - toast.pop(id) // removes the toast with specified `id`
    * - toast.pop({ target: 'foo' }) // remove all toasts from target `foo`
-   * @param {(number|Object.<'target', string>)} [id]
+   * @param {(number|Object<'target',string>)} [id]
    */
   function pop(id) {
     update((n) => {
       if (!n.length || id === 0) return []
       // Filter function is deprecated; shim added for backward compatibility
       if (typeof id === 'function') return n.filter((i) => id(i))
-      if (_obj(id)) return n.filter((i) => i.target !== id.target)
+      if (_obj(id))
+        return n.filter(/** @type {SvelteToastOptions[]} i */ (i) => i.target !== id.target)
       const found = id || Math.max(...n.map((i) => i.id))
       return n.filter((i) => i.id !== found)
     })
@@ -115,7 +116,7 @@ const createToast = () => {
    * @param {SvelteToastOptions} [opts]
    */
   function set(id, opts) {
-    /** @type {object} */
+    /** @type {any} */
     const param = _obj(id) ? id : { ...opts, id }
     update((n) => {
       const idx = n.findIndex((i) => i.id === param.id)

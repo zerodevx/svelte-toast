@@ -9,10 +9,12 @@ export let options = {}
 /** @type {(string|'default')} */
 export let target = 'default'
 
+/** @type {import('./stores').SvelteToastOptions[]} */
 let items = []
 
+/** @param {Object<string,string|number>} [theme] */
 function getCss(theme) {
-  return Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '')
+  return theme ? Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '') : undefined
 }
 
 $: toast._init(target, options)
@@ -23,7 +25,7 @@ $: items = $toast.filter((i) => i.target === target)
 <ul class="_toastContainer">
   {#each items as item (item.id)}
     <li
-      class={item.classes.join(' ')}
+      class={item.classes?.join(' ')}
       in:fly={item.intro}
       out:fade
       animate:flip={{ duration: 200 }}
