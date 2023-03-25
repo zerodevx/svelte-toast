@@ -1,10 +1,10 @@
 <script>
 import { toast } from '$lib/index.js'
 
-export let toastId
-export let title
+export let toastId = 0
+export let title = ''
 
-const clicked = (ok) => {
+const clicked = (/** @type {boolean} */ ok) => {
   toast.pop(toastId)
   toast.push({
     msg: ok ? 'Accepted!' : 'Declined!',

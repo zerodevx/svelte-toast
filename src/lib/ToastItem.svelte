@@ -7,10 +7,12 @@ import { toast } from './stores'
 /** @type {import('./stores').SvelteToastOptions} */
 export let item
 
+/** @type {any} */
 let next = item.initial
 let prev = next
 let paused = false
 let cprops = {}
+/** @type {any} */
 let unlisten
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
@@ -32,13 +34,14 @@ function pause() {
 
 function resume() {
   if (paused) {
-    const d = item.duration
+    const d = /** @type {any} */ (item.duration)
     const duration = d - d * (($progress - prev) / (next - prev))
     progress.set(next, { duration }).then(autoclose)
     paused = false
   }
 }
 
+/** @param {any} prop */
 function check(prop, kind = 'undefined') {
   return typeof prop === kind
 }
@@ -73,6 +76,7 @@ onMount(listen)
 
 onDestroy(() => {
   if (check(item.onpop, 'function')) {
+    // @ts-ignore
     item.onpop(item.id)
   }
   unlisten && unlisten()

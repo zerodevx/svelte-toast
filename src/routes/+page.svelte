@@ -14,12 +14,12 @@ if (browser) window.toast = toast
 
 const version = PUBLIC_VERSION
 
-let selected
+let selected = ''
 let code = '// Tap a button below'
 let colors = false
 let bottom = false
 let options = {}
-let formatted
+let formatted = ''
 
 const buttons = [
   {
@@ -133,7 +133,8 @@ toast.set(id, { msg: 'Just a bit more', next: 0.8 })
 await sleep(2000)
 toast.set(id, { next: 1 })`,
     run: async () => {
-      const sleep = (t) => new Promise((resolve) => setTimeout(resolve, t))
+      const sleep = (/** @type {number|undefined} */ t) =>
+        new Promise((resolve) => setTimeout(resolve, t))
       const id = toast.push('Loading, please wait...', {
         duration: 300,
         initial: 0,
@@ -354,6 +355,7 @@ toast.pop(0)`,
   }
 ]
 
+/** @param {{ name: any; code: any; run: any; }} btn */
 function clicked(btn) {
   selected = btn.name
   code = btn.code
@@ -361,6 +363,7 @@ function clicked(btn) {
   if (browser && !dev) window.gtag('event', 'toast', { event_label: btn.name })
 }
 
+// @ts-ignore
 $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
 </script>
 
@@ -385,9 +388,10 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
   </div>
   <p class="max-w-2xl mx-auto text-center mb-6">
     Simple elegant toast notifications for modern web frontends in very little lines of code.
-    Because a demo helps better than a thousand API docs, so here it is. Use in Vanilla JS <span
-      class="font-mono text-sm">(8kB gzipped)</span
-    > or as a Svelte component.
+    Because a demo helps better than a thousand API docs, so here it is. Use in Vanilla JS (<strong
+      >8kB</strong
+    >
+    gzipped) or as a Svelte component.
   </p>
   <div class="mockup-code h-80 mb-4 text-sm overflow-auto">
     <pre><code class="language-javascript">{@html formatted}</code></pre>
