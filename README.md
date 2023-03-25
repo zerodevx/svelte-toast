@@ -12,7 +12,7 @@ A feather-light and well-tested toast notification component for modern web fron
 [little](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/ToastItem.svelte)
 [lines](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/stores.js) of
 [code](https://github.com/zerodevx/svelte-toast/blob/master/src/lib/index.js). Compiled (into UMD),
-it's only **19kb** minified (**8kb** gzipped) and can be used in Vanilla JS, or as a Svelte
+it's only **20kB** minified (**8kB** gzipped) and can be used in Vanilla JS, or as a Svelte
 component.
 
 Because a demo helps better than a thousand API docs: https://zerodevx.github.io/svelte-toast/
@@ -523,7 +523,7 @@ function push(msg, opts) { ... }
 
 /**
  * Remove toast(s)
- * @param {(number|Object.<'target', string>)} [id]
+ * @param {(number|Object<'target',string>)} [id]
  */
 function pop(id) { ... }
 
@@ -537,7 +537,7 @@ function set(id, opts) { ... }
 
 ## Development
 
-Standard Github
+Packaging is through [SvelteKit](https://kit.svelte.dev/docs/packaging). Standard Github
 [contribution workflow](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
 applies.
 
