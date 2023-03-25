@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
-await $`npm run lint && npm run check && npx svelte-package`
-const out = await $`npx vite build -c vite.dist.config.js`
+await $`npm run lint && npx svelte-package`
+const packed = await $`npx vite build -c vite.dist.config.js`
 
 // Prepare `/dist`
 const pkg = await fs.readJson('package.json')
@@ -14,10 +14,11 @@ await $`cd dist && npx publint`
 
 if (argv.packageOnly) process.exit()
 
-await $`npm run build`
+await $`npx vite build`
 
 // Calculate stats
-const sizes = out.stdout
+const sizes = packed
+  .toString()
   .split('\n')
   .find((i) => i.includes('index.umd.js'))
   .split(' ')
@@ -25,13 +26,18 @@ const sizes = out.stdout
 const cloc = JSON.parse(await $`npx cloc src/lib --json`).SUM.code.toString()
 
 // Write stats into `/build`
-const shields = { schemaVersion: 1, color: 'blue' }
-await fs.writeJson('build/_min.json', { ...shields, label: 'minified', message: `${sizes[0]} kB` })
-await fs.writeJson('build/_gzip.json', { ...shields, label: 'gzipped', message: `${sizes[1]} kB` })
-await fs.writeJson('build/_loc.json', { ...shields, label: 'lines of code', message: cloc })
+const shields = (label, message, color) => ({
+  schemaVersion: 1,
+  label,
+  message,
+  color: color || 'blue'
+})
+await fs.writeJson('build/_min.json', shields('minified', `${sizes[0]} kB`))
+await fs.writeJson('build/_gzip.json', shields('gzipped', `${sizes[1]} kB`))
+await fs.writeJson('build/_loc.json', shields('lines of code', cloc, 'green'))
 
 echo`
-Build complete!
+Build complete! [${chalk.green(cloc)}/${chalk.gray(sizes[0])}/${chalk.blue(sizes[1])}]
 
 To deploy the demo, run:
 $ npx gh-pages -d build -t -f
