@@ -3,8 +3,6 @@ import { onMount, onDestroy } from 'svelte'
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
 import { toast } from './stores'
-import Fa from 'svelte-fa'
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 /** @type {import('./stores').SvelteToastOptions} */
 export let item
@@ -116,7 +114,6 @@ onDestroy(() => {
 
 <style>
 ._toastItem {
-  /* position: absolute; */
   width: var(--toastWidth, stretch);
   height: var(--toastHeight, auto);
   min-height: var(--toastMinHeight, 5rem);
