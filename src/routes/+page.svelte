@@ -379,7 +379,7 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
   <h1 class="text-4xl font-bold text-center mb-2">svelte-toast</h1>
   <div class="text-center mb-6">
     <a
-      class="badge font-mono text-xs px-4 py-3 hover:opacity-80"
+      class="badge font-mono text-xs px-4 py-3 hover:bg-base-300"
       href="https://github.com/zerodevx/svelte-toast"
       title="Visit Github repo"
       target="_blank"
@@ -393,8 +393,10 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
     >
     gzipped) or as a Svelte component.
   </p>
-  <div class="mockup-code h-80 mb-4 text-sm overflow-auto">
-    <pre><code class="language-javascript">{@html formatted}</code></pre>
+  <div class="mockup-code mb-6">
+    <pre class="w-full h-64 text-sm overflow-x-auto"><code class="language-javascript"
+        >{@html formatted}</code
+      ></pre>
   </div>
   <div class="flex flex-wrap justify-around">
     {#each buttons as btn}

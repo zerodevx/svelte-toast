@@ -1,5 +1,5 @@
 <script>
-import '@fontsource/inter/variable.css'
+import '@fontsource-variable/inter'
 import 'prismjs/themes/prism-tomorrow.css'
 import '../app.postcss'
 import { dev } from '$app/environment'

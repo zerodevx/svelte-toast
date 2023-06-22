@@ -5,13 +5,27 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['InterVariable', ...dt.fontFamily.sans]
+        sans: ['Inter Variable', ...dt.fontFamily.sans]
       }
     }
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['light', 'dark']
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['[data-theme=light]'],
+          primary: '#1C75BC',
+          'primary-content': 'white'
+        }
+      },
+      {
+        dark: {
+          ...require('daisyui/src/theming/themes')['[data-theme=dark]'],
+          primary: '#1C75BC'
+        }
+      }
+    ]
   }
 }
 
