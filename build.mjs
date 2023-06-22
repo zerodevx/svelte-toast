@@ -23,14 +23,14 @@ const sizes = packed
   .find((i) => i.includes('index.umd.js'))
   .split(' ')
   .filter((i) => !isNaN(parseFloat(i)))
-const cloc = JSON.parse(await $`npx cloc src/lib --json`).SUM.code.toString()
+const cloc = JSON.parse(await $`npx --yes cloc src/lib --json`).SUM.code.toString()
 
 // Write stats into `/build`
-const shields = (label, message, color) => ({
+const shields = (label, message, color = 'blue') => ({
   schemaVersion: 1,
   label,
   message,
-  color: color || 'blue'
+  color
 })
 await fs.writeJson('build/_min.json', shields('minified', `${sizes[0]} kB`))
 await fs.writeJson('build/_gzip.json', shields('gzipped', `${sizes[1]} kB`))
