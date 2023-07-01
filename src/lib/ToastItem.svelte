@@ -84,6 +84,7 @@ onDestroy(() => {
 </script>
 
 <div
+  role="status"
   class="_toastItem"
   class:pe={item.pausable}
   on:mouseenter={() => {
@@ -91,7 +92,7 @@ onDestroy(() => {
   }}
   on:mouseleave={resume}
 >
-  <div role="status" class="_toastMsg" class:pe={item.component}>
+  <div class="_toastMsg" class:pe={item.component}>
     {#if item.component}
       <svelte:component this={item.component.src} {...cprops} />
     {:else}
