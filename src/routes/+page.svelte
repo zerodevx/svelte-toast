@@ -1,6 +1,6 @@
 <script>
 /* eslint no-useless-escape: "off" */
-/* global PUBLIC_VERSION */
+/* global __VERSION__ */
 
 import { SvelteToast, toast } from '$lib'
 import { tick } from 'svelte'
@@ -12,7 +12,7 @@ import Prism from 'prismjs'
 // Hoist to `window` for tests
 if (browser) window.toast = toast
 
-const version = PUBLIC_VERSION
+const version = __VERSION__
 
 let selected = ''
 let code = '// Tap a button below'
