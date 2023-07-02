@@ -1,15 +1,15 @@
 <script>
 import { fade, fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
-import { toast } from './stores'
+import { toast } from './stores.js'
 import ToastItem from './ToastItem.svelte'
 
-/** @type {import('./stores').SvelteToastOptions} */
+/** @type {import('./stores.js').SvelteToastOptions} */
 export let options = {}
 /** @type {(string|'default')} */
 export let target = 'default'
 
-/** @type {import('./stores').SvelteToastOptions[]} */
+/** @type {import('./stores.js').SvelteToastOptions[]} */
 let items = []
 
 /** @param {Object<string,string|number>} [theme] */
