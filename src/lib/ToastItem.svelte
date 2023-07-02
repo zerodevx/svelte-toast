@@ -2,9 +2,9 @@
 import { onMount, onDestroy } from 'svelte'
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
-import { toast } from './stores'
+import { toast } from './stores.js'
 
-/** @type {import('./stores').SvelteToastOptions} */
+/** @type {import('./stores.js').SvelteToastOptions} */
 export let item
 
 /** @type {any} */
