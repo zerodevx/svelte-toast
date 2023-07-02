@@ -5,7 +5,7 @@ import { writable } from 'svelte/store'
  */
 
 /**
- * @typedef {import('svelte/types/runtime/transition/index').FlyParams} FlyParams
+ * @typedef {import('svelte/transition').FlyParams} FlyParams
  */
 
 /**
