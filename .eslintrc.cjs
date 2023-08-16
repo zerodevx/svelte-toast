@@ -3,7 +3,7 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:svelte/recommended', 'prettier'],
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2022,
+    ecmaVersion: 2020,
     extraFileExtensions: ['.svelte']
   },
   env: {
@@ -11,9 +11,5 @@ module.exports = {
     es2017: true,
     node: true
   },
-  rules: {
-    'svelte/no-at-html-tags': 'off',
-    'no-tabs': 'error',
-    'no-unexpected-multiline': 'error'
-  }
+  rules: { 'no-tabs': 'error', 'no-unexpected-multiline': 'error' }
 }
