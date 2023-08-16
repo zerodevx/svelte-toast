@@ -7,10 +7,6 @@ declare global {
     // interface PageData {}
     // interface Platform {}
   }
-  var __VERSION__
-  var toast
-  var gtag
-  var TEST_MODE
 }
 
 export {}

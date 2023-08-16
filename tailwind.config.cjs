@@ -1,5 +1,8 @@
+const { addDynamicIconSelectors } = require('@iconify/tailwind')
 const dt = require('tailwindcss/defaultTheme')
+const themes = require('daisyui/src/theming/themes')
 
+/** @type {import('tailwindcss').Config}*/
 const config = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
@@ -9,19 +12,19 @@ const config = {
       }
     }
   },
-  plugins: [require('daisyui')],
+  plugins: [addDynamicIconSelectors(), require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
     themes: [
       {
         light: {
-          ...require('daisyui/src/theming/themes')['[data-theme=light]'],
+          ...themes['[data-theme=light]'],
           primary: '#1C75BC',
           'primary-content': 'white'
         }
       },
       {
         dark: {
-          ...require('daisyui/src/theming/themes')['[data-theme=dark]'],
+          ...themes['[data-theme=dark]'],
           primary: '#1C75BC'
         }
       }
