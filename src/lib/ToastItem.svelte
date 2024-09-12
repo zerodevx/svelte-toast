@@ -17,7 +17,8 @@ let unlisten
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
 
-function close() {
+function close(ev) {
+  item.popEvent = ev;
   toast.pop(item.id)
 }
 
@@ -77,7 +78,7 @@ onMount(listen)
 onDestroy(() => {
   if (check(item.onpop, 'function')) {
     // @ts-ignore
-    item.onpop(item.id)
+    item.onpop(item.id, item.popEvent)
   }
   unlisten && unlisten()
 })
@@ -104,9 +105,9 @@ onDestroy(() => {
       class="_toastBtn pe"
       role="button"
       tabindex="0"
-      on:click={close}
+      on:click={(ev) => close(ev)}
       on:keydown={(e) => {
-        if (e instanceof KeyboardEvent && ['Enter', ' '].includes(e.key)) close()
+        if (e instanceof KeyboardEvent && ['Enter', ' '].includes(e.key)) close(e)
       }}
     />
   {/if}

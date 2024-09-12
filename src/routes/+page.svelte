@@ -298,16 +298,18 @@ toast.pop(0)`,
   {
     name: 'RUN CALLBACK ON TOAST REMOVAL',
     code: `toast.push('Wait for it...', {
-  onpop: () => {
+  onpop: (id, ev) => {
     toast.push('onpop() callback has been executed.', { target: 'new' })
+    console.log('onpop', {id, ev})
   }
 })`,
     run: () =>
       toast.push('Wait for it...', {
-        onpop: () => {
+        onpop: (id, ev) => {
           toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, {
             target: 'new'
           })
+          console.log('onpop', {id, ev})
         }
       })
   },
