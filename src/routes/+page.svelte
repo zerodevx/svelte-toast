@@ -1,18 +1,15 @@
 <script>
 /* eslint no-useless-escape: "off" */
-/* global __VERSION__ */
 
 import { SvelteToast, toast } from '$lib'
 import { tick } from 'svelte'
-import { browser, dev } from '$app/environment'
+import { browser, dev, version } from '$app/environment'
 import DummyComponent from './Dummy.svelte'
 import camelCase from 'camelcase'
 import Prism from 'prismjs'
 
 // Hoist to `window` for tests
 if (browser) window.toast = toast
-
-const version = __VERSION__
 
 let selected = ''
 let code = '// Tap a button below'
