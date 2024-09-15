@@ -1,25 +1,19 @@
-import preprocess from 'svelte-preprocess'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import adapter from '@sveltejs/adapter-static'
+import { readFileSync } from 'node:fs'
 
-const dev = process.argv.includes('dev')
+const { version: name } = JSON.parse(readFileSync(new URL('package.json', import.meta.url), 'utf8'))
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter(),
+    adapter: adapter({ fallback: '404.html' }),
     paths: {
-      base: dev ? '' : '/svelte-toast'
-    }
+      base: process.argv.includes('dev') ? '' : '/svelte-toast'
+    },
+    version: { name }
   },
-  compilerOptions: {
-    dev,
-    css: 'external'
-  },
-  preprocess: [
-    preprocess({
-      postcss: true
-    })
-  ]
+  preprocess: [vitePreprocess()]
 }
 
 export default config

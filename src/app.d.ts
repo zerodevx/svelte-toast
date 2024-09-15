@@ -5,9 +5,9 @@ declare global {
     // interface Error {}
     // interface Locals {}
     // interface PageData {}
+    // interface PageState {}
     // interface Platform {}
   }
-  var __VERSION__
   var toast
   var gtag
   var TEST_MODE
