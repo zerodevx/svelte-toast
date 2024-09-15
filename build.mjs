@@ -1,4 +1,5 @@
 #!/usr/bin/env zx
+/* global $, fs, argv, echo, chalk */
 
 await $`npm run lint && npx svelte-package`
 const packed = await $`npx vite build -c vite.dist.config.js`
