@@ -382,18 +382,18 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
   />
 </svelte:head>
 
-<div class="max-w-3xl mx-auto px-6 mt-8 mb-8">
-  <h1 class="text-4xl font-bold text-center mb-2">svelte-toast</h1>
-  <div class="text-center mb-6">
+<div class="mx-auto mb-8 mt-8 max-w-3xl px-6">
+  <h1 class="mb-2 text-center text-4xl font-bold">svelte-toast</h1>
+  <div class="mb-6 text-center">
     <a
-      class="badge font-mono text-xs px-4 py-3 hover:bg-base-300"
+      class="badge px-4 py-3 font-mono text-xs hover:bg-base-300"
       href="https://github.com/zerodevx/svelte-toast"
       title="Visit Github repo"
       target="_blank"
       rel="noreferrer">GITHUB v{version}</a
     >
   </div>
-  <p class="max-w-2xl mx-auto text-center mb-6">
+  <p class="mx-auto mb-6 max-w-2xl text-center">
     Simple elegant toast notifications for modern web frontends in very little lines of code.
     Because a demo helps better than a thousand API docs, so here it is. Use in Vanilla JS (<strong
       >8kB</strong
@@ -401,14 +401,14 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
     gzipped) or as a Svelte component.
   </p>
   <div class="mockup-code mb-6">
-    <pre class="w-full h-64 text-sm overflow-x-auto"><code class="language-javascript"
+    <pre class="h-64 w-full overflow-x-auto text-sm"><code class="language-javascript"
         >{@html formatted}</code
       ></pre>
   </div>
   <div class="flex flex-wrap justify-around">
     {#each buttons as btn}
       <button
-        class="btn btn-primary w-40 mb-2 text-xs"
+        class="btn btn-primary mb-2 w-40 text-xs"
         class:selected={selected === btn.name}
         on:click={() => {
           clicked(btn)
