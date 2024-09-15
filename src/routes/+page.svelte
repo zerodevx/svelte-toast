@@ -298,16 +298,26 @@ toast.pop(0)`,
   {
     name: 'RUN CALLBACK ON TOAST REMOVAL',
     code: `toast.push('Wait for it...', {
-  onpop: () => {
-    toast.push('onpop() callback has been executed.', { target: 'new' })
-  }
-})`,
+      onpop: (id, details) => {
+        toast.push('onpop() callback has been executed.', { target: 'new' })
+        if (details.autoClose) {
+          console.log('closed automatically')
+        } else {
+          console.log('closed by user', details.originalEvent)
+        }
+      }
+    })`,
     run: () =>
       toast.push('Wait for it...', {
-        onpop: () => {
+        onpop: (id, details) => {
           toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, {
             target: 'new'
           })
+          if (details.autoClose) {
+            console.log('closed automatically')
+          } else {
+            console.log('closed by user', details.originalEvent)
+          }
         }
       })
   },
