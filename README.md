@@ -56,6 +56,7 @@ Use anywhere in your app - just import the toast controller.
 
 `MyComponent.svelte`:
 
+<!-- prettier-ignore -->
 ```html
 <script>
   import { toast } from '@zerodevx/svelte-toast'
@@ -448,6 +449,7 @@ Additional CSS vars are exposed - specifically, `--toastBtnContent` allows the '
 to be changed. As with CSS `content` keys for pseudo elements, `url()` can be used to load external
 or inline icons.
 
+<!-- prettier-ignore -->
 ```html
 <script>
   import { toast, SvelteToast } from '@zerodevx/svelte-toast'
