@@ -1,20 +1,14 @@
 #!/usr/bin/env zx
 /* global $, fs, argv, echo, chalk */
 
+$.verbose = true
+
 await $`npm run lint && npx svelte-package`
 const packed = await $`npx vite build -c vite.dist.config.js`
-
-// Prepare `/dist`
-const pkg = await fs.readJson('package.json')
-pkg.scripts = undefined
-await fs.writeJson('dist/package.json', pkg, { spaces: 2 })
-await fs.copy('README.md', 'dist/README.md')
-await fs.copy('LICENSE', 'dist/LICENSE')
 await fs.copy('dist/dist/index.umd.js', 'dist/dist/index.umd.cjs')
-await $`cd dist && npx publint`
+await $`npx --yes publint`
 
 if (argv.packageOnly) process.exit()
-
 await $`npx vite build`
 
 // Calculate stats
@@ -44,5 +38,5 @@ To deploy the demo, run:
 $ npx gh-pages -d build -t -f
 
 To publish into npm, run:
-$ cd dist && npm publish --access public
+$ npm publish --access public
 `

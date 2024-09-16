@@ -11,7 +11,6 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint && npm run check",
     "test": "playwright test",
-    "prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
     "build": "zx build.mjs",
     "package": "zx build.mjs --packageOnly"
   },
@@ -51,18 +50,19 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "svelte": "./index.js"
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
     },
     "./dist": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.cjs"
+      "import": "./dist/dist/index.es.js",
+      "require": "./dist/dist/index.umd.cjs"
     }
   },
-  "svelte": "./index.js",
-  "jsdelivr": "./dist/index.umd.js",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "jsdelivr": "./dist/dist/index.umd.js",
   "files": [
-    "**/*"
+    "dist"
   ],
   "license": "ISC",
   "repository": "github:zerodevx/svelte-toast",
