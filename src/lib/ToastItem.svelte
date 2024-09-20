@@ -14,20 +14,19 @@ let paused = false
 let cprops = {}
 /** @type {any} */
 let unlisten
+/** @type {MouseEvent | KeyboardEvent} */
+let event
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
 
-function close(details) {
-  item.details = details
+/** @param {MouseEvent|KeyboardEvent|undefined} [ev] */
+function close(ev) {
+  if (ev) event = ev
   toast.pop(item.id)
 }
 
 function autoclose() {
-  if ($progress === 1 || $progress === 0)
-    close({
-      autoClose: true,
-      originalEvent: null
-    })
+  if ($progress === 1 || $progress === 0) close()
 }
 
 function pause() {
@@ -80,10 +79,7 @@ $: if (!check(item.progress)) {
 onMount(listen)
 
 onDestroy(() => {
-  if (check(item.onpop, 'function')) {
-    // @ts-ignore
-    item.onpop(item.id, item.details)
-  }
+  item.onpop && item.onpop(item.id, { event })
   unlisten && unlisten()
 })
 </script>
@@ -109,13 +105,9 @@ onDestroy(() => {
       class="_toastBtn pe"
       role="button"
       tabindex="0"
-      on:click={(ev) =>
-        close({
-          autoClose: false,
-          originalEvent: ev
-        })}
-      on:keydown={(e) => {
-        if (e instanceof KeyboardEvent && ['Enter', ' '].includes(e.key)) close(e)
+      on:click={(ev) => close(ev)}
+      on:keydown={(ev) => {
+        if (ev instanceof KeyboardEvent && ['Enter', ' '].includes(ev.key)) close(ev)
       }}
     />
   {/if}

@@ -18,6 +18,7 @@ import { writable } from 'svelte/store'
 /**
  * @callback SvelteToastOnPopCallback
  * @param {number} [id] - optionally get the toast id if needed
+ * @param {object} [details]
  */
 
 /**
