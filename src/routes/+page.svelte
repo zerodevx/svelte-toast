@@ -1,7 +1,7 @@
 <script>
 /* eslint no-useless-escape: "off" */
 
-import { SvelteToast, toast } from '$lib'
+import { SvelteToast, toast } from '$lib/index.js'
 import { tick } from 'svelte'
 import { browser, dev, version } from '$app/environment'
 import DummyComponent from './Dummy.svelte'
@@ -295,28 +295,20 @@ toast.pop(0)`,
   {
     name: 'RUN CALLBACK ON TOAST REMOVAL',
     code: `toast.push('Wait for it...', {
-      onpop: (id, details) => {
-        toast.push('onpop() callback has been executed.', { target: 'new' })
-        if (details.autoClose) {
-          console.log('closed automatically')
-        } else {
-          console.log('closed by user', details.originalEvent)
-        }
-      }
-    })`,
-    run: () =>
+  onpop: () => {
+    toast.push('onpop() callback has been executed.', { target: 'new' })
+  }
+})`,
+    run: () => {
       toast.push('Wait for it...', {
         onpop: (id, details) => {
           toast.push(`<strong><tt>onpop()</tt></strong> callback has been executed.`, {
             target: 'new'
           })
-          if (details.autoClose) {
-            console.log('closed automatically')
-          } else {
-            console.log('closed by user', details.originalEvent)
-          }
+          console.log(id, details)
         }
       })
+    }
   },
   {
     name: 'STYLE WITH USER-DEFINED CLASSES',
@@ -382,11 +374,11 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
   />
 </svelte:head>
 
-<div class="mx-auto mb-8 mt-8 max-w-3xl px-6">
-  <h1 class="mb-2 text-center text-4xl font-bold">svelte-toast</h1>
+<div class="prose mx-auto mb-12 mt-6 px-4">
+  <h1 class="mb-2 text-center text-4xl font-extrabold">svelte-toast</h1>
   <div class="mb-6 text-center">
     <a
-      class="badge px-4 py-3 font-mono text-xs hover:bg-base-300"
+      class="badge badge-neutral px-4 py-3 text-xs no-underline hover:opacity-80"
       href="https://github.com/zerodevx/svelte-toast"
       title="Visit Github repo"
       target="_blank"
@@ -400,15 +392,11 @@ $: formatted = Prism.highlight(code, Prism.languages.javascript, 'javascript')
     >
     gzipped) or as a Svelte component.
   </p>
-  <div class="mockup-code mb-6">
-    <pre class="h-64 w-full overflow-x-auto text-sm"><code class="language-javascript"
-        >{@html formatted}</code
-      ></pre>
-  </div>
+  <pre class="h-80 w-full"><code>{@html formatted}</code></pre>
   <div class="flex flex-wrap justify-around">
     {#each buttons as btn}
       <button
-        class="btn btn-primary mb-2 w-40 text-xs"
+        class="btn btn-primary mb-2 h-16 w-36 text-xs"
         class:selected={selected === btn.name}
         on:click={() => {
           clicked(btn)
