@@ -91,6 +91,7 @@ onDestroy(() => {
   on:mouseenter={() => {
     if (item.pausable) pause()
   }}
+  on:click={item.onclick}
   on:mouseleave={resume}
 >
   <div class="_toastMsg" class:pe={item.component}>

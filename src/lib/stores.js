@@ -36,6 +36,7 @@ import { writable } from 'svelte/store'
  * @property {Object<string,string|number>} [theme] - css var overrides
  * @property {string[]} [classes] - user-defined classes
  * @property {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
+ * @property {SvelteToastOnPopCallback} [onclick] - callback that runs on toast dismiss
  * @property {SvelteToastCustomComponent} [component] - send custom Svelte Component as a message
  * @property {number} [progress] - DEPRECATED
  */
