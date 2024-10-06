@@ -40,17 +40,6 @@ import { writable } from 'svelte/store'
  * @property {number} [progress] - DEPRECATED
  */
 
-/** @type {SvelteToastOptions} */
-const defaults = {
-  duration: 4000,
-  initial: 1,
-  next: 0,
-  pausable: false,
-  dismissable: true,
-  reversed: false,
-  intro: { x: 256 }
-}
-
 function createToast() {
   const { subscribe, update } = writable(new Array())
   /** @type {Object<string,SvelteToastOptions>} */
@@ -64,7 +53,6 @@ function createToast() {
 
   function _init(target = 'default', opts = {}) {
     options[target] = opts
-    return options
   }
 
   /**
@@ -80,7 +68,6 @@ function createToast() {
     }
     const conf = options[param.target] || {}
     const entry = {
-      ...defaults,
       ...conf,
       ...param,
       theme: { ...conf.theme, ...param.theme },

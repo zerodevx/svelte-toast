@@ -9,6 +9,17 @@ export let options = {}
 /** @type {(string|'default')} */
 export let target = 'default'
 
+/** @type {import('./stores.js').SvelteToastOptions} */
+const defaults = {
+  duration: 4000,
+  initial: 1,
+  next: 0,
+  pausable: false,
+  dismissable: true,
+  reversed: false,
+  intro: { x: 256 }
+}
+
 /** @type {import('./stores.js').SvelteToastOptions[]} */
 let items = []
 
@@ -17,7 +28,7 @@ function getCss(theme) {
   return theme ? Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '') : undefined
 }
 
-$: toast._init(target, options)
+$: toast._init(target, { ...defaults, ...options })
 
 $: items = $toast.filter((i) => i.target === target)
 </script>
