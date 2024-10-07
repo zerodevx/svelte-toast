@@ -63,6 +63,6 @@ $: {
   padding: 0;
   list-style-type: none;
   pointer-events: none;
-  z-index: var(--toastContainerZIndex, 9999);
+  z-index: var(--toastContainerZIndex, auto);
 }
 </style>
