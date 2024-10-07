@@ -68,8 +68,7 @@ function createToast() {
     let _resolve
     const onpop = new Promise((resolve) => (_resolve = resolve))
     const item = { ...base, ...param, target, classes, id, _resolve }
-    //update((n) => [...n, entry])
-    update((n) => [item, ...n])
+    update((n) => [...n, item])
     return { id, onpop }
   }
 

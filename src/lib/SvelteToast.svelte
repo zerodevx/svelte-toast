@@ -17,11 +17,12 @@ const defaults = {
   next: 0,
   pausable: false,
   dismissable: true,
-  reversed: false,
+  reversed: true,
   intro: { x: 256 },
   component: View
 }
-
+/** @type {import('./stores.js').SvelteToastOptions} */
+let merged
 /** @type {import('./stores.js').SvelteToastOptions[]} */
 let items = []
 
@@ -30,9 +31,15 @@ function getCss(theme) {
   return theme ? Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '') : undefined
 }
 
-$: toast._init(target, { ...defaults, ...options })
-
-$: items = $toast.filter((i) => i.target === target)
+$: {
+  merged = { ...defaults, ...options }
+  toast._init(target, merged)
+}
+$: {
+  const _items = $toast.filter((i) => i.target === target)
+  if (merged.reversed) _items.reverse()
+  items = _items
+}
 </script>
 
 <ul class="_toastContainer">
