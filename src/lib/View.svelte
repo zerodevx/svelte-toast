@@ -13,7 +13,11 @@ function dismiss() {
 
 <div class="_toastItem">
   <div class="_toastMsg">
-    {@html item.msg}
+    {#if item.unsafe}
+      {@html item.msg}
+    {:else}
+      {item.msg}
+    {/if}
   </div>
   {#if item.dismissable}
     <div

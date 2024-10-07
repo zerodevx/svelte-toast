@@ -19,6 +19,7 @@ import { writable } from 'svelte/store'
  * @prop {number} [id] - unique id generated for every toast
  * @prop {string} [target] - container target name to send toast to
  * @prop {string} [msg] - toast message
+ * @prop {boolean} [unsafe] - allow unsafe html toast message
  * @prop {number} [duration] - duration of progress bar tween from initial to next
  * @prop {number} [initial] - initial progress bar value
  * @prop {number} [next] - next progress bar value
