@@ -47,7 +47,7 @@ $: {
     <li
       class={item.classes?.join(' ')}
       in:fly={item.intro}
-      out:fade
+      out:fade={item.outro}
       animate:flip={{ duration: 200 }}
       style={getCss(item.theme)}
     >

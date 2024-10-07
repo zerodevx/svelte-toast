@@ -9,6 +9,10 @@ import { writable } from 'svelte/store'
  */
 
 /**
+ * @typedef {import('svelte/transition').FadeParams} FadeParams
+ */
+
+/**
  * @typedef {Object} SvelteToastPushed
  * @prop {number} id - toast id
  * @prop {Promise<any>} onpop - promise that resolves to value when toast closed
@@ -34,6 +38,7 @@ import { writable } from 'svelte/store'
  * @prop {boolean} [dismissable] - allow dismiss with close button
  * @prop {boolean} [reversed] - display toasts in reverse order
  * @prop {FlyParams} [intro] - toast intro fly animation settings
+ * @prop {FadeParams} [outro] - toast outro fade animation settings
  * @prop {Object<string,string|number>} [theme] - css var overrides
  * @prop {string[]} [classes] - user-defined classes
  * @prop {SvelteComponent} [component] - send custom Svelte Component as a message
