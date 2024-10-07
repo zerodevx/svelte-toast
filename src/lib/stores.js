@@ -9,85 +9,93 @@ import { writable } from 'svelte/store'
  */
 
 /**
- * @callback SvelteToastOnPopCallback
- * @param {number} [id] - optionally get the toast id if needed
- * @param {object} [details]
+ * @typedef {Object} SvelteToastPushed
+ * @prop {number} id - toast id
+ * @prop {Promise<any>} onpop - promise that resolves to value when toast closed
+ */
+
+/**
+ * @typedef {Object} SvelteToastPop
+ * @prop {number} [id] - remove toast with specified id
+ * @prop {any} [value] - onpop resolve value
+ * @prop {string} [target] - remove all toasts from target container
  */
 
 /**
  * @typedef {Object} SvelteToastOptions
- * @prop {number} [id] - unique id generated for every toast
+ * @prop {number} [id] - unique id generated for each toast
  * @prop {string} [target] - container target name to send toast to
  * @prop {string} [msg] - toast message
- * @prop {boolean} [unsafe] - allow unsafe html toast message
+ * @prop {boolean} [unsafe] - allow unsafe html in toast message
  * @prop {number} [duration] - duration of progress bar tween from initial to next
  * @prop {number} [initial] - initial progress bar value
  * @prop {number} [next] - next progress bar value
  * @prop {boolean} [pausable] - pause progress bar tween on mouse hover
- * @prop {boolean} [dismissable] - allow dissmiss with close button
+ * @prop {boolean} [dismissable] - allow dismiss with close button
  * @prop {boolean} [reversed] - display toasts in reverse order
  * @prop {FlyParams} [intro] - toast intro fly animation settings
  * @prop {Object<string,string|number>} [theme] - css var overrides
  * @prop {string[]} [classes] - user-defined classes
- * @prop {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
  * @prop {SvelteComponent} [component] - send custom Svelte Component as a message
+ * @prop {any} [_resolve]
  */
 
 function createToast() {
   const { subscribe, update } = writable(new Array())
-  /** @type {Object<string,SvelteToastOptions>} */
-  const options = {}
-  let count = 0
 
-  /** @param {any} obj */
-  function _obj(obj) {
-    return obj instanceof Object
-  }
+  /** @type {Object<string,SvelteToastOptions>} */
+  const defaults = {}
+  let count = 0
+  const _obj = (/** @type {any} */ obj) => obj instanceof Object
 
   function _init(target = 'default', opts = {}) {
-    options[target] = opts
+    defaults[target] = opts
   }
 
   /**
    * Send a new toast
-   * @param {(string|SvelteToastOptions)} msg
+   * @param {string|SvelteToastOptions} msg
    * @param {SvelteToastOptions} [opts]
-   * @returns {number}
+   * @returns {SvelteToastPushed}
    */
   function push(msg, opts) {
-    const param = {
-      target: 'default',
-      ...(_obj(msg) ? /** @type {SvelteToastOptions} */ (msg) : { ...opts, msg })
-    }
-    const conf = options[param.target] || {}
-    const entry = {
-      ...conf,
-      ...param,
-      theme: { ...conf.theme, ...param.theme },
-      classes: [...(conf.classes || []), ...(param.classes || [])],
-      id: ++count
-    }
-    update((n) => (entry.reversed ? [...n, entry] : [entry, ...n]))
-    return count
+    /** @type {any} */
+    const param = _obj(msg) ? msg : { ...opts, msg }
+    const target = param.target || 'default'
+    const base = defaults[target] || {}
+    const classes = [...(base.classes || []), ...(param.classes || [])]
+    const id = ++count
+    let _resolve
+    const onpop = new Promise((resolve) => (_resolve = resolve))
+    const item = { ...base, ...param, target, classes, id, _resolve }
+    //update((n) => [...n, entry])
+    update((n) => [item, ...n])
+    return { id, onpop }
   }
 
   /**
    * Remove toast(s)
-   * - toast.pop() // removes the last toast
+   * - toast.pop() // remove the lastest toast
    * - toast.pop(0) // remove all toasts
-   * - toast.pop(id) // removes the toast with specified `id`
+   * - toast.pop(id) // remove toast with specified id
    * - toast.pop({ target: 'foo' }) // remove all toasts from target `foo`
-   * @param {(number|Object<'target',string>)} [id]
+   * @param {number|SvelteToastPop} [id] - remove toast with specified id
+   * @param {SvelteToastPop} [opts]
    */
-  function pop(id) {
+  function pop(id, opts) {
     update((n) => {
-      if (!n.length || id === 0) return []
-      // Filter function is deprecated; shim added for backward compatibility
-      if (typeof id === 'function') return n.filter((i) => id(i))
-      if (_obj(id))
-        return n.filter(/** @type {SvelteToastOptions[]} i */ (i) => i.target !== id.target)
-      const found = id || Math.max(...n.map((i) => i.id))
-      return n.filter((i) => i.id !== found)
+      if (!n.length) return n
+      /** @type {any} */
+      const { id: _id, target, value } = _obj(id) ? id : { ...opts, id }
+      const resolve = (/** @type {any[]} */ items) => items.forEach((i) => i._resolve(value))
+      if (target || _id) {
+        const key = target ? 'target' : 'id'
+        const val = target || _id
+        resolve(n.filter((i) => i[key] === val))
+        return n.filter((i) => i[key] !== val)
+      }
+      resolve(_id === 0 ? n : n.slice(-1))
+      return _id === 0 ? [] : n.slice(0, -1)
     })
   }
 

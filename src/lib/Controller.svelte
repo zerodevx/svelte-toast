@@ -13,15 +13,12 @@ let prev = next
 let paused = false
 /** @type {any} */
 let unlisten
-/** @type {MouseEvent | KeyboardEvent} */
-let event
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
 
-/** @param {MouseEvent|KeyboardEvent|undefined} [ev] */
-function close(ev) {
-  if (ev) event = ev
-  toast.pop(item.id)
+/** @param {{value:any}|undefined} [detail] */
+function close(detail) {
+  toast.pop(item.id, detail)
 }
 
 function autoclose() {
@@ -68,7 +65,7 @@ $: if (next !== item.next) {
 onMount(listen)
 
 onDestroy(() => {
-  item.onpop && item.onpop(item.id, { event })
+  //item.onpop && item.onpop(item.id, { event })
   unlisten && unlisten()
 })
 </script>
@@ -82,5 +79,5 @@ onDestroy(() => {
   }}
   on:mouseleave={resume}
 >
-  <svelte:component this={item.component} {item} {progress} on:close={close} />
+  <svelte:component this={item.component} {item} {progress} on:close={(e) => close(e.detail)} />
 </div>
