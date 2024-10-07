@@ -123,4 +123,11 @@ function createToast() {
   return { subscribe, push, pop, set, _init }
 }
 
-export const toast = createToast()
+const toast = createToast()
+
+/** @param {Object<string,string|number>} [theme] */
+function themeToStyle(theme) {
+  return theme ? Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '') : undefined
+}
+
+export { toast, themeToStyle }

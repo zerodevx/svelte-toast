@@ -2,7 +2,7 @@
 import { onMount, onDestroy } from 'svelte'
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
-import { toast } from './stores.js'
+import { toast, themeToStyle } from './stores.js'
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 export let item
@@ -74,6 +74,7 @@ onDestroy(() => {
   role="status"
   class="_toastItem"
   class:pe={item.pausable}
+  style={themeToStyle(item.theme)}
   on:mouseenter={() => {
     if (item.pausable) pause()
   }}

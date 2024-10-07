@@ -1,7 +1,7 @@
 <script>
 import { fade, fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
-import { toast } from './stores.js'
+import { toast, themeToStyle } from './stores.js'
 import Controller from './Controller.svelte'
 import View from './View.svelte'
 
@@ -21,18 +21,15 @@ const defaults = {
   intro: { x: 256 },
   component: View
 }
-/** @type {import('./stores.js').SvelteToastOptions} */
-let merged
 /** @type {import('./stores.js').SvelteToastOptions[]} */
 let items = []
-
-/** @param {Object<string,string|number>} [theme] */
-function getCss(theme) {
-  return theme ? Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '') : undefined
-}
+/** @type {import('./stores.js').SvelteToastOptions} */
+let merged
+/** @type {Object<string,string|number>|undefined} */
+let theme
 
 $: {
-  merged = { ...defaults, ...options }
+  ;({ theme, ...merged } = { ...defaults, ...options })
   toast._init(target, merged)
 }
 $: {
@@ -42,14 +39,13 @@ $: {
 }
 </script>
 
-<ul class="_toastContainer">
+<ul class="_toastContainer" style={themeToStyle(theme)}>
   {#each items as item (item.id)}
     <li
       class={item.classes?.join(' ')}
       in:fly={item.intro}
       out:fade={item.outro}
       animate:flip={{ duration: 200 }}
-      style={getCss(item.theme)}
     >
       <Controller {item} />
     </li>
