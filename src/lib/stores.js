@@ -16,21 +16,20 @@ import { writable } from 'svelte/store'
 
 /**
  * @typedef {Object} SvelteToastOptions
- * @property {number} [id] - unique id generated for every toast
- * @property {string} [target] - container target name to send toast to
- * @property {string} [msg] - toast message
- * @property {number} [duration] - duration of progress bar tween from initial to next
- * @property {number} [initial] - initial progress bar value
- * @property {number} [next] - next progress bar value
- * @property {boolean} [pausable] - pause progress bar tween on mouse hover
- * @property {boolean} [dismissable] - allow dissmiss with close button
- * @property {boolean} [reversed] - display toasts in reverse order
- * @property {FlyParams} [intro] - toast intro fly animation settings
- * @property {Object<string,string|number>} [theme] - css var overrides
- * @property {string[]} [classes] - user-defined classes
- * @property {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
- * @property {SvelteComponent} [component] - send custom Svelte Component as a message
- * @property {number} [progress] - DEPRECATED
+ * @prop {number} [id] - unique id generated for every toast
+ * @prop {string} [target] - container target name to send toast to
+ * @prop {string} [msg] - toast message
+ * @prop {number} [duration] - duration of progress bar tween from initial to next
+ * @prop {number} [initial] - initial progress bar value
+ * @prop {number} [next] - next progress bar value
+ * @prop {boolean} [pausable] - pause progress bar tween on mouse hover
+ * @prop {boolean} [dismissable] - allow dissmiss with close button
+ * @prop {boolean} [reversed] - display toasts in reverse order
+ * @prop {FlyParams} [intro] - toast intro fly animation settings
+ * @prop {Object<string,string|number>} [theme] - css var overrides
+ * @prop {string[]} [classes] - user-defined classes
+ * @prop {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
+ * @prop {SvelteComponent} [component] - send custom Svelte Component as a message
  */
 
 function createToast() {

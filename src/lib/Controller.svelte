@@ -65,11 +65,6 @@ $: if (next !== item.next) {
   progress.set(next).then(autoclose)
 }
 
-// `progress` has been renamed to `next`; shim included for backward compatibility, to remove in next major
-$: if (!check(item.progress)) {
-  item.next = item.progress
-}
-
 onMount(listen)
 
 onDestroy(() => {
