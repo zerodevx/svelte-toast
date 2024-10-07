@@ -2,11 +2,12 @@
 import { fade, fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
 import { toast } from './stores.js'
-import ToastItem from './ToastItem.svelte'
+import Controller from './Controller.svelte'
+import View from './View.svelte'
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 export let options = {}
-/** @type {(string|'default')} */
+/** @type {string|'default'} */
 export let target = 'default'
 
 /** @type {import('./stores.js').SvelteToastOptions} */
@@ -17,7 +18,8 @@ const defaults = {
   pausable: false,
   dismissable: true,
   reversed: false,
-  intro: { x: 256 }
+  intro: { x: 256 },
+  component: View
 }
 
 /** @type {import('./stores.js').SvelteToastOptions[]} */
@@ -42,7 +44,7 @@ $: items = $toast.filter((i) => i.target === target)
       animate:flip={{ duration: 200 }}
       style={getCss(item.theme)}
     >
-      <ToastItem {item} />
+      <Controller {item} />
     </li>
   {/each}
 </ul>

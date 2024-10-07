@@ -9,13 +9,6 @@ import { writable } from 'svelte/store'
  */
 
 /**
- * @typedef {Object} SvelteToastCustomComponent
- * @property {SvelteComponent} src - custom Svelte Component
- * @property {Object<string,any>} [props] - props to pass into custom component
- * @property {string} [sendIdTo] - forward toast id to prop name
- */
-
-/**
  * @callback SvelteToastOnPopCallback
  * @param {number} [id] - optionally get the toast id if needed
  * @param {object} [details]
@@ -36,7 +29,7 @@ import { writable } from 'svelte/store'
  * @property {Object<string,string|number>} [theme] - css var overrides
  * @property {string[]} [classes] - user-defined classes
  * @property {SvelteToastOnPopCallback} [onpop] - callback that runs on toast dismiss
- * @property {SvelteToastCustomComponent} [component] - send custom Svelte Component as a message
+ * @property {SvelteComponent} [component] - send custom Svelte Component as a message
  * @property {number} [progress] - DEPRECATED
  */
 
