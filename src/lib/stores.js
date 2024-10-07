@@ -78,7 +78,7 @@ function createToast() {
    * - toast.pop(0) // remove all toasts
    * - toast.pop(id) // remove toast with specified id
    * - toast.pop({ target: 'foo' }) // remove all toasts from target `foo`
-   * @param {number|SvelteToastPop} [id] - remove toast with specified id
+   * @param {number|SvelteToastPop} [id]
    * @param {SvelteToastPop} [opts]
    */
   function pop(id, opts) {
@@ -87,9 +87,9 @@ function createToast() {
       /** @type {any} */
       const { id: _id, target, value } = _obj(id) ? id : { ...opts, id }
       const resolve = (/** @type {any[]} */ items) => items.forEach((i) => i._resolve(value))
-      if (target || _id) {
-        const key = target ? 'target' : 'id'
-        const val = target || _id
+      const val = _id || target
+      if (val) {
+        const key = _id ? 'id' : 'target'
         resolve(n.filter((i) => i[key] === val))
         return n.filter((i) => i[key] !== val)
       }
