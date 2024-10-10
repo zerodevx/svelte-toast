@@ -44,7 +44,7 @@ $: {
     <li
       class={item.classes?.join(' ')}
       in:fly={item.intro}
-      out:fade={item.outro}
+      out:fly={item.outro}
       animate:flip={{ duration: 200 }}
     >
       <Controller {item} />
