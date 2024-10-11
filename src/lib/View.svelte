@@ -21,7 +21,7 @@ function dismiss() {
   </div>
   {#if item.dismissable}
     <div
-      class="_toastBtn pe"
+      class="_toastBtn"
       role="button"
       tabindex="0"
       on:click={dismiss}
@@ -60,10 +60,6 @@ function dismiss() {
 ._toastMsg {
   padding: var(--toastMsgPadding, 0.75rem 0.5rem);
   flex: 1 1 0%;
-}
-.pe,
-._toastMsg :global(a) {
-  pointer-events: auto;
 }
 ._toastBtn {
   width: var(--toastBtnWidth, 2rem);

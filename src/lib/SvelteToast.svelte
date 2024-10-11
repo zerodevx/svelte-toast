@@ -15,7 +15,7 @@ const defaults = {
   duration: 4000,
   initial: 1,
   next: 0,
-  pausable: false,
+  pausable: 'hidden',
   dismissable: true,
   reversed: true,
   intro: { x: 256 },

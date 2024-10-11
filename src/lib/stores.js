@@ -30,7 +30,7 @@ import { writable } from 'svelte/store'
  * @prop {number} [duration] - duration of progress bar tween from initial to next
  * @prop {number} [initial] - initial progress bar value
  * @prop {number} [next] - next progress bar value
- * @prop {boolean} [pausable] - pause progress bar tween on mouse hover
+ * @prop {'none'|'hover'|'hidden'|'both'} [pausable] - pause the progress bar tween
  * @prop {boolean} [dismissable] - allow dismiss with close button
  * @prop {boolean} [reversed] - display toasts in reverse order
  * @prop {FlyParams} [intro] - toast intro fly animation settings

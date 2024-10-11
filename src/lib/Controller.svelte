@@ -11,8 +11,6 @@ export let item
 let next = item.initial
 let prev = next
 let paused = false
-/** @type {any} */
-let unlisten
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
 
@@ -41,18 +39,17 @@ function resume() {
   }
 }
 
-/** @param {any} prop */
-function check(prop, kind = 'undefined') {
-  return typeof prop === kind
+function handler() {
+  document.hidden ? ['hidden', 'both'].includes(item.pausable || '') && pause() : resume()
 }
 
-function listen(d = document) {
-  if (check(d.hidden)) return
-  const handler = () => (d.hidden ? pause() : resume())
-  const name = 'visibilitychange'
-  d.addEventListener(name, handler)
-  unlisten = () => d.removeEventListener(name, handler)
+function listen() {
+  document.addEventListener('visibilitychange', handler)
   handler()
+}
+
+function unlisten() {
+  document.removeEventListener('visibilitychange', handler)
 }
 
 $: if (next !== item.next) {
@@ -63,22 +60,23 @@ $: if (next !== item.next) {
 }
 
 onMount(listen)
-
-onDestroy(() => {
-  //item.onpop && item.onpop(item.id, { event })
-  unlisten && unlisten()
-})
+onDestroy(unlisten)
 </script>
 
 <div
   role="status"
-  class="_toastItem"
-  class:pe={item.pausable}
+  class="_toastController"
   style={themeToStyle(item.theme)}
   on:mouseenter={() => {
-    if (item.pausable) pause()
+    if (['hover', 'both'].includes(item.pausable || '')) pause()
   }}
   on:mouseleave={resume}
 >
   <svelte:component this={item.component} {item} {progress} on:close={(e) => close(e.detail)} />
 </div>
+
+<style>
+._toastController {
+  pointer-events: auto;
+}
+</style>
