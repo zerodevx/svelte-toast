@@ -42,12 +42,12 @@ import { writable } from 'svelte/store'
  */
 
 function createToast() {
+  /** @type {import('svelte/store').Writable<SvelteToastOptions[]>} */
   const { subscribe, update } = writable(new Array())
 
   /** @type {Object<string,SvelteToastOptions>} */
   const defaults = {}
   let count = 0
-  const _obj = (/** @type {any} */ obj) => obj instanceof Object
 
   function _init(target = 'default', opts = {}) {
     defaults[target] = opts
@@ -60,8 +60,7 @@ function createToast() {
    * @returns {SvelteToastPushed}
    */
   function push(msg, opts) {
-    /** @type {any} */
-    const param = _obj(msg) ? msg : { ...opts, msg }
+    const param = typeof msg === 'object' ? msg : { ...opts, msg }
     const target = param.target || 'default'
     const base = defaults[target] || {}
     const classes = [...(base.classes || []), ...(param.classes || [])]
@@ -85,8 +84,7 @@ function createToast() {
   function pop(id, opts) {
     update((n) => {
       if (!n.length) return n
-      /** @type {any} */
-      const { id: _id, target, value } = _obj(id) ? id : { ...opts, id }
+      const { id: _id, target, value } = typeof id === 'object' ? id : { ...opts, id }
       const resolve = (/** @type {any[]} */ items) => items.forEach((i) => i._resolve(value))
       const val = _id || target
       if (val) {
@@ -105,8 +103,7 @@ function createToast() {
    * @param {SvelteToastOptions} [opts]
    */
   function set(id, opts) {
-    /** @type {any} */
-    const param = _obj(id) ? id : { ...opts, id }
+    const param = typeof id === 'object' ? id : { ...opts, id }
     update((n) => {
       const idx = n.findIndex((i) => i.id === param.id)
       if (idx > -1) {
