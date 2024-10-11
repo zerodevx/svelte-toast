@@ -34,7 +34,7 @@ function dismiss() {
 </div>
 
 <style>
-._toastItem {
+:where(._toastItem) {
   width: var(--toastWidth, 16rem);
   height: var(--toastHeight, auto);
   min-height: var(--toastMinHeight, 3.5rem);
@@ -54,14 +54,13 @@ function dismiss() {
   flex-direction: row;
   align-items: center;
   overflow: hidden;
-  will-change: transform, opacity;
   -webkit-tap-highlight-color: transparent;
 }
-._toastMsg {
+:where(._toastMsg) {
   padding: var(--toastMsgPadding, 0.75rem 0.5rem);
   flex: 1 1 0%;
 }
-._toastBtn {
+:where(._toastBtn) {
   width: var(--toastBtnWidth, 2rem);
   height: var(--toastBtnHeight, 100%);
   cursor: pointer;
@@ -74,7 +73,7 @@ function dismiss() {
   align-items: center;
   justify-content: center;
 }
-._toastBar {
+:where(._toastBar) {
   top: var(--toastBarTop, auto);
   right: var(--toastBarRight, auto);
   bottom: var(--toastBarBottom, 0);

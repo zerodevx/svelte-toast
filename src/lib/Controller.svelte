@@ -76,7 +76,7 @@ onDestroy(unlisten)
 </div>
 
 <style>
-._toastController {
+:where(._toastController) {
   pointer-events: auto;
 }
 </style>

@@ -1,5 +1,5 @@
 <script>
-import { fade, fly } from 'svelte/transition'
+import { fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
 import { toast, themeToStyle } from './stores.js'
 import Controller from './Controller.svelte'
@@ -53,16 +53,17 @@ $: {
 </ul>
 
 <style>
-._toastContainer {
+:where(._toastContainer) {
   top: var(--toastContainerTop, 1.5rem);
   right: var(--toastContainerRight, 2rem);
   bottom: var(--toastContainerBottom, auto);
   left: var(--toastContainerLeft, auto);
+  z-index: var(--toastContainerZIndex, auto);
   position: fixed;
   margin: 0;
   padding: 0;
   list-style-type: none;
   pointer-events: none;
-  z-index: var(--toastContainerZIndex, auto);
+  will-change: contents;
 }
 </style>
