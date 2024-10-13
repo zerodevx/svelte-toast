@@ -9,6 +9,9 @@ import View from './View.svelte'
 export let options = {}
 /** @type {string|'default'} */
 export let target = 'default'
+/** @type {string|undefined} */
+let _class = undefined
+export { _class as class }
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 const defaults = {
@@ -44,7 +47,7 @@ $: {
 }
 </script>
 
-<ul class="_toastContainer" style={toStyles(theme)}>
+<ul class="_toastContainer{_class ? ` ${_class}` : ''}" style={toStyles(theme)}>
   {#each items as item (item.id)}
     <li
       class={item.classes?.join(' ')}
