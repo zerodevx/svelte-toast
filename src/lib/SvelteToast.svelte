@@ -22,7 +22,7 @@ const defaults = {
   dismissable: true,
   reversed: true,
   intro: { x: 256 },
-  component: View
+  view: View
 }
 /** @type {import('./stores.js').SvelteToastOptions[]} */
 let items = []

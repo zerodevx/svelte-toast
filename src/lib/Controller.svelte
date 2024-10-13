@@ -70,5 +70,5 @@ onDestroy(unlisten)
   }}
   on:mouseleave={resume}
 >
-  <svelte:component this={item.component} {item} {progress} on:close={(e) => close(e.detail)} />
+  <svelte:component this={item.view} {item} {progress} on:close={(e) => close(e.detail)} />
 </div>

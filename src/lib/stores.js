@@ -37,7 +37,7 @@ import { writable } from 'svelte/store'
  * @prop {FlyParams} [outro] - toast outro fade animation settings
  * @prop {Object<string,string|number>} [theme] - css var overrides
  * @prop {string} [class] - user-defined classes
- * @prop {SvelteComponent} [component] - send custom Svelte Component as a message
+ * @prop {SvelteComponent} [view] - toast view Svelte component
  * @prop {any} [_resolve]
  */
 
