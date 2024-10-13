@@ -1,7 +1,7 @@
 <script>
 import { fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
-import { toast, themeToStyle } from './stores.js'
+import { toast } from './stores.js'
 import Controller from './Controller.svelte'
 import View from './View.svelte'
 
@@ -28,6 +28,11 @@ let merged
 /** @type {Object<string,string|number>|undefined} */
 let theme
 
+/** @param {Object<string,string|number>} [obj] */
+function toStyles(obj) {
+  return obj ? Object.keys(obj).reduce((a, c) => `${a}${c}:${obj[c]};`, '') : undefined
+}
+
 $: {
   ;({ theme, ...merged } = { ...defaults, ...options })
   toast._init(target, merged)
@@ -39,10 +44,11 @@ $: {
 }
 </script>
 
-<ul class="_toastContainer" style={themeToStyle(theme)}>
+<ul class="_toastContainer" style={toStyles(theme)}>
   {#each items as item (item.id)}
     <li
       class={item.classes?.join(' ')}
+      style={toStyles(item.theme)}
       in:fly={item.intro}
       out:fly={item.outro}
       animate:flip={{ duration: 200 }}

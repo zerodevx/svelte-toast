@@ -118,11 +118,6 @@ function createToast() {
 
 export const toast = createToast()
 
-/** @param {Object<string,string|number>} [theme] */
-export function themeToStyle(theme) {
-  return theme ? Object.keys(theme).reduce((a, c) => `${a}${c}:${theme[c]};`, '') : undefined
-}
-
 export const PRESET = {
   /** @param {string} args */
   _p(args) {

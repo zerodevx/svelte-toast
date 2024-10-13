@@ -2,7 +2,7 @@
 import { onMount, onDestroy } from 'svelte'
 import { tweened } from 'svelte/motion'
 import { linear } from 'svelte/easing'
-import { toast, themeToStyle } from './stores.js'
+import { toast } from './stores.js'
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 export let item
@@ -66,7 +66,6 @@ onDestroy(unlisten)
 <div
   role="status"
   class="_toastController"
-  style={themeToStyle(item.theme)}
   on:mouseenter={() => {
     if (['hover', 'both'].includes(item.pausable || '')) pause()
   }}
