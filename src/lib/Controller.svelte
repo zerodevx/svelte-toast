@@ -65,7 +65,6 @@ onDestroy(unlisten)
 
 <div
   role="status"
-  class="_toastController"
   on:mouseenter={() => {
     if (['hover', 'both'].includes(item.pausable || '')) pause()
   }}
@@ -73,9 +72,3 @@ onDestroy(unlisten)
 >
   <svelte:component this={item.component} {item} {progress} on:close={(e) => close(e.detail)} />
 </div>
-
-<style>
-:where(._toastController) {
-  pointer-events: auto;
-}
-</style>

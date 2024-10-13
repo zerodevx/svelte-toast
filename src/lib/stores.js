@@ -36,7 +36,7 @@ import { writable } from 'svelte/store'
  * @prop {FlyParams} [intro] - toast intro fly animation settings
  * @prop {FlyParams} [outro] - toast outro fade animation settings
  * @prop {Object<string,string|number>} [theme] - css var overrides
- * @prop {string[]} [classes] - user-defined classes
+ * @prop {string} [class] - user-defined classes
  * @prop {SvelteComponent} [component] - send custom Svelte Component as a message
  * @prop {any} [_resolve]
  */
@@ -63,11 +63,10 @@ function createToast() {
     const param = typeof msg === 'object' ? msg : { ...opts, msg }
     const target = param.target || 'default'
     const base = defaults[target] || {}
-    const classes = [...(base.classes || []), ...(param.classes || [])]
     const id = ++count
     let _resolve
     const onpop = new Promise((resolve) => (_resolve = resolve))
-    const item = { ...base, ...param, target, classes, id, _resolve }
+    const item = { ...base, ...param, target, id, _resolve }
     update((n) => [...n, item])
     return { id, onpop }
   }

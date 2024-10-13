@@ -10,8 +10,8 @@ export let options = {}
 /** @type {string|'default'} */
 export let target = 'default'
 /** @type {string|undefined} */
-let _class = undefined
-export { _class as class }
+let classes = ''
+export { classes as class }
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 const defaults = {
@@ -30,6 +30,8 @@ let items = []
 let merged
 /** @type {Object<string,string|number>|undefined} */
 let theme
+/** @type {string|undefined} */
+let _class
 
 /** @param {Object<string,string|number>} [obj] */
 function toStyles(obj) {
@@ -37,7 +39,7 @@ function toStyles(obj) {
 }
 
 $: {
-  ;({ theme, ...merged } = { ...defaults, ...options })
+  ;({ theme, class: _class, ...merged } = { ...defaults, ...options })
   toast._init(target, merged)
 }
 $: {
@@ -47,10 +49,10 @@ $: {
 }
 </script>
 
-<ul class="_toastContainer{_class ? ` ${_class}` : ''}" style={toStyles(theme)}>
+<ul class="_toastContainer {classes}" style={toStyles(theme)}>
   {#each items as item (item.id)}
     <li
-      class={item.classes?.join(' ')}
+      class={[_class, item.class].join(' ')}
       style={toStyles(item.theme)}
       in:fly={item.intro}
       out:fly={item.outro}
@@ -74,5 +76,8 @@ $: {
   list-style-type: none;
   pointer-events: none;
   will-change: contents;
+}
+:where(._toastContainer > li) {
+  pointer-events: auto;
 }
 </style>
