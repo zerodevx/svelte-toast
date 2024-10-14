@@ -1,15 +1,16 @@
 <script>
+import { onDestroy } from 'svelte'
 import { fly } from 'svelte/transition'
 import { flip } from 'svelte/animate'
 import { toast } from './stores.js'
 import Controller from './Controller.svelte'
 import View from './View.svelte'
 
-/** @type {import('./stores.js').SvelteToastOptions} */
+/** @type {import('./stores.js').SvelteToastOptions} - options override */
 export let options = {}
-/** @type {string|'default'} */
+/** @type {string|'default'} - toast container target name */
 export let target = 'default'
-/** @type {string|undefined} */
+/** @type {string|undefined} - toast container class */
 let classes = ''
 export { classes as class }
 
@@ -47,6 +48,8 @@ $: {
   if (merged.reversed) _items.reverse()
   items = _items
 }
+
+onDestroy(() => toast.pop({ target }))
 </script>
 
 <ul class="_toastContainer {classes}" style={toStyles(theme)}>
