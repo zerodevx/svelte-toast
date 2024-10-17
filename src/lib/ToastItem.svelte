@@ -139,6 +139,8 @@ onDestroy(() => {
   -webkit-tap-highlight-color: transparent;
 }
 ._toastMsg {
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: var(--toastMsgPadding, 0.75rem 0.5rem);
   flex: 1 1 0%;
 }
