@@ -7,16 +7,16 @@ import { toast } from './stores.js'
 /** @type {import('./stores.js').SvelteToastOptions} */
 export let item
 
-/** @type {any} */
-let next = item.initial
+let next = item.initial || 0
 let prev = next
 let paused = false
 
 const progress = tweened(item.initial, { duration: item.duration, easing: linear })
 
-/** @param {{value:any}|undefined} [detail] */
-function close(detail) {
-  toast.pop(item.id, detail)
+/** @param {CustomEvent} [ev] */
+function close(ev) {
+  const { value } = ev?.detail || {}
+  toast.pop(item.id, { value })
 }
 
 function autoclose() {
@@ -32,7 +32,7 @@ function pause() {
 
 function resume() {
   if (paused) {
-    const d = /** @type {any} */ (item.duration)
+    const d = item.duration || 0
     const duration = d - d * (($progress - prev) / (next - prev))
     progress.set(next, { duration }).then(autoclose)
     paused = false
@@ -53,7 +53,7 @@ function unlisten() {
 }
 
 $: if (next !== item.next) {
-  next = item.next
+  next = item.next || 0
   prev = $progress
   paused = false
   progress.set(next).then(autoclose)
@@ -70,5 +70,5 @@ onDestroy(unlisten)
   }}
   on:mouseleave={resume}
 >
-  <svelte:component this={item.view} {item} {progress} on:close={(e) => close(e.detail)} />
+  <svelte:component this={item.view} {item} {progress} on:close={close} />
 </div>
