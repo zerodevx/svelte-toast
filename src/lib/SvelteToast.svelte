@@ -10,9 +10,6 @@ import View from './View.svelte'
 export let options = {}
 /** @type {string|'default'} - toast container target name */
 export let target = 'default'
-/** @type {string|undefined} - toast container class */
-let classes = ''
-export { classes as class }
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 const defaults = {
@@ -31,8 +28,8 @@ let items = []
 let merged
 /** @type {Object<string,string|number>|undefined} */
 let theme
-/** @type {string|undefined} */
-let _class
+/** @type {Object<string,string|number>|undefined} */
+let props
 
 /** @param {Object<string,string|number>} [obj] */
 function toStyles(obj) {
@@ -40,7 +37,7 @@ function toStyles(obj) {
 }
 
 $: {
-  ;({ theme, class: _class, ...merged } = { ...defaults, ...options })
+  ;({ theme, props, ...merged } = { ...defaults, ...options })
   toast._init(target, merged)
 }
 $: {
@@ -52,14 +49,15 @@ $: {
 onDestroy(() => toast.pop({ target }))
 </script>
 
-<ul class="_toastContainer {classes}" style={toStyles(theme)}>
+<ul style={toStyles(theme)} {...$$restProps}>
   {#each items as item (item.id)}
     <li
-      class={[_class, item.class].join(' ')}
       style={toStyles(item.theme)}
       in:fly={item.intro}
       out:fly={item.outro}
       animate:flip={{ duration: 200 }}
+      {...props}
+      {...item.props}
     >
       <Controller {item} />
     </li>
@@ -67,7 +65,7 @@ onDestroy(() => toast.pop({ target }))
 </ul>
 
 <style>
-:where(._toastContainer) {
+:where(ul) {
   top: var(--toastContainerTop, 1.5rem);
   right: var(--toastContainerRight, 2rem);
   bottom: var(--toastContainerBottom, auto);
@@ -80,7 +78,7 @@ onDestroy(() => toast.pop({ target }))
   pointer-events: none;
   will-change: contents;
 }
-:where(._toastContainer > li) {
+:where(ul > li) {
   pointer-events: auto;
 }
 </style>

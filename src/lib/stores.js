@@ -34,9 +34,9 @@ import { writable } from 'svelte/store'
  * @prop {boolean} [dismissable] - allow dismiss with close button
  * @prop {boolean} [reversed] - display toasts in reverse order
  * @prop {FlyParams} [intro] - toast intro fly animation settings
- * @prop {FlyParams} [outro] - toast outro fade animation settings
+ * @prop {FlyParams} [outro] - toast outro fly animation settings
  * @prop {Object<string,string|number>} [theme] - css var overrides
- * @prop {string} [class] - user-defined classes
+ * @prop {Object<string,string|number>} [props] - spread props onto toast item wrapper
  * @prop {SvelteComponent} [view] - toast view Svelte component
  * @prop {any} [_resolve]
  */
