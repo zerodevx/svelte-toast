@@ -77,8 +77,8 @@ onDestroy(() => toast.pop({ target }))
   list-style-type: none;
   pointer-events: none;
   will-change: contents;
-}
-:where(ul > li) {
-  pointer-events: auto;
+  & li {
+    pointer-events: auto;
+  }
 }
 </style>
