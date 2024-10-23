@@ -63,12 +63,11 @@ onMount(listen)
 onDestroy(unlisten)
 </script>
 
-<div
-  role="status"
+<output
   on:mouseenter={() => {
     if (['hover', 'both'].includes(item.pausable || '')) pause()
   }}
   on:mouseleave={resume}
 >
   <svelte:component this={item.view} {item} {progress} on:close={close} />
-</div>
+</output>
