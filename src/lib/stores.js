@@ -36,9 +36,10 @@ import { writable } from 'svelte/store'
  * @prop {FlyParams} [intro] - toast intro fly animation settings
  * @prop {FlyParams} [outro] - toast outro fly animation settings
  * @prop {Object<string,string|number>} [theme] - css var overrides
- * @prop {Object<string,string|number>} [props] - spread props onto toast item wrapper
- * @prop {SvelteComponent} [view] - toast view Svelte component
+ * @prop {string} [class] - class string applied to toast item
+ * @prop {SvelteComponent} [view] - Svelte component used as toast view
  * @prop {any} [_resolve]
+ * @prop {any} [_props]
  */
 
 function createToast() {

@@ -10,6 +10,9 @@ import View from './View.svelte'
 export let options = {}
 /** @type {string|'default'} - toast container target name */
 export let target = 'default'
+/** @type {string|undefined} - toast container class */
+let classes = ''
+export { classes as class }
 
 /** @type {import('./stores.js').SvelteToastOptions} */
 const defaults = {
@@ -28,8 +31,8 @@ let items = []
 let merged
 /** @type {Object<string,string|number>|undefined} */
 let theme
-/** @type {Object<string,string|number>|undefined} */
-let props
+/** @type {string|undefined} */
+let _class
 
 /** @param {Object<string,string|number>} [obj] */
 function toStyles(obj) {
@@ -37,7 +40,7 @@ function toStyles(obj) {
 }
 
 $: {
-  ;({ theme, props, ...merged } = { ...defaults, ...options })
+  ;({ theme, class: _class, ...merged } = { ...defaults, ...options })
   toast._init(target, merged)
 }
 $: {
@@ -49,15 +52,14 @@ $: {
 onDestroy(() => toast.pop({ target }))
 </script>
 
-<ul style={toStyles(theme)} {...$$restProps}>
+<ul class={classes} style={toStyles(theme)}>
   {#each items as item (item.id)}
     <li
+      class={[_class, item.class].join(' ')}
       style={toStyles(item.theme)}
       in:fly={item.intro}
       out:fly={item.outro}
       animate:flip={{ duration: 200 }}
-      {...props}
-      {...item.props}
     >
       <Controller {item} />
     </li>
