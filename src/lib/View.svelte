@@ -12,13 +12,13 @@ function dismiss() {
 </script>
 
 <div>
-  <span
+  <span class:_pe={item.unsafe}
     >{#if item.unsafe}{@html item.msg}{:else}{item.msg}{/if}</span
   >
   {#if item.dismissable}
-    <button on:click={dismiss} />
+    <button class="_pe" on:click={dismiss} />
   {/if}
-  <progress class="_toastBar" value={$progress} />
+  <progress value={$progress} />
 </div>
 
 <style>
@@ -43,31 +43,34 @@ function dismiss() {
   align-items: center;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
-  & span {
+  & ._pe {
+    pointer-events: auto;
+  }
+  & > span {
     padding: var(--toastMsgPadding, 0.75rem 0.5rem);
     flex: 1 1 0%;
   }
-  & button {
+  & > button {
+    font: var(--toastBtnFont, 1rem sans-serif);
+    width: var(--toastBtnWidth, 2rem);
+    height: var(--toastBtnHeight, 2rem);
     background: transparent;
     color: inherit;
     border: none;
     margin: 0;
     padding: 0;
     cursor: pointer;
-    font: var(--toastBtnFont, 1rem sans-serif);
-    width: var(--toastBtnWidth, 2rem);
-    height: var(--toastBtnHeight, 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::after {
+      content: var(--toastBtnContent, '✕');
+    }
     &:hover {
       opacity: 0.8;
     }
   }
-  & button::after {
-    content: var(--toastBtnContent, '✕');
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  & progress {
+  & > progress {
     top: var(--toastBarTop, auto);
     right: var(--toastBarRight, auto);
     bottom: var(--toastBarBottom, 0);
@@ -81,16 +84,15 @@ function dismiss() {
     appearance: none;
     border: none;
     background: transparent;
-    pointer-events: none;
-  }
-  & progress::-webkit-progress-bar {
-    background: transparent;
-  }
-  & progress::-webkit-progress-value {
-    background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
-  }
-  & progress::-moz-progress-bar {
-    background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
+    &::-webkit-progress-bar {
+      background: transparent;
+    }
+    &::-webkit-progress-value {
+      background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
+    }
+    &::-moz-progress-bar {
+      background: var(--toastBarBackground, rgba(33, 150, 243, 0.75));
+    }
   }
 }
 </style>

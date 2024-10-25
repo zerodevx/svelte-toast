@@ -79,8 +79,5 @@ onDestroy(() => toast.pop({ target }))
   list-style-type: none;
   pointer-events: none;
   will-change: contents;
-  & li {
-    pointer-events: auto;
-  }
 }
 </style>
