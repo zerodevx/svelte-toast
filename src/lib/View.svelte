@@ -12,7 +12,7 @@ function dismiss() {
 </script>
 
 <div>
-  <span class:_pe={item.unsafe}
+  <span class:_pe={item.unsafe || ['hover', 'both'].includes(item.pausable)}
     >{#if item.unsafe}{@html item.msg}{:else}{item.msg}{/if}</span
   >
   {#if item.dismissable}
