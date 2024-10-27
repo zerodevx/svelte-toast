@@ -17,8 +17,8 @@ import { writable } from 'svelte/store'
 /**
  * @typedef {Object} SvelteToastPop
  * @prop {number} [id] - remove toast with specified id
- * @prop {any} [value] - onpop resolve value
  * @prop {string} [target] - remove all toasts from target container
+ * @prop {any} [value] - onpop resolve value
  */
 
 /**
@@ -38,8 +38,8 @@ import { writable } from 'svelte/store'
  * @prop {Object<string,string|number>} [theme] - css var overrides
  * @prop {string} [class] - class string applied to toast item
  * @prop {SvelteComponent} [view] - Svelte component used as toast view
- * @prop {any} [_resolve]
- * @prop {any} [_props]
+ * @prop {Object<string,any>} [_props]
+ * @prop {(value:any)=>void} [_resolve]
  */
 
 function createToast() {
@@ -61,30 +61,29 @@ function createToast() {
    * @returns {SvelteToastPushed}
    */
   function push(msg, opts) {
-    const param = typeof msg === 'object' ? msg : { ...opts, msg }
-    const target = param.target || 'default'
-    const base = defaults[target] || {}
+    const param = { target: 'default', ...(typeof msg === 'object' ? msg : { msg }), ...opts }
     const id = ++count
+    /** @type {(value:any)=>void} */
     let _resolve
     const onpop = new Promise((resolve) => (_resolve = resolve))
-    const item = { ...base, ...param, target, id, _resolve }
-    update((n) => [...n, item])
+    update((n) => [...n, { ...defaults[param.target], ...param, id, _resolve }])
     return { id, onpop }
   }
 
   /**
    * Remove toast(s)
    * - toast.pop() // remove the lastest toast
-   * - toast.pop(0) // remove all toasts
    * - toast.pop(id) // remove toast with specified id
    * - toast.pop({ target: 'foo' }) // remove all toasts from target `foo`
+   * - toast.pop(0) // remove all toasts
+   *
    * @param {number|SvelteToastPop} [id]
    * @param {SvelteToastPop} [opts]
    */
   function pop(id, opts) {
     update((n) => {
       if (!n.length) return n
-      const { id: _id, target, value } = typeof id === 'object' ? id : { ...opts, id }
+      const { id: _id, target, value } = { ...(typeof id === 'object' ? id : { id }), ...opts }
       const resolve = (/** @type {any[]} */ items) => items.forEach((i) => i._resolve(value))
       const val = _id || target
       if (val) {
@@ -103,7 +102,7 @@ function createToast() {
    * @param {SvelteToastOptions} [opts]
    */
   function set(id, opts) {
-    const param = typeof id === 'object' ? id : { ...opts, id }
+    const param = { ...(typeof id === 'object' ? id : { id }), ...opts }
     update((n) => {
       const idx = n.findIndex((i) => i.id === param.id)
       if (idx > -1) {
