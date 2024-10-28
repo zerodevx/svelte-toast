@@ -11,14 +11,14 @@ function dismiss() {
 }
 </script>
 
-<div>
+<div class="_fc">
   <span class:_pe={item.unsafe || ['hover', 'both'].includes(item.pausable)}
     >{#if item.unsafe}{@html item.msg}{:else}{item.msg}{/if}</span
   >
   {#if item.dismissable}
-    <button class="_pe" on:click={dismiss} />
+    <button class="_fc _pe _rs" on:click={dismiss} />
   {/if}
-  <progress value={$progress} />
+  <progress class="_rs" value={$progress} />
 </div>
 
 <style>
@@ -38,13 +38,25 @@ function dismiss() {
   border: var(--toastBorder, none);
   border-radius: var(--toastBorderRadius, 0.125rem);
   position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
+  &._fc,
+  & ._fc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
   & ._pe {
     pointer-events: auto;
+  }
+  & ._rs {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
   }
   & > span {
     padding: var(--toastMsgPadding, 0.75rem 0.5rem);
@@ -54,14 +66,8 @@ function dismiss() {
     font: var(--toastBtnFont, 1rem sans-serif);
     width: var(--toastBtnWidth, 2rem);
     height: var(--toastBtnHeight, 2rem);
-    background: transparent;
     color: inherit;
-    border: none;
-    margin: 0;
-    padding: 0;
     cursor: pointer;
-    display: flex;
-    align-items: center;
     justify-content: center;
     &::after {
       content: var(--toastBtnContent, '✕');
@@ -79,11 +85,6 @@ function dismiss() {
     width: var(--toastBarWidth, 100%);
     position: absolute;
     display: block;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: none;
-    background: transparent;
     &::-webkit-progress-bar {
       background: transparent;
     }
